@@ -3,13 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Easy Popup v2.0.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/easy-popup.css">
+    <style>
+        * {box-sizing:border-box;}
+        body {
+            background-color:#fff; color:#000; margin:0; min-height:100vh;
+            display:flex; align-items:center; justify-content:space-between; flex-direction:column;
+            font-family:"Nunito", sans-serif; font-size:18px;
+            line-height:1.5;
+        }
+        body:before {content:"";}
+        ::selection {
+            color:#fff;
+            background:cornflowerblue;
+        }
+        .container {
+            width:100%;
+            max-width:768px;
+            padding:0 20px;
+        }
+        a {color:cornflowerblue;}
+
+        footer {
+            padding:5vh 20px;
+            text-align:center;
+        }
+        footer a {text-decoration:none; display:inline-block;}
+    </style>
 </head>
 <body>
 
-<h1>Hello world!</h1>
 
-<script src="assets/js/script.js"></script>
+<div class="container">
+    <h1>Easy Popup v2.0.0</h1>
+    <p>Click here to <a href="#demo-1">open popup</a>.</p>
+    <div data-easy-popup="demo-1">
+        <p>
+            Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
+            aliquam lorem maximus lectus pellentesque. Mauris lorem conubia tempus urna ullamcorper tempor eleifend
+            tortor
+            quisque fames aliquam. Eros nam eu pretium potenti donec litora dictum. Donec justo posuere venenatis duis
+            rhoncus habitasse quisque ridiculus vitae convallis. Fermentum dolor justo consectetur semper lacinia
+            dapibus
+            nisl integer eu ridiculus. At dignissim augue hendrerit mauris mattis eleifend diam dui scelerisque egestas
+            rhoncus.
+
+            Ipsum quam efficitur vivamus consectetuer dictumst tincidunt. Lacinia dignissim conubia dui facilisi dictum
+            semper nunc magnis nisi tortor non. Inceptos volutpat enim ultricies proin rhoncus vulputate dignissim
+            pulvinar
+            iaculis. Inceptos pulvinar scelerisque duis facilisi elementum suscipit viverra ante velit litora. Viverra
+            ornare urna mi fames bibendum enim nunc neque et nostra placerat.
+        </p>
+    </div>
+</div>
+
+<footer>
+    <p>
+        <a href="/">
+            <img src="https://badgen.net/badge/🦄/home?scale=1.2" alt="home">
+        </a>
+        <a href="https://github.com/phucbm/cursorism">
+            <img src="https://badgen.net/badge/icon/Cursor.js?icon=github&label=github&color=6495ED&scale=1.2"
+                 alt="github">
+        </a>
+        <a href="https://greensock.com/" target="_blank">
+            <img src="https://badgen.net/badge/thanks to/GreenSock 💪/61AC27?scale=1.2" alt="greensock">
+        </a>
+        <a href="https://github.com/phucbm" target="_blank">
+            <img src="https://badgen.net/badge/made with 🧡 by/phucbm/6495ED?scale=1.2" alt="phucbm">
+        </a>
+    </p>
+
+</footer>
+
+<script src="assets/js/easy-popup.js"></script>
+<script>
+    const popups = new EasyPopup();
+    popups.get('demo-1').open();
+</script>
 </body>
 </html>

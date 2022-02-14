@@ -1,0 +1,63 @@
+/****************************
+ * Easy Popup
+****************************/
+/* visibility */
+.easy-popup:not(.open) {opacity:0; visibility:hidden;}
+.easy-popup {
+    --easy-popup-heading-height:45px;
+    position:fixed; top:0; left:0; width:100%; height:100%; z-index:90;
+    transition:opacity .4s ease, visibility .4s ease; background:rgba(0, 0, 0, .3);
+    display:flex; align-items:center; justify-content:center;
+}
+
+/* overflow */
+.easy-popup-overflow {
+    position:relative; z-index:2;
+    width:100%; max-height:100%; overflow-y:auto; overflow-x:hidden;
+}
+
+/* custom scrollbar */
+.easy-popup-overflow *::-webkit-scrollbar {width:7px;}
+.easy-popup-overflow *::-webkit-scrollbar-track {background:#eee;}
+.easy-popup-overflow *::-webkit-scrollbar-thumb {background-color:#000;}
+
+/* overflow > mobile heading */
+.easy-popup-mobile-heading {
+    display:none;
+    position:absolute; top:0; left:0;
+    width:100%; background:#eee;
+}
+.easy-popup-heading-inner {
+    display:flex; align-items:center; justify-content:space-between;
+    min-height:var(--easy-popup-heading-height); padding:5px 20px;
+}
+
+/* container */
+.easy-popup-container {
+    position:relative;
+    padding:40px 20px; box-sizing:border-box;
+    width:100%; max-width:1024px; margin:0 auto;
+}
+.easy-popup-inner {position:relative;}
+
+/* content */
+[data-easy-popup]:not(.easy-popup-enabled) {display:none;}
+.easy-popup-content {
+    background:#fff; padding:40px; position:relative;
+}
+
+/* close button */
+.easy-popup-close-button {position:absolute; top:0; right:0; z-index:2;}
+
+/****************************
+ * Easy Popup Responsive
+****************************/
+@media only screen and (max-width:1023px) {
+    .easy-popup {align-items:flex-end;}
+    .easy-popup-overflow {max-height:calc(100% - 100px); overflow:hidden; display:flex; padding-top:var(--easy-popup-heading-height);}
+    .easy-popup-container {padding:0; overflow:auto; min-height:100%;}
+    .easy-popup-close-button {display:none;}
+
+    /* overflow > mobile heading */
+    .easy-popup-mobile-heading {display:block;}
+}
