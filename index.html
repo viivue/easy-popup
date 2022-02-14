@@ -130,8 +130,12 @@
 
 <script src="assets/js/easy-popup.js"></script>
 <script>
-    const popups = new EasyPopup();
-    popups.get('demo-1').open();
+    console.log(window.EasyPopupData)
+
+    EasyPopup.init();
+    EasyPopup.get('demo-1').open();
+
+    console.log(window.EasyPopupData)
 </script>
 </body>
 </html>
