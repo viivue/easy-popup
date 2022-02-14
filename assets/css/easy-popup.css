@@ -1,6 +1,12 @@
 /****************************
  * Easy Popup
 ****************************/
+/* html */
+html.easy-popup-open {
+    --easy-popup-scrollbar-width:15px;
+    overflow:hidden;
+}
+
 /* visibility */
 .easy-popup:not(.open) {opacity:0; visibility:hidden;}
 .easy-popup {

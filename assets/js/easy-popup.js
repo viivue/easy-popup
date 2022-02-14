@@ -1,12 +1,8 @@
 class EasyPopup{
     constructor(){
         this.selector = 'data-easy-popup';
-        this.classes = {
-            enabled: 'easy-popup-trigger-enabled'
-        };
         this.popups = [];
         this.init();
-        this.assignTrigger();
     }
 
     init(){
@@ -17,26 +13,8 @@ class EasyPopup{
     get(id){
         return this.popups.filter(popup => popup.id === id)[0];
     }
-
-    assignTrigger(){
-        this.popups.forEach(popup => {
-            document.querySelectorAll(`a[href="#${popup.id}"]`).forEach(trigger => {
-                trigger.classList.add(this.classes.enabled);
-                trigger.addEventListener('click', e => {
-                    e.preventDefault();
-                    popup.toggle();
-                });
-            });
-        });
-    }
 }
 
-const wrap = (innerEl, outerEl) => {
-    outerEl = outerEl || document.createElement('div');
-    innerEl.parentNode.insertBefore(outerEl, innerEl);
-    outerEl.appendChild(innerEl);
-    return outerEl;
-}
 
 class Popup{
     constructor(el){
@@ -45,6 +23,7 @@ class Popup{
             return;
         }
 
+        this.root = document.querySelector(':root');
         this.el = el;
         this.selector = 'data-easy-popup';
         this.attributes = {
@@ -70,10 +49,20 @@ class Popup{
         this.mobileTitle = () => this.el.getAttribute(this.attributes.title) || '';
         this.closeButtonHTML = `<span>Close</span>`;
 
-        this.init();
+        this.generateHTML();
+
+        // assign triggers via a[href="#id"], [toggle="id"]
+        this.triggerSelector = `a[href="#${this.id}"], [${this.attributes.toggle}="${this.id}"]`;
+        document.querySelectorAll(this.triggerSelector).forEach(trigger => {
+            trigger.classList.add(this.classes.enabled);
+            trigger.addEventListener('click', e => {
+                e.preventDefault();
+                this.toggle();
+            });
+        });
     }
 
-    init(){
+    generateHTML(){
         // check flag
         if(this.el.classList.contains(this.classes.processed)) return;
 
@@ -81,7 +70,7 @@ class Popup{
         document.querySelector('body').appendChild(this.el);
 
         // inner
-        this.inner = wrap(this.el);
+        this.inner = this.wrap(this.el);
         this.inner.classList.add(this.classes.inner);
 
         // add inner close button
@@ -93,11 +82,11 @@ class Popup{
         this.inner.appendChild(this.closeButton);
 
         // container
-        this.container = wrap(this.inner);
+        this.container = this.wrap(this.inner);
         this.container.classList.add(this.classes.container);
 
         // overflow
-        this.overflow = wrap(this.container);
+        this.overflow = this.wrap(this.container);
         this.overflow.classList.add(this.classes.overflow);
 
         // overflow > mobile heading
@@ -110,7 +99,7 @@ class Popup{
         this.overflow.appendChild(this.mobileHeading);
 
         // outer
-        this.outer = wrap(this.overflow);
+        this.outer = this.wrap(this.overflow);
         this.outer.classList.add(this.classes.outer);
         this.outer.setAttribute(this.attributes.id, this.id);
 
@@ -135,14 +124,64 @@ class Popup{
     open(){
         this.outer.classList.add(this.classes.open);
         this.isOpen = true;
+        this.root.classList.add('easy-popup-open');
+
+        // prevent scroll > on
+        this.root.style.paddingRight = `${this.getScrollbarWidth()}px`;
+        this.root.style.overflow = `hidden`;
     }
 
     close(){
         this.outer.classList.remove(this.classes.open);
         this.isOpen = false;
+        this.root.classList.remove('easy-popup-open');
+
+        // prevent scroll > off
+        setTimeout(() => {
+            this.root.style.paddingRight = ``;
+            this.root.style.overflow = ``;
+        }, 300);
     }
 
     toggle(){
         this.isOpen ? this.close() : this.open();
+    }
+
+    /**
+     * Wrap element
+     * @param innerEl
+     * @param outerEl
+     * @returns {HTMLDivElement}
+     */
+    wrap(innerEl, outerEl = document.createElement('div')){
+        innerEl.parentNode.insertBefore(outerEl, innerEl);
+        outerEl.appendChild(innerEl);
+        return outerEl;
+    }
+
+    /**
+     * Get scrollbar width
+     * https://stackoverflow.com/a/986977/6453822
+     * @returns {number}
+     */
+    getScrollbarWidth(){
+        // Creating invisible container
+        const outer = document.createElement('div');
+        outer.style.visibility = 'hidden';
+        outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+        outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+        document.body.appendChild(outer);
+
+        // Creating inner element and placing it in the container
+        const inner = document.createElement('div');
+        outer.appendChild(inner);
+
+        // Calculating difference between container's full width and the child width
+        const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+
+        // Removing temporary elements from the DOM
+        outer.parentNode.removeChild(outer);
+
+        return scrollbarWidth;
     }
 }
