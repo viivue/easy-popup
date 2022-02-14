@@ -3,7 +3,7 @@
      * Private class Popup
      */
     class Popup{
-        constructor(el){
+        constructor(el, options){
             if(!el){
                 console.warn('Init popup fail due to empty input!');
                 return;
@@ -19,6 +19,7 @@
             };
             this.classes = {
                 processed: 'easy-popup-enabled',
+                triggerEnabled: 'easy-popup-trigger-enabled',
                 content: 'easy-popup-content',
                 outer: 'easy-popup',
                 inner: 'easy-popup-inner',
@@ -30,17 +31,29 @@
                 mobileHeading: 'easy-popup-mobile-heading'
             };
             this.innerHTML = this.el.innerHTML;
-            this.id = this.el.getAttribute(this.selector);
             this.isOpen = false;
-            this.mobileTitle = () => this.el.getAttribute(this.attributes.title) || '';
-            this.closeButtonHTML = `<span>Close</span>`;
+
+            // options
+            this.options = {
+                ...{
+                    id: this.uniqueId('easy-popup-'),
+                    outerClass: '',
+                    title: '',
+                    closeButtonHTML: `<span>Close</span>`,
+                    triggerSelector: ''
+                }, ...options
+            };
+            this.id = this.el.getAttribute(this.selector) || this.options.id;
+            this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
+            this.closeButtonHTML = this.options.closeButtonHTML;
 
             this.generateHTML();
 
             // assign triggers via a[href="#id"], [toggle="id"]
-            this.triggerSelector = `a[href="#${this.id}"], [${this.attributes.toggle}="${this.id}"]`;
-            document.querySelectorAll(this.triggerSelector).forEach(trigger => {
-                trigger.classList.add(this.classes.enabled);
+            let triggerSelector = `a[href="#${this.id}"], [${this.attributes.toggle}="${this.id}"]`;
+            triggerSelector = this.options.triggerSelector ? `${this.options.triggerSelector}, ${triggerSelector}` : triggerSelector;
+            document.querySelectorAll(triggerSelector).forEach(trigger => {
+                trigger.classList.add(this.classes.triggerEnabled);
                 trigger.addEventListener('click', e => {
                     e.preventDefault();
                     this.toggle();
@@ -79,7 +92,7 @@
             this.mobileHeading = document.createElement('div');
             this.mobileHeading.classList.add(this.classes.mobileHeading);
             this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
-            <div>${this.mobileTitle()}</div>
+            <div>${this.title}</div>
             <button ${this.attributes.toggle}>${this.closeButtonHTML}</button>
             </div>`;
             this.overflow.appendChild(this.mobileHeading);
@@ -87,6 +100,7 @@
             // outer
             this.outer = this.wrap(this.overflow);
             this.outer.classList.add(this.classes.outer);
+            if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
             this.outer.setAttribute(this.attributes.id, this.id);
 
             // close when click outside of content
@@ -170,6 +184,14 @@
 
             return scrollbarWidth;
         }
+
+        /**
+         * Generate unique ID
+         */
+        uniqueId(prefix = ''){
+            return prefix + (+new Date()).toString(16) +
+                (Math.random() * 100000000 | 0).toString(16);
+        }
     }
 
     /**
@@ -177,16 +199,19 @@
      * access via window.EasyPopupData
      */
     this.EasyPopupData = {
-        selector: 'data-easy-popup',
         popups: []
     };
 
     /**
      * Public methods
      */
-    EasyPopup.init = () => {
-        const rawPopupContent = document.querySelectorAll(`[${this.EasyPopupData.selector}]`);
-        rawPopupContent.forEach(el => this.EasyPopupData.popups.push(new Popup(el)));
+    EasyPopup.init = (selector = '[data-easy-popup]', options = {}) => {
+        document.querySelectorAll(selector).forEach(el => this.EasyPopupData.popups.push(new Popup(el, options)));
     };
+    EasyPopup.init();
+
+
     EasyPopup.get = id => this.EasyPopupData.popups.filter(popup => popup.id === id)[0];
+
+
 })(window.EasyPopup = window.EasyPopup || {});

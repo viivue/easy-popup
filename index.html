@@ -40,7 +40,7 @@
 
 <div class="container">
     <h1>Easy Popup v2.0.0</h1>
-    <p>Click here to <a href="#demo-1">open popup</a>.</p>
+    <p>Click here to <a href="#demo-1">open popup 1</a>.</p>
     <p>
         Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
         aliquam lorem maximus lectus pellentesque. Mauris lorem conubia tempus urna ullamcorper tempor eleifend
@@ -57,6 +57,7 @@
         iaculis. Inceptos pulvinar scelerisque duis facilisi elementum suscipit viverra ante velit litora. Viverra
         ornare urna mi fames bibendum enim nunc neque et nostra placerat.
     </p>
+    <p>Click here to <a class="open-demo-2">open popup 2</a>.</p>
     <p>
         Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
         aliquam lorem maximus lectus pellentesque. Mauris lorem conubia tempus urna ullamcorper tempor eleifend
@@ -90,6 +91,26 @@
         ornare urna mi fames bibendum enim nunc neque et nostra placerat.
     </p>
     <div data-easy-popup="demo-1" data-easy-popup-title="Demo 1">
+        <h2>Demo 1</h2>
+        <p>
+            Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
+            aliquam lorem maximus lectus pellentesque. Mauris lorem conubia tempus urna ullamcorper tempor eleifend
+            tortor
+            quisque fames aliquam. Eros nam eu pretium potenti donec litora dictum. Donec justo posuere venenatis duis
+            rhoncus habitasse quisque ridiculus vitae convallis. Fermentum dolor justo consectetur semper lacinia
+            dapibus
+            nisl integer eu ridiculus. At dignissim augue hendrerit mauris mattis eleifend diam dui scelerisque egestas
+            rhoncus.
+
+            Ipsum quam efficitur vivamus consectetuer dictumst tincidunt. Lacinia dignissim conubia dui facilisi dictum
+            semper nunc magnis nisi tortor non. Inceptos volutpat enim ultricies proin rhoncus vulputate dignissim
+            pulvinar
+            iaculis. Inceptos pulvinar scelerisque duis facilisi elementum suscipit viverra ante velit litora. Viverra
+            ornare urna mi fames bibendum enim nunc neque et nostra placerat.
+        </p>
+    </div>
+    <div class="demo-2">
+        <h2>Demo 2</h2>
         <p>
             Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
             aliquam lorem maximus lectus pellentesque. Mauris lorem conubia tempus urna ullamcorper tempor eleifend
@@ -132,8 +153,15 @@
 <script>
     console.log(window.EasyPopupData)
 
-    EasyPopup.init();
     EasyPopup.get('demo-1').open();
+
+    EasyPopup.init('.demo-2', {
+        id: 'demo-2',
+        title: 'Demo 2',
+        triggerSelector: '.open-demo-2',
+        closeButtonHTML: '<span>Click to close</span>',
+        outerClass: 'test'
+    });
 
     console.log(window.EasyPopupData)
 </script>
