@@ -48,7 +48,9 @@ class Popup{
         this.el = el;
         this.selector = 'data-easy-popup';
         this.attributes = {
-            id: this.selector + '-id'
+            id: `${this.selector}-id`,
+            title: `${this.selector}-title`,
+            toggle: `${this.selector}-toggle`,
         };
         this.classes = {
             processed: 'easy-popup-enabled',
@@ -65,6 +67,8 @@ class Popup{
         this.innerHTML = this.el.innerHTML;
         this.id = this.el.getAttribute(this.selector);
         this.isOpen = false;
+        this.mobileTitle = () => this.el.getAttribute(this.attributes.title) || '';
+        this.closeButtonHTML = `<span>Close</span>`;
 
         this.init();
     }
@@ -83,8 +87,8 @@ class Popup{
         // add inner close button
         this.closeButton = document.createElement('button');
         this.closeButton.classList.add(this.classes.closeButton);
-        this.closeButton.innerHTML = 'Close';
-        this.closeButton.setAttribute('data-easy-popup-toggle', '');
+        this.closeButton.innerHTML = this.closeButtonHTML;
+        this.closeButton.setAttribute(this.attributes.toggle, '');
         this.closeButton.addEventListener('click', () => this.close());
         this.inner.appendChild(this.closeButton);
 
@@ -99,7 +103,10 @@ class Popup{
         // overflow > mobile heading
         this.mobileHeading = document.createElement('div');
         this.mobileHeading.classList.add(this.classes.mobileHeading);
-        this.mobileHeading.innerHTML = '<div class="easy-popup-heading-inner"><div>Mobile</div><button data-easy-popup-toggle>Close</button></div>';
+        this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
+            <div>${this.mobileTitle()}</div>
+            <button ${this.attributes.toggle}>${this.closeButtonHTML}</button>
+            </div>`;
         this.overflow.appendChild(this.mobileHeading);
 
         // outer
@@ -112,7 +119,7 @@ class Popup{
             if(this.isClickOutsideContent(e)) this.close();
         });
 
-        // close buttons
+        // close buttons on click
         this.outer.querySelectorAll('[data-easy-popup-toggle]').forEach(btn => {
             btn.addEventListener('click', () => this.close());
         });
