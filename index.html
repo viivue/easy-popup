@@ -92,6 +92,7 @@
     </p>
     <div data-easy-popup="demo-1" data-easy-popup-title="Demo 1">
         <h2>Demo 1</h2>
+        <p>Click here to <a href="#demo-2">open popup 2</a>.</p>
         <p>
             Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
             aliquam lorem maximus lectus pellentesque. Mauris lorem conubia tempus urna ullamcorper tempor eleifend
@@ -164,15 +165,15 @@
 
 
     let i = 0;
-    setInterval(() => {
-        i++;
-        if(i % 2 === 0){
-            EasyPopup.get('demo-1').open();
-        }else{
-            EasyPopup.get('demo-2').open();
-        }
-    }, 1000)
-    //EasyPopup.get('demo-1').open();
+    // setInterval(() => {
+    //     i++;
+    //     if(i % 2 === 0){
+    //         EasyPopup.get('demo-1').open();
+    //     }else{
+    //         EasyPopup.get('demo-2').open();
+    //     }
+    // }, 1000)
+    EasyPopup.get('demo-1').open();
 
 
     console.log(window.EasyPopupData)

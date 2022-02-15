@@ -18,6 +18,7 @@
                 toggle: `${this.selector}-toggle`,
             };
             this.classes = {
+                master: 'easy-popup-master',
                 processed: 'easy-popup-enabled',
                 triggerEnabled: 'easy-popup-trigger-enabled',
                 content: 'easy-popup-content',
@@ -46,6 +47,7 @@
             this.id = this.el.getAttribute(this.selector) || this.options.id;
             this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
             this.closeButtonHTML = this.options.closeButtonHTML;
+            this.masterContainer = document.querySelector(`.${this.classes.master}`);
 
             this.generateHTML();
 
@@ -66,7 +68,12 @@
             if(this.el.classList.contains(this.classes.processed)) return;
 
             // relocate HTML to body tag
-            document.querySelector('body').appendChild(this.el);
+            if(!this.masterContainer){
+                this.masterContainer = document.createElement('div');
+                this.masterContainer.classList.add(this.classes.master);
+            }
+            document.querySelector('body').appendChild(this.masterContainer);
+            this.masterContainer.appendChild(this.el);
 
             // inner
             this.inner = this.wrap(this.el);
