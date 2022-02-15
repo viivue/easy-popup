@@ -206,26 +206,42 @@
         }
     }
 
+
+    /**
+     * Private class Popup Controller
+     */
+    class PopupController{
+        constructor(){
+            this.active = '';
+            this.popups = [];
+        }
+
+        add(popup){
+            this.popups.push(popup);
+        }
+
+        get(id){
+            return this.popups.filter(popup => popup.id === id)[0];
+        }
+    }
+
     /**
      * Public data
      * access via window.EasyPopupData
      */
-    window.EasyPopupData = {
-        active: '',
-        popups: []
-    };
+    window.EasyPopupData = new PopupController();
 
     /**
      * Public methods
      */
     // init new popups
     EasyPopup.init = (selector = '[data-easy-popup]', options = {}) => {
-        document.querySelectorAll(selector).forEach(el => window.EasyPopupData.popups.push(new Popup(el, options)));
+        document.querySelectorAll(selector).forEach(el => window.EasyPopupData.add(new Popup(el, options)));
     };
     EasyPopup.init();
 
     // Get popup object by ID
-    EasyPopup.get = id => this.EasyPopupData.popups.filter(popup => popup.id === id)[0];
+    EasyPopup.get = id => window.EasyPopupData.get(id);
 
 
 })(window.EasyPopup = window.EasyPopup || {});
