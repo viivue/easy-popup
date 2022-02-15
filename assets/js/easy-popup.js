@@ -1,3 +1,6 @@
+/**
+ * Easy Popup v0.0.1
+ */
 ;(function(EasyPopup){
     /**
      * Private class Popup

@@ -1,6 +1,6 @@
-/****************************
- * Easy Popup
-****************************/
+/**
+ * Easy Popup v0.0.1
+ */
 /* master */
 html.easy-popup-open {overflow:hidden;}
 html:not(.easy-popup-open) .easy-popup-master {opacity:0; visibility:hidden;}
