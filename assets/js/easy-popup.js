@@ -122,6 +122,13 @@
         }
 
         open(){
+            // check active popup
+            if(window.EasyPopupData.active){
+                EasyPopup.get(window.EasyPopupData.active).close();
+            }
+
+            // open
+            window.EasyPopupData.active = this.id;
             this.outer.classList.add(this.classes.open);
             this.isOpen = true;
             this.root.classList.add('easy-popup-open');
@@ -132,14 +139,19 @@
         }
 
         close(){
+            // close
+            window.EasyPopupData.active = '';
             this.outer.classList.remove(this.classes.open);
             this.isOpen = false;
             this.root.classList.remove('easy-popup-open');
 
             // prevent scroll > off
             setTimeout(() => {
-                this.root.style.paddingRight = ``;
-                this.root.style.overflow = ``;
+                // set close status when no popup is active
+                if(!window.EasyPopupData.active){
+                    this.root.style.paddingRight = ``;
+                    this.root.style.overflow = ``;
+                }
             }, 300);
         }
 
@@ -198,19 +210,21 @@
      * Public data
      * access via window.EasyPopupData
      */
-    this.EasyPopupData = {
+    window.EasyPopupData = {
+        active: '',
         popups: []
     };
 
     /**
      * Public methods
      */
+    // init new popups
     EasyPopup.init = (selector = '[data-easy-popup]', options = {}) => {
-        document.querySelectorAll(selector).forEach(el => this.EasyPopupData.popups.push(new Popup(el, options)));
+        document.querySelectorAll(selector).forEach(el => window.EasyPopupData.popups.push(new Popup(el, options)));
     };
     EasyPopup.init();
 
-
+    // Get popup object by ID
     EasyPopup.get = id => this.EasyPopupData.popups.filter(popup => popup.id === id)[0];
 
 

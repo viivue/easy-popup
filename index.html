@@ -153,7 +153,6 @@
 <script>
     console.log(window.EasyPopupData)
 
-    EasyPopup.get('demo-1').open();
 
     EasyPopup.init('.demo-2', {
         id: 'demo-2',
@@ -162,6 +161,19 @@
         closeButtonHTML: '<span>Click to close</span>',
         outerClass: 'test'
     });
+
+
+    let i = 0;
+    setInterval(() => {
+        i++;
+        if(i % 2 === 0){
+            EasyPopup.get('demo-1').open();
+        }else{
+            EasyPopup.get('demo-2').open();
+        }
+    }, 1000)
+    //EasyPopup.get('demo-1').open();
+
 
     console.log(window.EasyPopupData)
 </script>
