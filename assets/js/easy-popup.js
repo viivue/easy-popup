@@ -19,6 +19,7 @@
                 id: `${this.selector}-id`,
                 title: `${this.selector}-title`,
                 toggle: `${this.selector}-toggle`,
+                mobileLayout: `${this.selector}-mobile`,
             };
             this.classes = {
                 master: 'easy-popup-master',
@@ -32,7 +33,8 @@
                 container: 'easy-popup-container',
                 open: 'open',
                 closeButton: 'easy-popup-close-button',
-                mobileHeading: 'easy-popup-mobile-heading'
+                mobileHeading: 'easy-popup-mobile-heading',
+                hasMobileLayout: 'easy-popup-has-mobile-layout',
             };
             this.innerHTML = this.el.innerHTML;
             this.isOpen = false;
@@ -44,11 +46,16 @@
                     outerClass: '',
                     title: '',
                     closeButtonHTML: `<span>Close</span>`,
-                    triggerSelector: ''
+                    triggerSelector: '',
+                    hasMobileLayout: true, // has mobile layout, true by default
                 }, ...options
             };
             this.id = this.el.getAttribute(this.selector) || this.options.id;
             this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
+
+            const attrHasMobileLayout = this.el.getAttribute(this.attributes.mobileLayout);
+            this.hasMobileLayout = attrHasMobileLayout ? attrHasMobileLayout !== 'false' : this.options.hasMobileLayout;
+
             this.closeButtonHTML = this.options.closeButtonHTML;
             this.masterContainer = document.querySelector(`.${this.classes.master}`);
 
@@ -111,6 +118,7 @@
             this.outer = this.wrap(this.overflow);
             this.outer.classList.add(this.classes.outer);
             if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
+            if(this.hasMobileLayout) this.outer.classList.add(this.classes.hasMobileLayout);
             this.outer.setAttribute(this.attributes.id, this.id);
 
             // close when click outside of content
