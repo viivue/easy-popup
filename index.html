@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/easy-popup.css">
+    <link rel="stylesheet" href="src/easy-popup.css">
     <style>
         * {box-sizing:border-box;}
         body {
@@ -133,24 +133,18 @@
 
 <footer>
     <p>
-        <a href="/">
-            <img src="https://badgen.net/badge/🦄/home?scale=1.2" alt="home">
-        </a>
-        <a href="https://github.com/phucbm/cursorism">
-            <img src="https://badgen.net/badge/icon/Cursor.js?icon=github&label=github&color=6495ED&scale=1.2"
+        <a href="https://github.com/viivue/easy-popup">
+            <img src="https://badgen.net/badge/icon/Easy Popup?icon=github&label=Docs&color=6495ED&scale=1.2"
                  alt="github">
         </a>
-        <a href="https://greensock.com/" target="_blank">
-            <img src="https://badgen.net/badge/thanks to/GreenSock 💪/61AC27?scale=1.2" alt="greensock">
-        </a>
-        <a href="https://github.com/phucbm" target="_blank">
-            <img src="https://badgen.net/badge/made with 🧡 by/phucbm/6495ED?scale=1.2" alt="phucbm">
+        <a href="https://github.com/viivue" target="_blank">
+            <img src="https://badgen.net/badge/made with 🧡 by/ViiVue/6495ED?scale=1.2" alt="ViiVue">
         </a>
     </p>
 
 </footer>
 
-<script src="assets/js/easy-popup.js"></script>
+<script src="src/easy-popup.js"></script>
 <script>
     console.log(window.EasyPopupData)
 
@@ -163,16 +157,6 @@
         outerClass: 'test'
     });
 
-
-    let i = 0;
-    // setInterval(() => {
-    //     i++;
-    //     if(i % 2 === 0){
-    //         EasyPopup.get('demo-1').open();
-    //     }else{
-    //         EasyPopup.get('demo-2').open();
-    //     }
-    // }, 1000)
     EasyPopup.get('demo-1').open();
 
 

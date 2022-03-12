@@ -1,5 +1,6 @@
-/**
+/**!
  * Easy Popup v0.0.1
+ * https://github.com/viivue/easy-popup
  */
 ;(function(EasyPopup){
     /**
