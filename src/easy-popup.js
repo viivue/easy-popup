@@ -1,4 +1,4 @@
-/**!
+/**
  * Easy Popup v0.0.1
  * https://github.com/viivue/easy-popup
  */
@@ -111,7 +111,7 @@
             this.mobileHeading.classList.add(this.classes.mobileHeading);
             this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
             <div>${this.title}</div>
-            <button ${this.attributes.toggle}>${this.closeButtonHTML}</button>
+            <button class="${this.classes.closeButton} mobile" ${this.attributes.toggle}>${this.closeButtonHTML}</button>
             </div>`;
             this.overflow.appendChild(this.mobileHeading);
 
