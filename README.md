@@ -1,4 +1,4 @@
-# Easy Popup v0.0.1
+# Easy Popup v0.0.2
 
 Super light-weight JavaScript library to create a simple popup with mobile layout.
 
@@ -7,7 +7,6 @@ Super light-weight JavaScript library to create a simple popup with mobile layou
 Setup HTML
 
 ```html
-
 <div data-easy-popup="demo">
     <p>Your content.</p>
 </div>
@@ -26,10 +25,10 @@ Use `#demo` as the URL to open popup.
 EasyPopup.init('.popup', {
     id: 'popup-id', // required
     title: 'Demo 2', // title on mobile layout
-    hasMobileLayout: true, // toggle mobile layout, true by default
+    hasMobileLayout: false, // toggle mobile layout, false by default
     triggerSelector: '.open-demo-2', // set custom triggers
     closeButtonHTML: '<span>Click to close</span>', // set custom HTML for close button
-    outerClass: 'hello', // custom class for popup
+    outerClass: 'my-popup', // custom class for popup
 });
 
 // get popup
