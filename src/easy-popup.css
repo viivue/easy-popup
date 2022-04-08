@@ -16,7 +16,7 @@ html:not(.easy-popup-open) .easy-popup-master {opacity:0; visibility:hidden;}
 }
 
 /* popup */
-.easy-popup:not(.open) {opacity:0; visibility:hidden; transform:scale(1.05);}
+.easy-popup:not(.open) {opacity:0; visibility:hidden; transform:scale(1.05); pointer-events:none;}
 .easy-popup {
     position:absolute; top:0; left:0;
     height:100%; width:100%;
@@ -62,13 +62,19 @@ html:not(.easy-popup-open) .easy-popup-master {opacity:0; visibility:hidden;}
 }
 
 /* close button */
-.easy-popup-close-button {position:absolute; top:0; right:0; z-index:2;}
+.easy-popup-close-button {
+    position:absolute; top:0; right:0; z-index:2;
+    padding:10px; background:transparent; border:none;
+}
+.easy-popup-close-button svg {transition:all .3s ease;}
+.easy-popup-close-button:hover svg {fill:#ef1616;}
 
 
 /****************************
  * Easy Popup Mobile Layout
 ****************************/
 @media only screen and (max-width:1023px) {
+    .easy-popup-content {padding:25px 20px;}
     .easy-popup.easy-popup-has-mobile-layout {align-items:flex-end;}
     .easy-popup.easy-popup-has-mobile-layout .easy-popup-overflow {
         padding-top:var(--easy-popup-heading-height);
@@ -79,7 +85,7 @@ html:not(.easy-popup-open) .easy-popup-master {opacity:0; visibility:hidden;}
         min-height:calc(80vh - var(--easy-popup-top-empty-space));
         background:#fff;
     }
-    .easy-popup.easy-popup-has-mobile-layout .easy-popup-close-button {display:none;}
+    .easy-popup.easy-popup-has-mobile-layout .easy-popup-close-button:not(.mobile) {display:none;}
 
     /* transition */
     .easy-popup.easy-popup-has-mobile-layout:not(.open) .easy-popup-overflow {transform:translateY(20%);}
