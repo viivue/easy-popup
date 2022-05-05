@@ -1,5 +1,5 @@
 /*!
- * Easy Popup v0.0.2
+ * Easy Popup v0.0.3
  * https://github.com/viivue/easy-popup
  */
 ;(function(EasyPopup){
@@ -36,6 +36,7 @@
                 closeButton: 'easy-popup-close-button',
                 mobileHeading: 'easy-popup-mobile-heading',
                 hasMobileLayout: 'easy-popup-has-mobile-layout',
+                ignoreClick: 'easy-popup-ignore-click',
             };
             this.innerHTML = this.el.innerHTML;
             this.isOpen = false;
@@ -124,6 +125,7 @@
 
             // close when click outside of content
             this.outer.addEventListener('click', e => {
+                if(e.target.classList.contains(this.classes.ignoreClick)) return;
                 if(this.isClickOutsideContent(e)) this.close();
             });
 
