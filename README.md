@@ -29,6 +29,10 @@ EasyPopup.init('.popup', {
     triggerSelector: '.open-demo-2', // set custom triggers
     closeButtonHTML: '<span>Click to close</span>', // set custom HTML for close button
     outerClass: 'my-popup', // custom class for popup
+    onOpen: data => {
+    },
+    onClose: data => {
+    },
 });
 
 // get popup
