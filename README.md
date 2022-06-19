@@ -1,4 +1,4 @@
-# Easy Popup v0.0.2
+# Easy Popup v0.0.3
 
 Super light-weight JavaScript library to create a simple popup with mobile layout.
 
@@ -29,6 +29,10 @@ EasyPopup.init('.popup', {
     triggerSelector: '.open-demo-2', // set custom triggers
     closeButtonHTML: '<span>Click to close</span>', // set custom HTML for close button
     outerClass: 'my-popup', // custom class for popup
+    onOpen: data => {
+    },
+    onClose: data => {
+    },
 });
 
 // get popup
@@ -38,6 +42,17 @@ const myPopup = EasyPopup.get('popup-id');
 myPopup.open();
 myPopup.close();
 myPopup.toggle();
+```
+
+### Ignore click
+
+Add class `easy-popup-ignore-click` to ignore click event. By default, all elements will have click event assigned by
+Easy Popup. However, sometimes HTML that appends later via JS could lead to be treated as placed outside popup, which
+leads to popup closing when that element clicked.
+
+```html
+
+<button class="easy-popup-ignore-click">My button</button>
 ```
 
 ## Deployment
