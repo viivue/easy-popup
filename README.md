@@ -81,6 +81,19 @@ leads to popup closing when that element clicked.
 <button class="easy-popup-ignore-click">My button</button>
 ```
 
+## Themes
+
+### theme:`right-side`
+
+![](public/img/easy-popup-theme-right-side.gif)
+
+```html
+
+<div data-easy-popup="demo" data-easy-popup-theme="right-side">
+    <p>Your content.</p>
+</div>
+```
+
 ## Deployment
 
 Install gulp
