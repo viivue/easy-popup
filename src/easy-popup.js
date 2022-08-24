@@ -1,5 +1,5 @@
 /*!
- * Easy Popup v0.0.3
+ * Easy Popup v0.0.4
  * https://github.com/viivue/easy-popup
  */
 ;(function(EasyPopup){
@@ -21,6 +21,7 @@
                 title: `${this.selector}-title`,
                 toggle: `${this.selector}-toggle`,
                 mobileLayout: `${this.selector}-mobile`,
+                theme: `${this.selector}-theme`,
             };
             this.classes = {
                 master: 'easy-popup-master',
@@ -49,7 +50,8 @@
                     title: '',
                     closeButtonHTML: `<span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span>`,
                     triggerSelector: '',
-                    hasMobileLayout: false, // has mobile layout, true by default
+                    hasMobileLayout: false, // has mobile layout, false by default
+                    theme: 'default',
                     onClose: () => {
                     },
                     onOpen: () => {
@@ -58,6 +60,7 @@
             };
             this.id = this.el.getAttribute(this.selector) || this.options.id;
             this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
+            this.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
 
             const attrHasMobileLayout = this.el.getAttribute(this.attributes.mobileLayout);
             this.hasMobileLayout = attrHasMobileLayout ? attrHasMobileLayout !== 'false' : this.options.hasMobileLayout;
@@ -126,6 +129,9 @@
             if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
             if(this.hasMobileLayout) this.outer.classList.add(this.classes.hasMobileLayout);
             this.outer.setAttribute(this.attributes.id, this.id);
+
+            // set theme
+            this.outer.setAttribute(this.attributes.theme, this.theme);
 
             // close when click outside of content
             this.outer.addEventListener('click', e => {
