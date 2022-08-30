@@ -1,4 +1,4 @@
-# Easy Popup v0.0.4
+# Easy Popup v0.0.5
 
 Super light-weight JavaScript library to create a simple popup with mobile layout.
 
