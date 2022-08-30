@@ -35,7 +35,8 @@ Init with HTML attributes
 <div data-easy-popup="demo"
      data-easy-popup-mobile="true"
      data-easy-popup-title="Popup title"
-     data-easy-popup-theme="my-style">
+     data-easy-popup-theme="my-style"
+     data-easy-popup-click-outside-to-close="false">
     <p>Your content.</p>
 </div>
 ```
@@ -51,6 +52,7 @@ EasyPopup.init('.popup', {
     closeButtonHTML: '<span>Click to close</span>', // set custom HTML for close button
     outerClass: 'my-popup', // custom class for popup
     theme: 'default', // to create multiple themes
+    clickOutsideToClose: true, // true by default
     onOpen: data => {
     },
     onClose: data => {
