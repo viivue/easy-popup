@@ -1,5 +1,5 @@
 /*!
- * Easy Popup v0.0.3
+ * Easy Popup v0.0.4
  * https://github.com/viivue/easy-popup
  */
 /* master */
@@ -71,7 +71,7 @@ html:not(.easy-popup-open) .easy-popup-master {opacity:0; visibility:hidden;}
 
 
 /****************************
- * Easy Popup Mobile Layout
+ * Easy Popup Layout: Mobile
 ****************************/
 @media only screen and (max-width:1023px) {
     .easy-popup-content {padding:25px 20px;}
@@ -94,3 +94,11 @@ html:not(.easy-popup-open) .easy-popup-master {opacity:0; visibility:hidden;}
     /* overflow > mobile heading */
     .easy-popup.easy-popup-has-mobile-layout .easy-popup-mobile-heading {display:block;}
 }
+
+
+/****************************
+ * Easy Popup Theme: right-side
+****************************/
+[data-easy-popup-theme="right-side"].easy-popup:not(.open) {opacity:1; transform:translateX(100%);}
+[data-easy-popup-theme="right-side"] .easy-popup-container {margin:0 0 0 auto; padding:0;}
+[data-easy-popup-theme="right-side"] .easy-popup-content {border-radius:0; height:100vh; overflow:auto;}
