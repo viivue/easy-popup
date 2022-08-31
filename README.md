@@ -53,6 +53,7 @@ EasyPopup.init('.popup', {
     outerClass: 'my-popup', // custom class for popup
     theme: 'default', // to create multiple themes
     clickOutsideToClose: true, // true by default
+    keyboard: true, // to close the popup by keyboard (ESC)
     onOpen: data => {
     },
     onClose: data => {
