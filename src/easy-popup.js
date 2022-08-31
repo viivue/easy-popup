@@ -148,7 +148,7 @@
             // add event listener when press ESC
             if (this.options.keyboard){
                 document.addEventListener('keyup', (e) => {
-                    if(this.isOpen && e.keyCode === 27){
+                    if(this.isOpen && e.key === 'Escape'){
                         this.close();
                     }
                 })
