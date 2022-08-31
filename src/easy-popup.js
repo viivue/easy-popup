@@ -1,5 +1,5 @@
 /*!
- * Easy Popup v0.0.4
+ * Easy Popup v0.0.5
  * https://github.com/viivue/easy-popup
  */
 ;(function(EasyPopup){
@@ -22,6 +22,7 @@
                 toggle: `${this.selector}-toggle`,
                 mobileLayout: `${this.selector}-mobile`,
                 theme: `${this.selector}-theme`,
+                clickOutsideToClose: `${this.selector}-click-outside-to-close`
             };
             this.classes = {
                 master: 'easy-popup-master',
@@ -52,18 +53,26 @@
                     triggerSelector: '',
                     hasMobileLayout: false, // has mobile layout, false by default
                     theme: 'default',
+
+                    keyboard: true, // option for closing the popup by keyboard (ESC)
+
+                    clickOutsideToClose: true,
+
                     onClose: () => {
                     },
                     onOpen: () => {
                     }
                 }, ...options
             };
+
+            // get string options from attribute and js init
             this.id = this.el.getAttribute(this.selector) || this.options.id;
             this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
             this.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
 
-            const attrHasMobileLayout = this.el.getAttribute(this.attributes.mobileLayout);
-            this.hasMobileLayout = attrHasMobileLayout ? attrHasMobileLayout !== 'false' : this.options.hasMobileLayout;
+            // get boolean options from attribute and js init
+            this.isClickOutsideToClose = this.isBooleanOptionTrue(this.attributes.clickOutsideToClose, this.options.clickOutsideToClose);
+            this.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
 
             this.closeButtonHTML = this.options.closeButtonHTML;
             this.masterContainer = document.querySelector(`.${this.classes.master}`);
@@ -80,6 +89,11 @@
                     this.toggle();
                 });
             });
+        }
+
+        isBooleanOptionTrue(attr, option){
+            const attrValue = this.el.getAttribute(attr);
+            return attrValue ? attrValue !== 'false' : option;
         }
 
         generateHTML(){
@@ -136,13 +150,22 @@
             // close when click outside of content
             this.outer.addEventListener('click', e => {
                 if(e.target.classList.contains(this.classes.ignoreClick)) return;
-                if(this.isClickOutsideContent(e)) this.close();
+                if(this.isClickOutsideContent(e) && this.isClickOutsideToClose) this.close();
             });
 
             // close buttons on click
             this.outer.querySelectorAll('[data-easy-popup-toggle]').forEach(btn => {
                 btn.addEventListener('click', () => this.close());
             });
+
+            // add event listener when press ESC
+            if(this.options.keyboard){
+                document.addEventListener('keyup', (e) => {
+                    if(this.isOpen && e.key === 'Escape'){
+                        this.close();
+                    }
+                });
+            }
 
             // done init
             this.el.classList.add(this.classes.processed, this.classes.content);
