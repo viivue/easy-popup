@@ -53,7 +53,11 @@
                     triggerSelector: '',
                     hasMobileLayout: false, // has mobile layout, false by default
                     theme: 'default',
+
+                    keyboard: true, // option for closing the popup by keyboard (ESC)
+
                     clickOutsideToClose: true,
+
                     onClose: () => {
                     },
                     onOpen: () => {
@@ -153,6 +157,15 @@
             this.outer.querySelectorAll('[data-easy-popup-toggle]').forEach(btn => {
                 btn.addEventListener('click', () => this.close());
             });
+
+            // add event listener when press ESC
+            if(this.options.keyboard){
+                document.addEventListener('keyup', (e) => {
+                    if(this.isOpen && e.key === 'Escape'){
+                        this.close();
+                    }
+                });
+            }
 
             // done init
             this.el.classList.add(this.classes.processed, this.classes.content);
