@@ -54,7 +54,7 @@
                     hasMobileLayout: false, // has mobile layout, false by default
                     theme: 'default',
 
-                    keyboard: true,
+                    keyboard: true, // option for closing the popup by keyboard (ESC)
 
                     clickOutsideToClose: true,
 
@@ -159,12 +159,12 @@
             });
 
             // add event listener when press ESC
-            if (this.options.keyboard){
+            if(this.options.keyboard){
                 document.addEventListener('keyup', (e) => {
                     if(this.isOpen && e.key === 'Escape'){
                         this.close();
                     }
-                })
+                });
             }
 
             // done init
