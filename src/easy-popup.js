@@ -1,8 +1,4 @@
-/*!
- * Easy Popup v0.0.5
- * https://github.com/viivue/easy-popup
- */
-;(function(EasyPopup){
+window.InitEasyPopup = function(EasyPopup){
     /**
      * Private class Popup
      */
@@ -302,6 +298,8 @@
 
     // Get popup object by ID
     EasyPopup.get = id => window.EasyPopupData.get(id);
+    console.log("load")
 
+}
 
-})(window.EasyPopup = window.EasyPopup || {});
+window.addEventListener("load", () => {window.InitEasyPopup(window.EasyPopup = window.EasyPopup || {})});
