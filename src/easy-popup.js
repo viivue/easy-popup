@@ -18,11 +18,9 @@
             this.selector = 'data-easy-popup';
             this.attributes = {
                 id: `${this.selector}-id`,
-                title: `${this.selector}-title`,
                 toggle: `${this.selector}-toggle`,
-                mobileLayout: `${this.selector}-mobile`,
                 theme: `${this.selector}-theme`,
-                clickOutsideToClose: `${this.selector}-click-outside-to-close`
+                init: 'data-easy-popup'
             };
             this.classes = {
                 master: 'easy-popup-master',
@@ -65,14 +63,8 @@
                 }, ...options
             };
 
-            // get string options from attribute and js init
-            this.id = this.el.getAttribute(this.selector) || this.options.id;
-            this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
-            this.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
-
-            // get boolean options from attribute and js init
-            this.isClickOutsideToClose = this.isBooleanOptionTrue(this.attributes.clickOutsideToClose, this.options.clickOutsideToClose);
-            this.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
+            // get options from JSON init
+            this.getOptions();
 
             this.closeButtonHTML = this.options.closeButtonHTML;
             this.masterContainer = document.querySelector(`.${this.classes.master}`);
@@ -91,9 +83,40 @@
             });
         }
 
-        isBooleanOptionTrue(attr, option){
-            const attrValue = this.el.getAttribute(attr);
-            return attrValue ? attrValue !== 'false' : option;
+        getOptions(){
+            // options from attribute
+            let string = this.el.getAttribute(this.attributes.init);
+            let options = {
+                id: this.options.id,
+                title: this.options.title,
+                theme: this.options.theme,
+                isClickOutsideToClose: this.options.clickOutsideToClose,
+                hasMobileLayout: this.options.hasMobileLayout
+            };
+            // option priority: attribute > js object > default
+            if(this.isJSON(string)) options = {...options, ...JSON.parse(string)};
+
+            // convert boolean string to real boolean
+            for(const [key, value] of Object.entries(options)){
+                if(value === "false") options[key] = false;
+                if(value === "true") options[key] = true;
+                this[key] = value;
+            }
+        }
+
+
+        /**
+         * Is JSON string
+         * https://stackoverflow.com/a/32278428/6453822
+         * @param string
+         * @returns {any|boolean}
+         */
+        isJSON(string){
+            try{
+                return (JSON.parse(string) && !!string);
+            }catch(e){
+                return false;
+            }
         }
 
         generateHTML(){

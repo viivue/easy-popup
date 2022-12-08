@@ -93,8 +93,8 @@
         iaculis. Inceptos pulvinar scelerisque duis facilisi elementum suscipit viverra ante velit litora. Viverra
         ornare urna mi fames bibendum enim nunc neque et nostra placerat.
     </p>
-    <div data-easy-popup="demo-1" data-easy-popup-title="Demo 1" data-easy-popup-theme="right-side"
-         data-easy-popup-click-outside-to-close="false">
+    <div data-easy-popup='{"id": "demo-1", "title": "Demo 1", "theme":"right-side", "clickOutsideToClose": "false", "hasMobileLayout":"true"}'
+    >
         <h2>Demo 1</h2>
         <p>Click here to <a href="#demo-2">open popup 2</a>.</p>
         <p>
@@ -114,7 +114,7 @@
             ornare urna mi fames bibendum enim nunc neque et nostra placerat.
         </p>
     </div>
-    <div class="demo-2" data-easy-popup-mobile="true">
+    <div class="demo-2">
         <h2>Demo 2</h2>
         <p>
             Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
@@ -150,7 +150,7 @@
 
 <script src="src/easy-popup.js"></script>
 <script>
-    console.log(window.EasyPopupData)
+    console.log(window.EasyPopupData);
 
 
     EasyPopup.init('.demo-2', {
@@ -165,7 +165,7 @@
     EasyPopup.get('demo-1').open();
 
 
-    console.log(window.EasyPopupData)
+    console.log(window.EasyPopupData);
 </script>
 </body>
 </html>
