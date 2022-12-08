@@ -1,3 +1,7 @@
+/*!
+ * Easy Popup v0.0.5
+ * https://github.com/viivue/easy-popup
+ */
 window.InitEasyPopup = function(EasyPopup){
     /**
      * Private class Popup
