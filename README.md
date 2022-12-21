@@ -31,12 +31,17 @@ or
 Init with HTML attributes
 
 ```html
-
+<!-- By using data attributes -->
 <div data-easy-popup="demo"
      data-easy-popup-mobile="true"
      data-easy-popup-title="Popup title"
      data-easy-popup-theme="my-style"
      data-easy-popup-click-outside-to-close="false">
+    <p>Your content.</p>
+</div>
+
+<!-- Or using data attribute with JSON Format -->
+<div data-easy-popup='{"id": "demo-1"}'>
     <p>Your content.</p>
 </div>
 ```

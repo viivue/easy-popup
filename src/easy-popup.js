@@ -22,7 +22,8 @@
                 toggle: `${this.selector}-toggle`,
                 mobileLayout: `${this.selector}-mobile`,
                 theme: `${this.selector}-theme`,
-                clickOutsideToClose: `${this.selector}-click-outside-to-close`
+                clickOutsideToClose: `${this.selector}-click-outside-to-close`,
+                init: 'data-easy-popup'
             };
             this.classes = {
                 master: 'easy-popup-master',
@@ -66,13 +67,15 @@
             };
 
             // get string options from attribute and js init
-            this.id = this.el.getAttribute(this.selector) || this.options.id;
-            this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
-            this.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
+            this.options.title = this.el.getAttribute(this.attributes.title) || this.options.title;
+            this.options.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
 
             // get boolean options from attribute and js init
-            this.isClickOutsideToClose = this.isBooleanOptionTrue(this.attributes.clickOutsideToClose, this.options.clickOutsideToClose);
-            this.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
+            this.options.clickOutsideToClose = this.isBooleanOptionTrue(this.attributes.clickOutsideToClose, this.options.clickOutsideToClose);
+            this.options.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
+
+            // get options from JSON init
+            this.getOptions();
 
             this.closeButtonHTML = this.options.closeButtonHTML;
             this.masterContainer = document.querySelector(`.${this.classes.master}`);
@@ -94,6 +97,54 @@
         isBooleanOptionTrue(attr, option){
             const attrValue = this.el.getAttribute(attr);
             return attrValue ? attrValue !== 'false' : option;
+        }
+
+        getOptions(){
+            // options from attribute
+            let dataAttribute = this.el.getAttribute(this.attributes.init);
+            let options = {
+                id: this.options.id,
+                title: this.options.title,
+                theme: this.options.theme,
+                clickOutsideToClose: this.options.clickOutsideToClose,
+                hasMobileLayout: this.options.hasMobileLayout
+            };
+
+            // not JSON format or not exist -> string
+            if(!dataAttribute || !this.isJSON(dataAttribute)){
+                this.id = dataAttribute || this.options.id;
+                return;
+            }
+
+            // option priority: attribute > js object > default
+            options = {...options, ...JSON.parse(dataAttribute)};
+
+            // convert boolean string to real boolean
+            for(const [key, value] of Object.entries(options)){
+                if(value === "false") options[key] = false;
+                else if(value === "true") options[key] = true;
+                else options[key] = value;
+            }
+            this.options = {...this.options, ...options};
+            this.id = options.id || this.options.id;
+
+            // remove json
+            this.el.removeAttribute(this.attributes.init);
+        }
+
+
+        /**
+         * Is JSON string
+         * https://stackoverflow.com/a/32278428/6453822
+         * @param string
+         * @returns {any|boolean}
+         */
+        isJSON(string){
+            try{
+                return (JSON.parse(string) && !!string);
+            }catch(e){
+                return false;
+            }
         }
 
         generateHTML(){
@@ -132,7 +183,7 @@
             this.mobileHeading = document.createElement('div');
             this.mobileHeading.classList.add(this.classes.mobileHeading);
             this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
-            <div>${this.title}</div>
+            <div>${this.options.title}</div>
             <button class="${this.classes.closeButton} mobile" ${this.attributes.toggle}>${this.closeButtonHTML}</button>
             </div>`;
             this.overflow.appendChild(this.mobileHeading);
@@ -141,16 +192,16 @@
             this.outer = this.wrap(this.overflow);
             this.outer.classList.add(this.classes.outer);
             if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-            if(this.hasMobileLayout) this.outer.classList.add(this.classes.hasMobileLayout);
+            if(this.options.hasMobileLayout) this.outer.classList.add(this.classes.hasMobileLayout);
             this.outer.setAttribute(this.attributes.id, this.id);
 
             // set theme
-            this.outer.setAttribute(this.attributes.theme, this.theme);
+            this.outer.setAttribute(this.attributes.theme, this.options.theme);
 
             // close when click outside of content
             this.outer.addEventListener('click', e => {
                 if(e.target.classList.contains(this.classes.ignoreClick)) return;
-                if(this.isClickOutsideContent(e) && this.isClickOutsideToClose) this.close();
+                if(this.isClickOutsideContent(e) && this.options.clickOutsideToClose) this.close();
             });
 
             // close buttons on click
