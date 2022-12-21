@@ -67,12 +67,11 @@
             };
 
             // get string options from attribute and js init
-            this.id = this.el.getAttribute(this.selector) || this.options.id;
             this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
             this.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
 
             // get boolean options from attribute and js init
-            this.isClickOutsideToClose = this.isBooleanOptionTrue(this.attributes.clickOutsideToClose, this.options.clickOutsideToClose);
+            this.options.clickOutsideToClose = this.isBooleanOptionTrue(this.attributes.clickOutsideToClose, this.options.clickOutsideToClose);
             this.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
 
             // get options from JSON init
@@ -107,16 +106,13 @@
                 id: this.options.id,
                 title: this.options.title,
                 theme: this.options.theme,
-                isClickOutsideToClose: this.options.clickOutsideToClose,
+                clickOutsideToClose: this.options.clickOutsideToClose,
                 hasMobileLayout: this.options.hasMobileLayout
             };
 
-            // not exist
-            if(!dataAttribute) return;
-
-            // not JSON -> string
-            if(!this.isJSON(dataAttribute)){
-                options.id = dataAttribute;
+            // not JSON format or not exist -> string
+            if(!dataAttribute || !this.isJSON(dataAttribute)){
+                this.id = dataAttribute || this.options.id;
                 return;
             }
 
@@ -126,9 +122,11 @@
             // convert boolean string to real boolean
             for(const [key, value] of Object.entries(options)){
                 if(value === "false") options[key] = false;
-                if(value === "true") options[key] = true;
-                this[key] = value;
+                else if(value === "true") options[key] = true;
+                else options[key] = value;
             }
+            this.options = {...this.options, ...options};
+            this.id = options.id || this.options.id;
         }
 
 
@@ -200,7 +198,7 @@
             // close when click outside of content
             this.outer.addEventListener('click', e => {
                 if(e.target.classList.contains(this.classes.ignoreClick)) return;
-                if(this.isClickOutsideContent(e) && this.isClickOutsideToClose) this.close();
+                if(this.isClickOutsideContent(e) && this.options.clickOutsideToClose) this.close();
             });
 
             // close buttons on click
@@ -346,10 +344,7 @@
      */
     // init new popups
     EasyPopup.init = (selector = '[data-easy-popup]', options = {}) => {
-        document.querySelectorAll(selector).forEach(el => {
-            window.EasyPopupData.add(new Popup(el, options));
-            console.log(el);
-        });
+        document.querySelectorAll(selector).forEach(el => window.EasyPopupData.add(new Popup(el, options)));
     };
     EasyPopup.init();
 
