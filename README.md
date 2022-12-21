@@ -41,7 +41,7 @@ Init with HTML attributes
 </div>
 
 <!-- Or using data attribute with JSON Format -->
-<div data-easy-popup='{"id": "demo-1", "title": "Demo 1", "theme":"right-side", "clickOutsideToClose": "false", "hasMobileLayout":"true"}'>
+<div data-easy-popup='{"id": "demo-1"}'>
     <p>Your content.</p>
 </div>
 ```
