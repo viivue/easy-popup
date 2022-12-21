@@ -67,12 +67,12 @@
             };
 
             // get string options from attribute and js init
-            this.title = this.el.getAttribute(this.attributes.title) || this.options.title;
-            this.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
+            this.options.title = this.el.getAttribute(this.attributes.title) || this.options.title;
+            this.options.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
 
             // get boolean options from attribute and js init
             this.options.clickOutsideToClose = this.isBooleanOptionTrue(this.attributes.clickOutsideToClose, this.options.clickOutsideToClose);
-            this.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
+            this.options.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
 
             // get options from JSON init
             this.getOptions();
@@ -127,6 +127,9 @@
             }
             this.options = {...this.options, ...options};
             this.id = options.id || this.options.id;
+
+            // remove json
+            this.el.removeAttribute(this.attributes.init);
         }
 
 
@@ -180,7 +183,7 @@
             this.mobileHeading = document.createElement('div');
             this.mobileHeading.classList.add(this.classes.mobileHeading);
             this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
-            <div>${this.title}</div>
+            <div>${this.options.title}</div>
             <button class="${this.classes.closeButton} mobile" ${this.attributes.toggle}>${this.closeButtonHTML}</button>
             </div>`;
             this.overflow.appendChild(this.mobileHeading);
@@ -189,11 +192,11 @@
             this.outer = this.wrap(this.overflow);
             this.outer.classList.add(this.classes.outer);
             if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-            if(this.hasMobileLayout) this.outer.classList.add(this.classes.hasMobileLayout);
+            if(this.options.hasMobileLayout) this.outer.classList.add(this.classes.hasMobileLayout);
             this.outer.setAttribute(this.attributes.id, this.id);
 
             // set theme
-            this.outer.setAttribute(this.attributes.theme, this.theme);
+            this.outer.setAttribute(this.attributes.theme, this.options.theme);
 
             // close when click outside of content
             this.outer.addEventListener('click', e => {
