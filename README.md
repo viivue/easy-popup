@@ -105,14 +105,11 @@ leads to popup closing when that element clicked.
 
 ```markdown
 # Run dev server
-
 npm run dev
 
 # Build dev site
-
 npm run build
 
 # Generate production files
-
 npm run prod
 ```
