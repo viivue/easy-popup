@@ -1,6 +1,7 @@
 // source script
 import '@/_index';
 import '@/_style.scss';
+import 'honcau';
 
 // public styles
 import '../public/style/fonts.css';
