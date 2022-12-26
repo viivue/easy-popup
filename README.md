@@ -103,46 +103,16 @@ leads to popup closing when that element clicked.
 
 ## Deployment
 
-### Dev server
+```markdown
+# Run dev server
 
-Run production server
-
-```shell
-npm run web
-```
-
-Run dev server
-
-```shell
 npm run dev
-```
 
-You can add more dev site by duplicate dev or web folder and update the npm scripts.
+# Build dev site
 
-### Generate production files
-
-Generate UMD and module version
-
-```shell
-npm run prod
-```
-
-Generate UMD and module version then publish NPM package
-
-```shell
-npm run publish
-```
-
-### Build sites
-
-Build production site
-
-```shell
 npm run build
-```
 
-Build dev site
+# Generate production files
 
-```shell
-npm run build-dev
+npm run prod
 ```
