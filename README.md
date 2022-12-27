@@ -1,6 +1,6 @@
-# Easy Popup v0.0.5
+# Easy Popup
 
-Super light-weight JavaScript library to create a simple popup with mobile layout.
+> Super light-weight JavaScript library to create a simple popup with mobile layout.
 
 ## Init
 
@@ -28,10 +28,15 @@ or
 
 ## Options
 
-Init with HTML attributes
+Init with HTML
 
 ```html
+<!-- Using data attribute with JSON Format (Recommended) -->
+<div data-easy-popup='{"id": "demo-1"}'>
+    <p>Your content.</p>
+</div>
 
+<!-- Using data attributes -->
 <div data-easy-popup="demo"
      data-easy-popup-mobile="true"
      data-easy-popup-title="Popup title"
@@ -80,7 +85,6 @@ Easy Popup. However, sometimes HTML that appends later via JS could lead to be t
 leads to popup closing when that element clicked.
 
 ```html
-
 <button class="easy-popup-ignore-click">My button</button>
 ```
 
@@ -88,7 +92,7 @@ leads to popup closing when that element clicked.
 
 ### theme:`right-side`
 
-![](public/img/easy-popup-theme-right-side.gif)
+![](public/images/easy-popup-theme-right-side.gif)
 
 ```html
 
@@ -99,14 +103,19 @@ leads to popup closing when that element clicked.
 
 ## Deployment
 
-Install gulp
-
 ```shell
-npm install
+# Run dev server
+npm run dev
+
+# Build dev site
+npm run build
+
+# Generate production files, update version (package.json, _style.scss, README.md)
+npm run prod
 ```
 
-And start a dev server
+## License
 
-```shell
-gulp serve
-```
+[MIT License](https://github.com/viivue/easy-popup/blob/main/LICENSE)
+
+Copyright (c) 2022 ViiVue

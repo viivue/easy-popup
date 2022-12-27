@@ -3,43 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Popup v0.0.5</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/easy-popup.css">
-    <style>
-        * {box-sizing:border-box;}
-        body {
-            background-color:#fff; color:#000; margin:0; min-height:100vh;
-            display:flex; align-items:center; justify-content:space-between; flex-direction:column;
-            font-family:"Nunito", sans-serif; font-size:18px;
-            line-height:1.5;
-        }
-        body:before {content:"";}
-        ::selection {
-            color:#fff;
-            background:cornflowerblue;
-        }
-        .container {
-            width:100%;
-            max-width:768px;
-            padding:0 20px;
-        }
-        a {color:cornflowerblue;}
-
-        footer {
-            padding:5vh 20px;
-            text-align:center;
-        }
-        footer a {text-decoration:none; display:inline-block;}
-    </style>
+    <title>Easy Popup</title>
 </head>
 <body>
 
 
 <div class="container">
-    <h1>Easy Popup v0.0.5</h1>
+    <h1 data-title="">Easy Popup</h1>
+    <p data-description></p>
+
     <p>Click here to <a href="#demo-1">open popup 1</a>.</p>
     <p>Or here
         <button data-easy-popup-toggle="demo-1">Open popup 1</button>
@@ -93,8 +65,29 @@
         iaculis. Inceptos pulvinar scelerisque duis facilisi elementum suscipit viverra ante velit litora. Viverra
         ornare urna mi fames bibendum enim nunc neque et nostra placerat.
     </p>
-    <div data-easy-popup="demo-1" data-easy-popup-title="Demo 1" data-easy-popup-theme="right-side"
-         data-easy-popup-click-outside-to-close="false">
+
+    <p>Click here to <a href="#demo-3">open popup 3</a>.</p>
+    <p>
+        Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
+        aliquam lorem maximus lectus pellentesque. Mauris lorem conubia tempus urna ullamcorper tempor eleifend
+        tortor
+        quisque fames aliquam. Eros nam eu pretium potenti donec litora dictum. Donec justo posuere venenatis duis
+        rhoncus habitasse quisque ridiculus vitae convallis. Fermentum dolor justo consectetur semper lacinia
+        dapibus
+        nisl integer eu ridiculus. At dignissim augue hendrerit mauris mattis eleifend diam dui scelerisque egestas
+        rhoncus.
+
+        Ipsum quam efficitur vivamus consectetuer dictumst tincidunt. Lacinia dignissim conubia dui facilisi dictum
+        semper nunc magnis nisi tortor non. Inceptos volutpat enim ultricies proin rhoncus vulputate dignissim
+        pulvinar
+        iaculis. Inceptos pulvinar scelerisque duis facilisi elementum suscipit viverra ante velit litora. Viverra
+        ornare urna mi fames bibendum enim nunc neque et nostra placerat.
+    </p>
+
+
+    <!--  Popup 1  -->
+    <div data-easy-popup='{"id": "demo-1", "title": "Demo 1", "theme":"right-side", "clickOutsideToClose": "true", "hasMobileLayout":"true"}'
+    >
         <h2>Demo 1</h2>
         <p>Click here to <a href="#demo-2">open popup 2</a>.</p>
         <p>
@@ -114,7 +107,10 @@
             ornare urna mi fames bibendum enim nunc neque et nostra placerat.
         </p>
     </div>
-    <div class="demo-2" data-easy-popup-mobile="true">
+
+
+    <!--  Popup 2  -->
+    <div class="demo-2">
         <h2>Demo 2</h2>
         <p>
             Ex vestibulum volutpat accumsan dictumst fusce. Tincidunt congue bibendum fermentum fusce pede tristique
@@ -126,6 +122,19 @@
             nisl integer eu ridiculus. At dignissim augue hendrerit mauris mattis eleifend diam dui scelerisque egestas
             rhoncus.
 
+            Ipsum quam efficitur vivamus consectetuer dictumst tincidunt. Lacinia dignissim conubia dui facilisi dictum
+            semper nunc magnis nisi tortor non. Inceptos volutpat enim ultricies proin rhoncus vulputate dignissim
+            pulvinar
+            iaculis. Inceptos pulvinar scelerisque duis facilisi elementum suscipit viverra ante velit litora. Viverra
+            ornare urna mi fames bibendum enim nunc neque et nostra placerat.
+        </p>
+    </div>
+
+
+    <!--  Popup 3  -->
+    <div data-easy-popup="demo-3" data-easy-popup-title="Demo 3" data-easy-popup-click-outside-to-close="true">
+        <h2>Demo 3</h2>
+        <p>
             Ipsum quam efficitur vivamus consectetuer dictumst tincidunt. Lacinia dignissim conubia dui facilisi dictum
             semper nunc magnis nisi tortor non. Inceptos volutpat enim ultricies proin rhoncus vulputate dignissim
             pulvinar
@@ -148,24 +157,5 @@
 
 </footer>
 
-<script src="src/easy-popup.js"></script>
-<script>
-    console.log(window.EasyPopupData)
-
-
-    EasyPopup.init('.demo-2', {
-        id: 'demo-2',
-        title: 'Demo 2',
-        triggerSelector: '.open-demo-2',
-        closeButtonHTML: '<span>Custom close button HTML</span>',
-        outerClass: 'outer-class-test',
-        theme: 'style-2'
-    });
-
-    EasyPopup.get('demo-1').open();
-
-
-    console.log(window.EasyPopupData)
-</script>
 </body>
 </html>
