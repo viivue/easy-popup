@@ -103,7 +103,7 @@ leads to popup closing when that element clicked.
 
 ## Deployment
 
-```markdown
+```shell
 # Run dev server
 npm run dev
 
@@ -113,3 +113,8 @@ npm run build
 # Generate production files
 npm run prod
 ```
+
+## Note
+
+You have to change the version of Easy Popup (_style.scss, README.md) when you develop something new! 
+
