@@ -1,4 +1,4 @@
-# Easy Popup v0.0.5
+# Easy Popup v0.0.6
 
 Super light-weight JavaScript library to create a simple popup with mobile layout.
 
@@ -85,7 +85,6 @@ Easy Popup. However, sometimes HTML that appends later via JS could lead to be t
 leads to popup closing when that element clicked.
 
 ```html
-
 <button class="easy-popup-ignore-click">My button</button>
 ```
 
@@ -93,7 +92,7 @@ leads to popup closing when that element clicked.
 
 ### theme:`right-side`
 
-![](public/img/easy-popup-theme-right-side.gif)
+![](public/images/easy-popup-theme-right-side.gif)
 
 ```html
 
@@ -104,14 +103,13 @@ leads to popup closing when that element clicked.
 
 ## Deployment
 
-Install gulp
-
 ```shell
-npm install
-```
+# Run dev server
+npm run dev
 
-And start a dev server
+# Build dev site
+npm run build
 
-```shell
-gulp serve
+# Generate production files, update version (package.json, _style.scss, README.md)
+npm run prod
 ```
