@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Popup v0.0.5</title>
+    <title>Easy Popup</title>
 </head>
 <body>
 
 
 <div class="container">
     <h1 data-title="">Easy Popup</h1>
+    <p data-description></p>
+
     <p>Click here to <a href="#demo-1">open popup 1</a>.</p>
     <p>Or here
         <button data-easy-popup-toggle="demo-1">Open popup 1</button>
@@ -84,7 +86,7 @@
 
 
     <!--  Popup 1  -->
-    <div data-easy-popup='{"id": "demo-1", "title": "Demo 1", "theme":"right-side", "clickOutsideToClose": "false", "hasMobileLayout":"true"}'
+    <div data-easy-popup='{"id": "demo-1", "title": "Demo 1", "theme":"right-side", "clickOutsideToClose": "true", "hasMobileLayout":"true"}'
     >
         <h2>Demo 1</h2>
         <p>Click here to <a href="#demo-2">open popup 2</a>.</p>
