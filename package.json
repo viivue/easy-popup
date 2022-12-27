@@ -27,7 +27,7 @@
     "sass:compressed": "sass src/_style.scss:dist/easy-popup.css --no-source-map",
     "optimize": "csso dist/easy-popup.css --output dist/easy-popup.min.css --stat",
     "output-css": "npm run sass:compressed && npm run optimize",
-    "prod": "webpack --config config/webpack.prod.js && cross-env TARGET=module webpack --config config/webpack.prod.js && npm run output-css",
+    "prod": "webpack --config config/webpack.prod.js && npm run output-css",
     "publish": "npm run prod & npm publish"
   },
   "devDependencies": {
