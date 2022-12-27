@@ -1,6 +1,6 @@
-# Easy Popup v0.0.6
+# Easy Popup
 
-Super light-weight JavaScript library to create a simple popup with mobile layout.
+> Super light-weight JavaScript library to create a simple popup with mobile layout.
 
 ## Init
 
@@ -28,20 +28,20 @@ or
 
 ## Options
 
-Init with HTML attributes
+Init with HTML
 
 ```html
-<!-- By using data attributes -->
+<!-- Using data attribute with JSON Format (Recommended) -->
+<div data-easy-popup='{"id": "demo-1"}'>
+    <p>Your content.</p>
+</div>
+
+<!-- Using data attributes -->
 <div data-easy-popup="demo"
      data-easy-popup-mobile="true"
      data-easy-popup-title="Popup title"
      data-easy-popup-theme="my-style"
      data-easy-popup-click-outside-to-close="false">
-    <p>Your content.</p>
-</div>
-
-<!-- Or using data attribute with JSON Format -->
-<div data-easy-popup='{"id": "demo-1"}'>
     <p>Your content.</p>
 </div>
 ```
@@ -113,3 +113,9 @@ npm run build
 # Generate production files, update version (package.json, _style.scss, README.md)
 npm run prod
 ```
+
+## License
+
+[MIT License](https://github.com/viivue/easy-popup/blob/main/LICENSE)
+
+Copyright (c) 2022 ViiVue
