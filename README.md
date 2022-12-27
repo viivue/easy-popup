@@ -110,11 +110,6 @@ npm run dev
 # Build dev site
 npm run build
 
-# Generate production files
+# Generate production files, update version (package.json, _style.scss, README.md)
 npm run prod
 ```
-
-## Note
-
-You have to change the version of Easy Popup (_style.scss, README.md) when you develop something new! 
-
