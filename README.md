@@ -111,7 +111,7 @@ npm run dev
 # Build dev site
 npm run build
 
-# Generate production files, update version (package.json, _style.scss, README.md)
+# Generate production files, update version (package.json, _style.scss)
 npm run prod
 ```
 
