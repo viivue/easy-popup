@@ -39,6 +39,9 @@ class Popup{
         this.innerHTML = this.el.innerHTML;
         this.isOpen = false;
 
+        // skip double init
+        if(this.el.classList.contains(this.classes.processed)) return;
+
         // options
         this.options = {
             ...{
@@ -229,6 +232,7 @@ class Popup{
 
         // open
         window.EasyPopupData.active = this.id;
+        console.log(this.outer)
         this.outer.classList.add(this.classes.open);
         this.isOpen = true;
         this.root.classList.add('easy-popup-open');
@@ -351,3 +355,6 @@ window.EasyPopup = {
     // Get instance object by ID
     get: id => window.EasyPopupData.get(id)
 };
+
+// init
+window.EasyPopup.init();
