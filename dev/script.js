@@ -34,5 +34,3 @@ EasyPopup.init('.demo-2', {
     outerClass: 'outer-class-test',
     theme: 'style-2'
 });
-
-EasyPopup.get('demo-1').open();

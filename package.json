@@ -3,7 +3,7 @@
   "outputFilename": "easy-popup",
   "prettyName": "Easy Popup",
   "codeName": "EasyPopup",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Super light-weight JavaScript library to create a simple popup with mobile layout.",
   "homepage": "https://github.com/viivue/easy-popup",
   "repository": {

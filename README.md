@@ -59,6 +59,7 @@ EasyPopup.init('.popup', {
     theme: 'default', // to create multiple themes
     clickOutsideToClose: true, // true by default
     keyboard: true, // to close the popup by keyboard (ESC)
+    autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
     onOpen: data => {
     },
     onClose: data => {
@@ -110,7 +111,7 @@ npm run dev
 # Build dev site
 npm run build
 
-# Generate production files, update version (package.json, _style.scss, README.md)
+# Generate production files, update version (package.json, _style.scss)
 npm run prod
 ```
 

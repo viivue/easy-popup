@@ -39,6 +39,9 @@ class Popup{
         this.innerHTML = this.el.innerHTML;
         this.isOpen = false;
 
+        // skip double init
+        if(this.el.classList.contains(this.classes.processed)) return;
+
         // options
         this.options = {
             ...{
@@ -53,6 +56,8 @@ class Popup{
                 keyboard: true, // option for closing the popup by keyboard (ESC)
 
                 clickOutsideToClose: true,
+
+                autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
 
                 onClose: () => {
                 },
@@ -87,6 +92,14 @@ class Popup{
                 this.toggle();
             });
         });
+
+        // auto show
+        if(this.options.autoShow !== false){
+            const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
+            setTimeout(() => {
+                this.open();
+            }, timeout);
+        }
     }
 
     isBooleanOptionTrue(attr, option){
@@ -95,6 +108,8 @@ class Popup{
     }
 
     getOptions(){
+        const numeric = ['autoShow']; // convert these props to float
+
         // options from attribute
         let dataAttribute = this.el.getAttribute(this.attributes.init);
         let options = {
@@ -114,12 +129,21 @@ class Popup{
         // option priority: attribute > js object > default
         options = {...options, ...JSON.parse(dataAttribute)};
 
-        // convert boolean string to real boolean
+
+        // convert
         for(const [key, value] of Object.entries(options)){
+            // convert boolean string to real boolean
             if(value === "false") options[key] = false;
             else if(value === "true") options[key] = true;
             else options[key] = value;
+
+            // convert string to float
+            if(numeric.includes(key) && typeof value === 'string'){
+                options[key] = parseFloat(value);
+            }
         }
+
+
         this.options = {...this.options, ...options};
         this.id = options.id || this.options.id;
 
@@ -351,3 +375,6 @@ window.EasyPopup = {
     // Get instance object by ID
     get: id => window.EasyPopupData.get(id)
 };
+
+// init
+window.EasyPopup.init();
