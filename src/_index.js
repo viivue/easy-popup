@@ -1,3 +1,5 @@
+import {getOptions} from "@/helpers";
+
 /**
  * Private class
  */
@@ -75,7 +77,7 @@ class Popup{
         this.options.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
 
         // get options from JSON init
-        this.getOptions();
+        getOptions(this);
 
         this.closeButtonHTML = this.options.closeButtonHTML;
         this.masterContainer = document.querySelector(`.${this.classes.master}`);
@@ -105,65 +107,6 @@ class Popup{
     isBooleanOptionTrue(attr, option){
         const attrValue = this.el.getAttribute(attr);
         return attrValue ? attrValue !== 'false' : option;
-    }
-
-    getOptions(){
-        const numeric = ['autoShow']; // convert these props to float
-
-        // options from attribute
-        let dataAttribute = this.el.getAttribute(this.attributes.init);
-        let options = {
-            id: this.options.id,
-            title: this.options.title,
-            theme: this.options.theme,
-            clickOutsideToClose: this.options.clickOutsideToClose,
-            hasMobileLayout: this.options.hasMobileLayout
-        };
-
-        // not JSON format or not exist -> string
-        if(!dataAttribute || !this.isJSON(dataAttribute)){
-            this.id = dataAttribute || this.options.id;
-            return;
-        }
-
-        // option priority: attribute > js object > default
-        options = {...options, ...JSON.parse(dataAttribute)};
-
-
-        // convert
-        for(const [key, value] of Object.entries(options)){
-            // convert boolean string to real boolean
-            if(value === "false") options[key] = false;
-            else if(value === "true") options[key] = true;
-            else options[key] = value;
-
-            // convert string to float
-            if(numeric.includes(key) && typeof value === 'string'){
-                options[key] = parseFloat(value);
-            }
-        }
-
-
-        this.options = {...this.options, ...options};
-        this.id = options.id || this.options.id;
-
-        // remove json
-        this.el.removeAttribute(this.attributes.init);
-    }
-
-
-    /**
-     * Is JSON string
-     * https://stackoverflow.com/a/32278428/6453822
-     * @param string
-     * @returns {any|boolean}
-     */
-    isJSON(string){
-        try{
-            return (JSON.parse(string) && !!string);
-        }catch(e){
-            return false;
-        }
     }
 
     generateHTML(){
