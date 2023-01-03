@@ -1,5 +1,6 @@
 /**
  * Get JSON options
+ * @version 0.0.1
  * @returns void
  */
 export function getOptions(context){
