@@ -77,7 +77,7 @@ class Popup{
         this.options.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
 
         // get options from JSON init
-        getOptions(this);
+        this.options = getOptions(this, this.options);
 
         this.closeButtonHTML = this.options.closeButtonHTML;
         this.masterContainer = document.querySelector(`.${this.classes.master}`);
