@@ -40,9 +40,6 @@ export function getOptions(context, defaultOptions){
 
     options = {...defaultOptions, ...options};
 
-    // remove json
-    wrapper.removeAttribute(context.attributes.init);
-
     return options;
 }
 
