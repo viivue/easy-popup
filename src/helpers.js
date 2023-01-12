@@ -21,10 +21,11 @@ export function getOptions(context, defaultOptions){
 
     // data attribute is not json format or string
     if(attributeIsNotJSON){
-        options = defaultOptions;
+        options = {...defaultOptions};
 
         // data attribute exist => string
         if(dataAttribute) options.id = dataAttribute;
+        else options.id = '';
     }else{
         options = JSON.parse(dataAttribute);
 
