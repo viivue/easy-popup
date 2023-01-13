@@ -1,4 +1,4 @@
-import {getOptions} from "@/helpers";
+import {getOptions} from "./helpers";
 
 /**
  * Private class
