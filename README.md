@@ -119,4 +119,4 @@ npm run prod
 
 [MIT License](https://github.com/viivue/easy-popup/blob/main/LICENSE)
 
-Copyright (c) 2022 ViiVue
+Copyright (c) 2023 ViiVue
