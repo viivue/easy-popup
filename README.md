@@ -9,7 +9,6 @@
 Setup HTML
 
 ```html
-
 <div data-easy-popup="demo">
     <p>Your content.</p>
 </div>
@@ -26,6 +25,17 @@ or
 ```html
 
 <button data-easy-popup-toggle="demo">Open popup</button>
+```
+
+Close opening popup with a button in popup body.
+
+```html
+<div data-easy-popup="demo">
+    <p>Your content.</p>
+    <p>
+        <a data-easy-popup-toggle>Close this popup</a>
+    </p>
+</div>
 ```
 
 ## Options
