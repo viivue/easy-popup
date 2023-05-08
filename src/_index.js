@@ -130,6 +130,7 @@ class Popup{
         this.closeButton.classList.add(this.classes.closeButton);
         this.closeButton.innerHTML = this.closeButtonHTML;
         this.closeButton.setAttribute(this.attributes.toggle, '');
+        this.closeButton.setAttribute('aria-label', `Close popup ${this.options.title}`);
         this.closeButton.addEventListener('click', () => this.close());
         this.inner.appendChild(this.closeButton);
 
