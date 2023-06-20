@@ -1,4 +1,5 @@
 import {getOptions} from "./helpers";
+import {saveAndReturnPiaStatus} from "./piajs";
 
 /**
  * Private class
@@ -61,6 +62,8 @@ class Popup{
 
                 autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
 
+                piajs: false, // piajs library for showing popup with cookies only
+
                 onClose: () => {
                 },
                 onOpen: () => {
@@ -97,10 +100,19 @@ class Popup{
 
         // auto show
         if(this.options.autoShow !== false){
-            const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
-            setTimeout(() => {
-                this.open();
-            }, timeout);
+            let hasPiajsCookie = false;
+
+            // check piajs status
+            if(typeof Pia !== 'undefined' && this.options.piajs){
+                hasPiajsCookie = saveAndReturnPiaStatus(this, this.options.piajs);
+            }
+
+            if(!hasPiajsCookie){
+                const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
+                setTimeout(() => {
+                    this.open();
+                }, timeout);
+            }
         }
     }
 
