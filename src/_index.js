@@ -1,4 +1,4 @@
-import {getOptions} from "./helpers";
+import {getOptions, isEmptyObject} from "./helpers";
 import Cookie from "./cookie";
 
 /**
@@ -103,7 +103,7 @@ class Popup{
 
         // auto show
         if(this.options.autoShow !== false){
-            let isShowingPopup = this.cookie ? !this.cookie.isCookieExist() : true;
+            let isShowingPopup = !isEmptyObject(this.cookie) ? !this.cookie.isCookieExist() : true;
 
             if(isShowingPopup){
                 const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
@@ -111,7 +111,7 @@ class Popup{
                     this.open();
 
                     // set new cookie
-                    if(this.cookie){
+                    if(!isEmptyObject(this.cookie)){
                         this.cookie.setStatus(true);
                     }
                 }, timeout);

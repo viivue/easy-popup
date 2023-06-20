@@ -63,3 +63,13 @@ export function isJSON(string){
         return false;
     }
 }
+
+
+/**
+ * Is Empty Object
+ * @param object
+ * @returns boolean
+ */
+export function isEmptyObject(object){
+    return Object.keys(object).length === 0;
+}
