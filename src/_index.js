@@ -62,7 +62,7 @@ class Popup{
 
                 autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
 
-                cookie: false, // cookie for showing/hiding the popup
+                cookie: undefined, // accept string (session) or number (>= 0)
 
                 onClose: () => {
                 },
@@ -103,12 +103,17 @@ class Popup{
 
         // auto show
         if(this.options.autoShow !== false){
-            let isShowingPopup = this.cookie.isCookieExist();
+            let isShowingPopup = this.cookie ? !this.cookie.isCookieExist() : true;
 
             if(isShowingPopup){
                 const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
                 setTimeout(() => {
                     this.open();
+
+                    // set new cookie
+                    if(this.cookie){
+                        this.cookie.setStatus(true);
+                    }
                 }, timeout);
             }
         }

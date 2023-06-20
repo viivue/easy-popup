@@ -1,37 +1,35 @@
 class Cookie{
     constructor(context){
-        this.storage = typeof Pia !== 'undefined' ? Pia : undefined;
-
         // validate the storage (PiaJS)
-        if(typeof this.storage === 'undefined' || !context.options.cookie){
-            return false;
+        if(typeof typeof Pia === 'undefined'){
+            console.warn(`Pia doesn't exist!!!`);
+            return {};
         }
         this.id = context.id;
-        this.expires = context.options.cookie;
 
         // validate expires
-        this.validateExpires();
+        this.expires = this.validateExpires(context.options.cookie);
+        if(!this.expires){
+            console.warn(`Invalid expires object!`, context.options.cookie);
+            return {};
+        }
     }
 
-    validateExpires(){
+    validateExpires(expires){
         // string value
-        if(typeof this.expires === 'string' && isNaN(this.expires)){
-            const availableCookieTypes = ['session'];
-            const result = availableCookieTypes.find(type => type === this.expires);
-
-            if(result) this.expires = result;
-            else this.expires = false;
+        if(typeof expires === 'string' && isNaN(expires)){
+            return expires === 'session' ? expires : undefined;
         }
 
         // numeric value
         if(
             typeof this.expires === 'number' ||
-            (typeof this.expires === 'string' && !isNaN(this.expires))
+            (typeof this.expires === 'string' && !isNaN(expires))
         ){
-            const cookieValue = parseInt(this.expires);
+            const cookieValue = parseInt(expires);
 
-            if(cookieValue < 0) this.expires = false;
-            else this.expires = cookieValue;
+            if(cookieValue < 0) return undefined;
+            return cookieValue;
         }
     }
 
@@ -39,23 +37,16 @@ class Cookie{
         if(this.expires === false) return false;
 
         // get record
-        const status = this.getStatus();
-
-        // register new cookie
-        if(!status){
-            this.setStatus(true);
-        }
-
-        return !status;
+        return Boolean(this.getStatus());
     }
 
     getStatus(key = this.id){
-        return this.storage.get(key);
+        return Pia.get(key);
     }
 
     setStatus(status){
         // save the new record
-        this.storage.set(this.id, true, this.expires);
+        Pia.set(this.id, status, this.expires);
     }
 }
 
