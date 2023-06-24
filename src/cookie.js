@@ -11,7 +11,7 @@ class Cookie{
         this.expires = this.validateExpires(context.options.cookie);
         if(!this.expires){
             console.warn(`Invalid expires object!`, context.options.cookie);
-            return {};
+            return null;
         }
     }
 
