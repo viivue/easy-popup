@@ -1,5 +1,5 @@
 import {getOptions} from "./helpers";
-import Cookie from "./cookie";
+import PiaEasyPopup from "./pia-easy-popup";
 
 /**
  * Private class
@@ -62,7 +62,7 @@ class Popup{
 
                 autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
 
-                cookie: undefined, // accept string (session) or number (>= 0)
+                pia: undefined, // accept string (session) or number (>= 0)
 
                 onClose: () => {
                 },
@@ -83,7 +83,7 @@ class Popup{
         this.options = getOptions(this, this.options);
 
         // cookie
-        this.cookie = new Cookie(this);
+        this.pia = new PiaEasyPopup(this);
 
         this.closeButtonHTML = this.options.closeButtonHTML;
         this.masterContainer = document.querySelector(`.${this.classes.master}`);
@@ -103,16 +103,15 @@ class Popup{
 
         // auto show
         if(this.options.autoShow !== false){
-            let isShowingPopup = this.cookie ? !this.cookie.isCookieExist() : true;
+            // if Pia exists, check showing status from Pia
+            // otherwise, always open popup
+            const isShowingPopup = this.pia ? this.pia.isShow() : true;
 
             if(isShowingPopup){
+                // default auto show duration is 1000ms
+                // or set specifically by a number
                 const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
-                setTimeout(() => {
-                    this.open();
-
-                    // set new cookie
-                    this.cookie?.setStatus(true);
-                }, timeout);
+                setTimeout(() => this.open(), timeout);
             }
         }
     }
@@ -217,6 +216,9 @@ class Popup{
         // prevent scroll > on
         this.root.style.paddingRight = `${this.getScrollbarWidth()}px`;
         this.root.style.overflow = `hidden`;
+
+        // let Pia know that the popup was just opened
+        this.pia?.onPopupOpen();
 
         // event
         if(typeof this.options.onOpen === 'function') this.options.onOpen(this);
