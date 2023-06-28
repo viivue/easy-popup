@@ -63,6 +63,7 @@ class Popup{
                 autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
 
                 cookie: undefined, // use PiaJs `expires`, see https://github.com/phucbm/pia#set-expires
+                showingTimes: 1, // show n times before expiration day, only works with cookie
 
                 onClose: () => {
                 },
