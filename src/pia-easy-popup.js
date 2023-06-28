@@ -1,7 +1,11 @@
 class PiaEasyPopup{
     constructor(context){
-        // validate the storage (PiaJS)
-        if(typeof typeof Pia === 'undefined'){
+        // check if pia option is using
+        const piaValue = context.options.pia;
+        if(!piaValue) return null; // skip if not in use
+
+        // check if Pia is exists
+        if(typeof Pia === 'undefined'){
             console.warn(`PiaJs not found.`);
             return null;
         }
@@ -10,15 +14,15 @@ class PiaEasyPopup{
         this.key = context.id;
 
         // validate expires
-        this.piaOptions = context.options.pia;
+        this.piaOptions = {expires: piaValue};
 
         // set cookie if is not exists and,
         // if cookie options are using
-        if(!this.getVal() && this.piaOptions){
+        if(this.getVal() === null && piaValue){
             // when cookie is still exists, the popup will keep showing for n times
             // by default, popup will show once
             // save directly to Pia to avoid mismatched values
-            this.setVal(1);
+            this.setVal(1); // todo: allow to set n times
         }
         // otherwise, do nothing
     }
@@ -40,11 +44,6 @@ class PiaEasyPopup{
             // update
             this.updateVal(val - 1);
         }
-    }
-
-    // run everytime the popup closes
-    onPopupClose(){
-
     }
 
     getVal(){
