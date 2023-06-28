@@ -72,6 +72,7 @@ EasyPopup.init('.popup', {
     clickOutsideToClose: true, // true by default
     keyboard: true, // to close the popup by keyboard (ESC)
     autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
+    cookie: undefined, // use PiaJs `expires`, see https://github.com/phucbm/pia#set-expires
     onOpen: data => {
     },
     onClose: data => {

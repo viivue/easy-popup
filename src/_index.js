@@ -62,7 +62,7 @@ class Popup{
 
                 autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
 
-                pia: undefined, // accept string (session) or number (>= 0)
+                cookie: undefined, // use PiaJs `expires`, see https://github.com/phucbm/pia#set-expires
 
                 onClose: () => {
                 },
@@ -83,7 +83,7 @@ class Popup{
         this.options = getOptions(this, this.options);
 
         // cookie
-        this.pia = new PiaEasyPopup(this);
+        this.cookie = new PiaEasyPopup(this);
 
         this.closeButtonHTML = this.options.closeButtonHTML;
         this.masterContainer = document.querySelector(`.${this.classes.master}`);
@@ -105,7 +105,7 @@ class Popup{
         if(this.options.autoShow !== false){
             // if Pia exists, check showing status from Pia
             // otherwise, always open popup
-            const isShowingPopup = this.pia ? this.pia.isShow() : true;
+            const isShowingPopup = this.cookie ? this.cookie.isShow() : true;
 
             if(isShowingPopup){
                 // default auto show duration is 1000ms
@@ -218,7 +218,7 @@ class Popup{
         this.root.style.overflow = `hidden`;
 
         // let Pia know that the popup was just opened
-        this.pia?.onPopupOpen();
+        this.cookie?.onPopupOpen();
 
         // event
         if(typeof this.options.onOpen === 'function') this.options.onOpen(this);
