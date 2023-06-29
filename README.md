@@ -76,6 +76,8 @@ EasyPopup.init('.popup', {
     // cookie
     cookie: undefined, // use PiaJs `expires`, see https://github.com/phucbm/pia#set-expires
     showingTimes: 1, // show n times before expiration day, only works with cookie
+    // optional, change name will also lose access to the previous cookie => create a new cookie
+    cookieName: '',
 
     // events
     onOpen: data => {

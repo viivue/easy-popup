@@ -1,3 +1,5 @@
+import {stringToSlug} from "./utils";
+
 class PiaEasyPopup{
     constructor(context){
         // check if pia option is using
@@ -11,7 +13,9 @@ class PiaEasyPopup{
         }
 
         // use popup id as key for Pia
-        this.key = context.id;
+        let cookieName = context.options.cookieName;
+        cookieName = typeof cookieName === 'string' && cookieName.length > 0 ? cookieName : context.id;
+        this.key = 'easy-popup-' + stringToSlug(cookieName);
 
         // validate expires
         this.piaOptions = {expires: piaValue};

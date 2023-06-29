@@ -64,6 +64,7 @@ class Popup{
 
                 cookie: undefined, // use PiaJs `expires`, see https://github.com/phucbm/pia#set-expires
                 showingTimes: 1, // show n times before expiration day, only works with cookie
+                cookieName: '', // name of the cookie, change name will also lose access to the previous cookie => treat as a new cookie
 
                 onClose: () => {
                 },
