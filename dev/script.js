@@ -1,4 +1,6 @@
 // source script
+//import "piajs";
+import './pia.module.js';
 import '@/_index';
 import '@/_style.scss';
 import 'honcau';
