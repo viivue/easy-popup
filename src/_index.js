@@ -1,4 +1,5 @@
 import {getOptions} from "./helpers";
+import PiaEasyPopup from "./pia-easy-popup";
 
 /**
  * Private class
@@ -61,6 +62,10 @@ class Popup{
 
                 autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
 
+                cookie: undefined, // use PiaJs `expires`, see https://github.com/phucbm/pia#set-expires
+                showingTimes: 1, // show n times before expiration day, only works with cookie
+                cookieName: '', // name of the cookie, change name will also lose access to the previous cookie => treat as a new cookie
+
                 onClose: () => {
                 },
                 onOpen: () => {
@@ -78,6 +83,9 @@ class Popup{
 
         // get options from JSON init
         this.options = getOptions(this, this.options);
+
+        // cookie
+        this.cookie = new PiaEasyPopup(this);
 
         this.closeButtonHTML = this.options.closeButtonHTML;
         this.masterContainer = document.querySelector(`.${this.classes.master}`);
@@ -97,10 +105,16 @@ class Popup{
 
         // auto show
         if(this.options.autoShow !== false){
-            const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
-            setTimeout(() => {
-                this.open();
-            }, timeout);
+            // if Pia exists, check showing status from Pia
+            // otherwise, always open popup
+            const isShowingPopup = this.cookie ? this.cookie.isShow() : true;
+
+            if(isShowingPopup){
+                // default auto show duration is 1000ms
+                // or set specifically by a number
+                const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
+                setTimeout(() => this.open(), timeout);
+            }
         }
     }
 
@@ -204,6 +218,9 @@ class Popup{
         // prevent scroll > on
         this.root.style.paddingRight = `${this.getScrollbarWidth()}px`;
         this.root.style.overflow = `hidden`;
+
+        // let Pia know that the popup was just opened
+        this.cookie?.onPopupOpen();
 
         // event
         if(typeof this.options.onOpen === 'function') this.options.onOpen(this);

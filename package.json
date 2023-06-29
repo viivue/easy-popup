@@ -3,8 +3,8 @@
   "outputFilename": "easy-popup",
   "prettyName": "Easy Popup",
   "codeName": "EasyPopup",
-  "version": "0.0.9",
-  "description": "Super light-weight JavaScript library to create a simple popup with mobile layout.",
+  "version": "0.1.0",
+  "description": "Super light-weight JavaScript library to create a simple popup",
   "homepage": "https://github.com/viivue/easy-popup",
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
   "keywords": [
     "phucbm",
     "javascript",
+    "popup",
+    "viivue",
     "es6"
   ],
   "main": "./dist/easy-popup.module.js",
@@ -46,6 +48,7 @@
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.4.2",
+    "piajs": "^0.0.3",
     "postcss-loader": "^6.2.0",
     "postcss-preset-env": "^6.7.0",
     "sass": "^1.43.5",
