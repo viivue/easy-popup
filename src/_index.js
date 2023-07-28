@@ -85,7 +85,7 @@ class Popup{
         this.options = getOptions(this, this.options);
 
         // cookie
-        this.cookie = new PiaEasyPopup(this);
+        this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
 
         this.closeButtonHTML = this.options.closeButtonHTML;
         this.masterContainer = document.querySelector(`.${this.classes.master}`);
