@@ -1,6 +1,7 @@
 import {getOptions} from "./helpers";
 import PiaEasyPopup from "./pia-easy-popup";
 import {CLASSES, ATTRS} from "./configs"
+
 /**
  * Private class
  */
