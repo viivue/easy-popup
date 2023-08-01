@@ -1,4 +1,4 @@
-import {ATTRS} from '@/configs'
+import {ATTRS} from './configs'
 /**
  * Get JSON options
  * ID priority: data-attribute > selector#id > unique id
