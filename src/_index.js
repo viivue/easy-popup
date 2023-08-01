@@ -2,6 +2,7 @@ import {getOptions} from "./helpers";
 import PiaEasyPopup from "./pia-easy-popup";
 import {EventsManager} from '@phucbm/os-util'
 import {DEFAULTS} from "./configs"
+
 /**
  * Private class
  */
@@ -52,7 +53,7 @@ class Popup{
         });
 
         // options
-        this.options = { ...DEFAULTS, ...options };
+        this.options = {...DEFAULTS, ...options};
 
         // get string options from attribute and js init
         this.options.title = this.el.getAttribute(this.attributes.title) || this.options.title;
