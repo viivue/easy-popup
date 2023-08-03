@@ -1,3 +1,5 @@
+import {ATTRS} from './configs'
+
 /**
  * Get JSON options
  * ID priority: data-attribute > selector#id > unique id
@@ -13,7 +15,7 @@ export function getOptions(context, defaultOptions){
     const wrapper = context.el;
 
     // options from attribute
-    let dataAttribute = wrapper.getAttribute(context.attributes.init);
+    let dataAttribute = wrapper.getAttribute(ATTRS.init);
     let options = {};
 
     // data attribute doesn't exist or not JSON format -> string

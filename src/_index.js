@@ -1,6 +1,7 @@
 import {getOptions} from "./helpers";
 import PiaEasyPopup from "./pia-easy-popup";
-import {EventsManager} from '@phucbm/os-util'
+import {CLASSES, ATTRS, DEFAULTS} from "./configs"
+
 
 /**
  * Private class
@@ -15,36 +16,11 @@ class Popup{
         this.root = document.querySelector(':root');
         this.el = el;
         this.selector = 'data-easy-popup';
-        this.attributes = {
-            id: `${this.selector}-id`,
-            title: `${this.selector}-title`,
-            toggle: `${this.selector}-toggle`,
-            mobileLayout: `${this.selector}-mobile`,
-            theme: `${this.selector}-theme`,
-            clickOutsideToClose: `${this.selector}-click-outside-to-close`,
-            init: 'data-easy-popup'
-        };
-        this.classes = {
-            master: 'easy-popup-master',
-            processed: 'easy-popup-enabled',
-            triggerEnabled: 'easy-popup-trigger-enabled',
-            content: 'easy-popup-content',
-            outer: 'easy-popup',
-            inner: 'easy-popup-inner',
-            center: 'easy-popup-center',
-            overflow: 'easy-popup-overflow',
-            container: 'easy-popup-container',
-            open: 'open',
-            closeButton: 'easy-popup-close-button',
-            mobileHeading: 'easy-popup-mobile-heading',
-            hasMobileLayout: 'easy-popup-has-mobile-layout',
-            ignoreClick: 'easy-popup-ignore-click',
-        };
         this.innerHTML = this.el.innerHTML;
         this.isOpen = false;
 
         // skip double init
-        if(this.el.classList.contains(this.classes.processed)) return;
+        if(this.el.classList.contains(CLASSES.processed)) return;
 
         // init events manager
         this.events = new EventsManager(this, {
@@ -52,40 +28,16 @@ class Popup{
         });
 
         // options
-        this.options = {
-            ...{
-                id: this.uniqueId('easy-popup-'),
-                outerClass: '',
-                title: '',
-                closeButtonHTML: `<span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span>`,
-                triggerSelector: '',
-                hasMobileLayout: false, // has mobile layout, false by default
-                theme: 'default',
+        this.options = {...DEFAULTS, ...options};
 
-                keyboard: true, // option for closing the popup by keyboard (ESC)
-
-                clickOutsideToClose: true,
-
-                autoShow: false, // boolean or number, e.g. 1000 for 1000ms after init
-
-                cookie: undefined, // use PiaJs `expires`, see https://github.com/phucbm/pia#set-expires
-                showingTimes: 1, // show n times before expiration day, only works with cookie
-                cookieName: '', // name of the cookie, change name will also lose access to the previous cookie => treat as a new cookie
-
-                onClose: () => {
-                },
-                onOpen: () => {
-                }
-            }, ...options
-        };
 
         // get string options from attribute and js init
-        this.options.title = this.el.getAttribute(this.attributes.title) || this.options.title;
-        this.options.theme = this.el.getAttribute(this.attributes.theme) || this.options.theme;
+        this.options.title = this.el.getAttribute(ATTRS.title) || this.options.title;
+        this.options.theme = this.el.getAttribute(ATTRS.theme) || this.options.theme;
 
         // get boolean options from attribute and js init
-        this.options.clickOutsideToClose = this.isBooleanOptionTrue(this.attributes.clickOutsideToClose, this.options.clickOutsideToClose);
-        this.options.hasMobileLayout = this.isBooleanOptionTrue(this.attributes.mobileLayout, this.options.hasMobileLayout);
+        this.options.clickOutsideToClose = this.isBooleanOptionTrue(ATTRS.clickOutsideToClose, this.options.clickOutsideToClose);
+        this.options.hasMobileLayout = this.isBooleanOptionTrue(ATTRS.mobileLayout, this.options.hasMobileLayout);
 
         // get options from JSON init
         this.options = getOptions(this, this.options);
@@ -94,15 +46,15 @@ class Popup{
         this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
 
         this.closeButtonHTML = this.options.closeButtonHTML;
-        this.masterContainer = document.querySelector(`.${this.classes.master}`);
+        this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
         this.generateHTML();
 
         // assign triggers via a[href="#id"], [toggle="id"]
-        let triggerSelector = `a[href="#${this.id}"], [${this.attributes.toggle}="${this.id}"]`;
+        let triggerSelector = `a[href="#${this.id}"], [${ATTRS.toggle}="${this.id}"]`;
         triggerSelector = this.options.triggerSelector ? `${this.options.triggerSelector}, ${triggerSelector}` : triggerSelector;
         document.querySelectorAll(triggerSelector).forEach(trigger => {
-            trigger.classList.add(this.classes.triggerEnabled);
+            trigger.classList.add(CLASSES.triggerEnabled);
             trigger.addEventListener('click', e => {
                 e.preventDefault();
                 this.toggle();
@@ -141,59 +93,59 @@ class Popup{
 
     generateHTML(){
         // check flag
-        if(this.el.classList.contains(this.classes.processed)) return;
+        if(this.el.classList.contains(CLASSES.processed)) return;
 
         // relocate HTML to body tag
         if(!this.masterContainer){
             this.masterContainer = document.createElement('div');
-            this.masterContainer.classList.add(this.classes.master);
+            this.masterContainer.classList.add(CLASSES.master);
         }
         document.querySelector('body').appendChild(this.masterContainer);
         this.masterContainer.appendChild(this.el);
 
         // inner
         this.inner = this.wrap(this.el);
-        this.inner.classList.add(this.classes.inner);
+        this.inner.classList.add(CLASSES.inner);
 
         // add inner close button
         this.closeButton = document.createElement('button');
-        this.closeButton.classList.add(this.classes.closeButton);
+        this.closeButton.classList.add(CLASSES.closeButton);
         this.closeButton.innerHTML = this.closeButtonHTML;
-        this.closeButton.setAttribute(this.attributes.toggle, '');
+        this.closeButton.setAttribute(ATTRS.toggle, '');
         this.closeButton.setAttribute('aria-label', `Close popup ${this.options.title}`);
         this.closeButton.addEventListener('click', () => this.close());
         this.inner.appendChild(this.closeButton);
 
         // container
         this.container = this.wrap(this.inner);
-        this.container.classList.add(this.classes.container);
+        this.container.classList.add(CLASSES.container);
 
         // overflow
         this.overflow = this.wrap(this.container);
-        this.overflow.classList.add(this.classes.overflow);
+        this.overflow.classList.add(CLASSES.overflow);
 
         // overflow > mobile heading
         this.mobileHeading = document.createElement('div');
-        this.mobileHeading.classList.add(this.classes.mobileHeading);
+        this.mobileHeading.classList.add(CLASSES.mobileHeading);
         this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
             <div>${this.options.title}</div>
-            <button class="${this.classes.closeButton} mobile" ${this.attributes.toggle}>${this.closeButtonHTML}</button>
+            <button class="${CLASSES.closeButton} mobile" ${ATTRS.toggle}>${this.closeButtonHTML}</button>
             </div>`;
         this.overflow.appendChild(this.mobileHeading);
 
         // outer
         this.outer = this.wrap(this.overflow);
-        this.outer.classList.add(this.classes.outer);
+        this.outer.classList.add(CLASSES.outer);
         if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-        if(this.options.hasMobileLayout) this.outer.classList.add(this.classes.hasMobileLayout);
-        this.outer.setAttribute(this.attributes.id, this.id);
+        if(this.options.hasMobileLayout) this.outer.classList.add(CLASSES.hasMobileLayout);
+        this.outer.setAttribute(ATTRS.id, this.id);
 
         // set theme
-        this.outer.setAttribute(this.attributes.theme, this.options.theme);
+        this.outer.setAttribute(ATTRS.theme, this.options.theme);
 
         // close when click outside of content
         this.outer.addEventListener('click', e => {
-            if(e.target.classList.contains(this.classes.ignoreClick)) return;
+            if(e.target.classList.contains(CLASSES.ignoreClick)) return;
             if(this.isClickOutsideContent(e) && this.options.clickOutsideToClose) this.close();
         });
 
@@ -212,7 +164,7 @@ class Popup{
         }
 
         // done init
-        this.el.classList.add(this.classes.processed, this.classes.content);
+        this.el.classList.add(CLASSES.processed, CLASSES.content);
     }
 
     isClickOutsideContent(event){
@@ -227,7 +179,7 @@ class Popup{
 
         // open
         window.EasyPopupData.active = this.id;
-        this.outer.classList.add(this.classes.open);
+        this.outer.classList.add(CLASSES.open);
         this.isOpen = true;
         this.root.classList.add('easy-popup-open');
 
@@ -245,7 +197,7 @@ class Popup{
     close(){
         // close
         window.EasyPopupData.active = '';
-        this.outer.classList.remove(this.classes.open);
+        this.outer.classList.remove(CLASSES.open);
         this.isOpen = false;
         this.root.classList.remove('easy-popup-open');
 
@@ -302,14 +254,6 @@ class Popup{
         outer.parentNode.removeChild(outer);
 
         return scrollbarWidth;
-    }
-
-    /**
-     * Generate unique ID
-     */
-    uniqueId(prefix = ''){
-        return prefix + (+new Date()).toString(16) +
-            (Math.random() * 100000000 | 0).toString(16);
     }
 }
 
