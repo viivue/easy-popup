@@ -22,7 +22,7 @@ class Popup{
         if(this.el.classList.contains(CLASSES.processed)) return;
 
         // options
-        this.options = { ...DEFAULTS, ...options };
+        this.options = {...DEFAULTS, ...options};
 
 
         // get string options from attribute and js init

@@ -14,6 +14,7 @@ export function stringToSlug(string){
         .replace(/[^\w ]+/g, '')
         .replace(/ +/g, '-');
 }
+
 /**
  * Generate unique ID
  */
