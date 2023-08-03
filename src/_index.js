@@ -2,6 +2,7 @@ import {getOptions} from "./helpers";
 import PiaEasyPopup from "./pia-easy-popup";
 import {CLASSES, ATTRS, DEFAULTS} from "./configs"
 
+
 /**
  * Private class
  */
@@ -20,6 +21,11 @@ class Popup{
 
         // skip double init
         if(this.el.classList.contains(CLASSES.processed)) return;
+
+        // init events manager
+        this.events = new EventsManager(this, {
+            names: ['onClose', 'onOpen']
+        });
 
         // options
         this.options = {...DEFAULTS, ...options};
@@ -68,6 +74,16 @@ class Popup{
                 setTimeout(() => this.open(), timeout);
             }
         }
+    }
+
+    /******************************
+     * EVENTS
+     ******************************/
+    /**
+     * Assign late-events
+     */
+    on(eventName, callback){
+        this.events.add(eventName, callback);
     }
 
     isBooleanOptionTrue(attr, option){
@@ -175,7 +191,7 @@ class Popup{
         this.cookie?.onPopupOpen();
 
         // event
-        if(typeof this.options.onOpen === 'function') this.options.onOpen(this);
+        this.events.fire('onOpen');
     }
 
     close(){
@@ -194,7 +210,7 @@ class Popup{
             }
 
             // event
-            if(typeof this.options.onClose === 'function') this.options.onClose(this);
+            this.events.fire('onClose');
         }, 300);
     }
 

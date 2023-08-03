@@ -113,6 +113,9 @@ const myPopup = EasyPopup.get('popup-id');
 myPopup.open();
 myPopup.close();
 myPopup.toggle();
+myPopup.on("open", () => {
+    // do something...
+});
 ```
 
 ### Ignore click
