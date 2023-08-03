@@ -124,6 +124,16 @@ class Popup{
         }
     }
 
+    /******************************
+     * EVENTS
+     ******************************/
+    /**
+     * Assign late-events
+     */
+    on(eventName, callback){
+        this.events.add(eventName, callback);
+    }
+
     isBooleanOptionTrue(attr, option){
         const attrValue = this.el.getAttribute(attr);
         return attrValue ? attrValue !== 'false' : option;
