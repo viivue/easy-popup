@@ -1,7 +1,7 @@
 import {getOptions} from "./helpers";
 import PiaEasyPopup from "./pia-easy-popup";
 import {CLASSES, ATTRS, DEFAULTS} from "./configs"
-
+import {EventsManager} from '@phucbm/os-util';
 
 /**
  * Private class
@@ -286,11 +286,11 @@ window.EasyPopupData = new PopupController();
 
 /**
  * Public library object
- * access via window.Wellii
+ * access via window.EasyPopupData
  */
 window.EasyPopup = {
     // init new instances
-    init: (selector = '[data-easy-popup]', options = {}) => {
+    init: (selector = `[${ATTRS.init}]`, options = {}) => {
         document.querySelectorAll(selector).forEach(el => window.EasyPopupData.add(new Popup(el, options)));
     },
     // Get instance object by ID

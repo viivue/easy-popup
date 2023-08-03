@@ -15,8 +15,8 @@ Using CDN:
 
 ```html
 <!-- Easy Popup -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/viivue/easy-popup@0.1.1/dist/easy-popup.min.css">
-<script src="https://cdn.jsdelivr.net/gh/viivue/easy-popup@0.1.1/dist/easy-popup.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/viivue/easy-popup@0.2.0/dist/easy-popup.min.css">
+<script src="https://cdn.jsdelivr.net/gh/viivue/easy-popup@0.2.0/dist/easy-popup.min.js"></script>
 ```
 
 ### Init
