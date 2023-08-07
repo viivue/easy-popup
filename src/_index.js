@@ -1,7 +1,6 @@
-import {getOptions} from "./helpers";
 import PiaEasyPopup from "./pia-easy-popup";
 import {CLASSES, ATTRS, DEFAULTS} from "./configs"
-import {EventsManager} from '@phucbm/os-util';
+import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 
 /**
  * Private class
@@ -40,7 +39,20 @@ class Popup{
         this.options.hasMobileLayout = this.isBooleanOptionTrue(ATTRS.mobileLayout, this.options.hasMobileLayout);
 
         // get options from JSON init
-        this.options = getOptions(this, this.options);
+        this.id = options.id || this.el.id || DEFAULTS.id;
+
+        this.options = getOptionsFromAttribute(
+            {
+                target: this.el,
+                attributeName: ATTRS.init,
+                defaultOptions: {...this.options, id: this.id},
+                numericValues: ['autoShow'],
+                onIsString: (options) => {
+                    // data attribute exist => string
+                    if(this.el.getAttribute(ATTRS.init)) this.id = this.el.getAttribute(ATTRS.init);
+                    else this.id = '';
+                }
+            });
 
         // cookie
         this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
