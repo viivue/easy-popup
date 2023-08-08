@@ -38,7 +38,7 @@ class Popup{
                 defaultOptions: DEFAULTS,
                 numericValues: ['autoShow', 'showingTimes'],
                 onIsString: dataAttribute => {
-                    // data attribute exist => string
+                    // override id options if dataAttribute is string
                     if(dataAttribute) idFromAttributeString = dataAttribute;
                 }
             });
@@ -47,10 +47,10 @@ class Popup{
             this.options.id = idFromAttributeString;
         }
 
-        // get options id from init script
+        // override with options from init by JS
         this.options = {...this.options, ...options};
 
-        // instance get id
+        // save id from options
         this.id = this.options.id;
 
         // get string options from attribute and js init
