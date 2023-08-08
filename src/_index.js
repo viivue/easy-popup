@@ -39,9 +39,7 @@ class Popup{
                 numericValues: ['autoShow', 'showingTimes'],
                 onIsString: dataAttribute => {
                     // data attribute exist => string
-                    if(dataAttribute){
-                        idFromAttributeString = dataAttribute;
-                    }
+                    if(dataAttribute) idFromAttributeString = dataAttribute;
                 }
             });
 
