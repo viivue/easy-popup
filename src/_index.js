@@ -36,7 +36,7 @@ class Popup{
                 target: this.el,
                 attributeName: ATTRS.init,
                 defaultOptions: DEFAULTS,
-                numericValues: ['autoShow'],
+                numericValues: ['autoShow', 'showingTimes'],
                 onIsString: dataAttribute => {
                     // data attribute exist => string
                     if(dataAttribute){
