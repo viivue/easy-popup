@@ -1,7 +1,6 @@
-import {getOptions} from "./helpers";
 import PiaEasyPopup from "./pia-easy-popup";
-import {CLASSES, ATTRS, DEFAULTS} from "./configs"
-import {EventsManager} from '@phucbm/os-util';
+import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
+import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 
 /**
  * Private class
@@ -28,8 +27,31 @@ class Popup{
         });
 
         // options
-        this.options = {...DEFAULTS, ...options};
+        this.options = {...DEFAULTS, id: this.el.id ? this.el.id : DEFAULTS.id};
 
+        // get options id from attribute
+        let idFromAttributeString;
+        this.options = getOptionsFromAttribute(
+            {
+                target: this.el,
+                attributeName: ATTRS.init,
+                defaultOptions: DEFAULTS,
+                numericValues: ['autoShow', 'showingTimes'],
+                onIsString: dataAttribute => {
+                    // data attribute exist => string
+                    if(dataAttribute) idFromAttributeString = dataAttribute;
+                }
+            });
+
+        if(idFromAttributeString){
+            this.options.id = idFromAttributeString;
+        }
+
+        // get options id from init script
+        this.options = {...this.options, ...options};
+
+        // instance get id
+        this.id = this.options.id;
 
         // get string options from attribute and js init
         this.options.title = this.el.getAttribute(ATTRS.title) || this.options.title;
@@ -39,13 +61,10 @@ class Popup{
         this.options.clickOutsideToClose = this.isBooleanOptionTrue(ATTRS.clickOutsideToClose, this.options.clickOutsideToClose);
         this.options.hasMobileLayout = this.isBooleanOptionTrue(ATTRS.mobileLayout, this.options.hasMobileLayout);
 
-        // get options from JSON init
-        this.options = getOptions(this, this.options);
-
         // cookie
         this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
 
-        this.closeButtonHTML = this.options.closeButtonHTML;
+        this.closeButtonHTML = this.options.closeButtonHTML ? this.options.closeButtonHTML : CLOSE_SVG;
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
         this.generateHTML();
@@ -138,6 +157,7 @@ class Popup{
         this.outer.classList.add(CLASSES.outer);
         if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
         if(this.options.hasMobileLayout) this.outer.classList.add(CLASSES.hasMobileLayout);
+        if(this.options.closeButtonHTML) this.outer.classList.add(CLASSES.hasCustomClose);
         this.outer.setAttribute(ATTRS.id, this.id);
 
         // set theme

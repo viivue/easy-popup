@@ -10,6 +10,7 @@ import '../public/style/fonts.css';
 
 // private style
 import './style.scss';
+import {CLOSE_SVG} from "@/configs";
 
 // import package info
 const packageInfo = require('../package.json');
@@ -32,7 +33,7 @@ EasyPopup.init('.demo-2', {
     id: 'demo-2',
     title: 'Demo 2',
     triggerSelector: '.open-demo-2',
-    closeButtonHTML: '<span>Custom close button HTML</span>',
+    closeButtonHTML: `${CLOSE_SVG}<span>Close</span>`,
     outerClass: 'outer-class-test',
     theme: 'style-2'
 });

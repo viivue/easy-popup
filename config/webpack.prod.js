@@ -7,6 +7,7 @@ const {paths, packageInfo, bannerConfig, env} = require('./config');
  * TARGET: libraryTarget
  */
 const libraryTarget = env.TARGET || 'umd';
+const isMinified = env.MIN === 'yes';
 let filename, experiments = {}, library = undefined;
 switch(libraryTarget){
     case "module":
@@ -17,7 +18,11 @@ switch(libraryTarget){
         break;
     default:
         //library = `${packageInfo.codeName}`;
-        filename = `${packageInfo.outputFilename}.min.js`;
+        if(isMinified){
+            filename = `${packageInfo.outputFilename}.min.js`;
+        }else{
+            filename = `${packageInfo.outputFilename}.js`;
+        }
 }
 
 module.exports = {
@@ -37,6 +42,7 @@ module.exports = {
         new webpack.BannerPlugin(bannerConfig)
     ],
     optimization: {
+        minimize: isMinified,
         minimizer: [new TerserPlugin({extractComments: false})],
     },
 };
