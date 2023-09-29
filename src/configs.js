@@ -19,6 +19,7 @@ export const CLASSES = {
     hasMobileLayout: 'ep-has-mobile-layout',
     ignoreClick: 'easy-popup-ignore-click',
     preventScroll: 'ep-prevent-scroll',
+    preventScrollLenis: 'ep-prevent-scroll-lenis',
 };
 /**
  * Attributes

@@ -2,6 +2,7 @@ import PiaEasyPopup from "./pia-easy-popup";
 import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
+import LenisEasyPopup from "./lenis-easy-popup";
 
 /**
  * Private class
@@ -97,6 +98,9 @@ class Popup{
                 setTimeout(() => this.open(), timeout);
             }
         }
+
+        // lenis integrate
+        this.lenis = new LenisEasyPopup(this);
     }
 
     /******************************
@@ -209,8 +213,15 @@ class Popup{
 
         // prevent scroll > on
         if(this.options.preventScroll){
-            this.root.classList.add(CLASSES.preventScroll);
-            this.root.style.setProperty('--ep-scroll-bar-w', `${this.getScrollbarWidth()}px`);
+            if(this.lenis.enabled()){
+                // prevent with Lenis
+                this.root.classList.add(CLASSES.preventScrollLenis);
+                this.lenis.stop();
+            }else{
+                // prevent via CSS
+                this.root.classList.add(CLASSES.preventScroll);
+                this.root.style.setProperty('--ep-scroll-bar-w', `${this.getScrollbarWidth()}px`);
+            }
         }
 
         // let Pia know that the popup was just opened
@@ -231,7 +242,16 @@ class Popup{
         setTimeout(() => {
             // set close status when no popup is active
             if(!window.EasyPopupData.active){
-                if(this.options.preventScroll) this.root.classList.remove(CLASSES.preventScroll);
+                if(this.options.preventScroll){
+                    if(this.lenis.enabled()){
+                        // prevent with Lenis
+                        this.root.classList.remove(CLASSES.preventScrollLenis);
+                        this.lenis.start();
+                    }else{
+                        // prevent via CSS
+                        this.root.classList.remove(CLASSES.preventScroll);
+                    }
+                }
             }
 
             // event
