@@ -95,6 +95,8 @@ EasyPopup.init('.popup', {
     // optional, change name will also lose access to the previous cookie => create a new cookie
     cookieName: '',
 
+    preventScroll: true, // prevent page scroll when popup is open
+
     // events
     onOpen: data => {
     },

@@ -205,11 +205,13 @@ class Popup{
         window.EasyPopupData.active = this.id;
         this.outer.classList.add(CLASSES.open);
         this.isOpen = true;
-        this.root.classList.add('easy-popup-open');
+        this.root.classList.add(CLASSES.rootOpen);
 
         // prevent scroll > on
-        this.root.style.paddingRight = `${this.getScrollbarWidth()}px`;
-        this.root.style.overflow = `hidden`;
+        if(this.options.preventScroll){
+            this.root.classList.add(CLASSES.preventScroll);
+            this.root.style.setProperty('--ep-scroll-bar-w', `${this.getScrollbarWidth()}px`);
+        }
 
         // let Pia know that the popup was just opened
         this.cookie?.onPopupOpen();
@@ -223,14 +225,13 @@ class Popup{
         window.EasyPopupData.active = '';
         this.outer.classList.remove(CLASSES.open);
         this.isOpen = false;
-        this.root.classList.remove('easy-popup-open');
+        this.root.classList.remove(CLASSES.rootOpen);
 
         // prevent scroll > off
         setTimeout(() => {
             // set close status when no popup is active
             if(!window.EasyPopupData.active){
-                this.root.style.paddingRight = ``;
-                this.root.style.overflow = ``;
+                if(this.options.preventScroll) this.root.classList.remove(CLASSES.preventScroll);
             }
 
             // event
