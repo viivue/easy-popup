@@ -1,6 +1,6 @@
 
 /**!
- * Easy Popup v0.2.1
+ * Easy Popup v0.2.2
  * @author phucbm
  * @homepage https://github.com/viivue/easy-popup
  * @license MIT 2023
@@ -135,8 +135,6 @@ class PiaEasyPopup{
 
 /* harmony default export */ const pia_easy_popup = (PiaEasyPopup);
 ;// CONCATENATED MODULE: ./src/configs.js
-
-
 /**
  * Classes
  * */
@@ -151,11 +149,14 @@ const CLASSES = {
     overflow: 'easy-popup-overflow',
     container: 'easy-popup-container',
     open: 'open',
+    rootOpen: 'easy-popup-open',
     closeButton: 'easy-popup-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
     mobileHeading: 'ep-mobile-heading',
     hasMobileLayout: 'ep-has-mobile-layout',
     ignoreClick: 'easy-popup-ignore-click',
+    preventScroll: 'ep-prevent-scroll',
+    preventScrollLenis: 'ep-prevent-scroll-lenis',
 };
 /**
  * Attributes
@@ -173,7 +174,7 @@ const ATTRS = {
  * Defaults
  * */
 const DEFAULTS = {
-    id: uniqueId('easy-popup-'),
+    id: undefined,
     outerClass: '',
     title: '',
     closeButtonHTML: ``,
@@ -190,6 +191,8 @@ const DEFAULTS = {
     cookie: undefined, // use PiaJs `expires`, see https://github.com/phucbm/pia#set-expires
     showingTimes: 1, // show n times before expiration day, only works with cookie
     cookieName: '', // name of the cookie, change name will also lose access to the previous cookie => treat as a new cookie
+
+    preventScroll: true, // prevent page scroll when popup is open
 }
 const CLOSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
 ;// CONCATENATED MODULE: ./node_modules/@phucbm/os-util/src/events-manager.js
@@ -385,7 +388,33 @@ function getOptionsFromAttribute(
 
     return {...defaultOptions, ...options};
 }
+;// CONCATENATED MODULE: ./src/lenis-easy-popup.js
+class LenisEasyPopup{
+    constructor(context){
+        this.root = context.root;
+    }
+
+    enabled(){
+        return typeof lenis !== 'undefined' && lenis !== 'undefined';
+    }
+
+    stop(){
+        if(!this.enabled()) return;
+
+        lenis.stop();
+    }
+
+    start(){
+        if(!this.enabled()) return;
+
+        lenis.start();
+    }
+}
+
+/* harmony default export */ const lenis_easy_popup = (LenisEasyPopup);
 ;// CONCATENATED MODULE: ./src/_index.js
+
+
 
 
 
@@ -402,7 +431,7 @@ class Popup{
 
         this.root = document.querySelector(':root');
         this.el = el;
-        this.selector = 'data-easy-popup';
+        this.selector = ATTRS.init;
         this.innerHTML = this.el.innerHTML;
         this.isOpen = false;
 
@@ -415,7 +444,10 @@ class Popup{
         });
 
         // options
-        this.options = {...DEFAULTS, id: this.el.id ? this.el.id : DEFAULTS.id};
+        this.options = {
+            ...DEFAULTS,
+            id: this.el.id ? this.el.id : uniqueId('easy-popup-')
+        };
 
         // get options id from attribute
         let idFromAttributeString;
@@ -481,6 +513,9 @@ class Popup{
                 setTimeout(() => this.open(), timeout);
             }
         }
+
+        // lenis integrate
+        this.lenis = new lenis_easy_popup(this);
     }
 
     /******************************
@@ -589,11 +624,20 @@ class Popup{
         window.EasyPopupData.active = this.id;
         this.outer.classList.add(CLASSES.open);
         this.isOpen = true;
-        this.root.classList.add('easy-popup-open');
+        this.root.classList.add(CLASSES.rootOpen);
 
         // prevent scroll > on
-        this.root.style.paddingRight = `${this.getScrollbarWidth()}px`;
-        this.root.style.overflow = `hidden`;
+        if(this.options.preventScroll){
+            if(this.lenis.enabled()){
+                // prevent with Lenis
+                this.root.classList.add(CLASSES.preventScrollLenis);
+                this.lenis.stop();
+            }else{
+                // prevent via CSS
+                this.root.classList.add(CLASSES.preventScroll);
+                this.root.style.setProperty('--ep-scroll-bar-w', `${this.getScrollbarWidth()}px`);
+            }
+        }
 
         // let Pia know that the popup was just opened
         this.cookie?.onPopupOpen();
@@ -607,14 +651,22 @@ class Popup{
         window.EasyPopupData.active = '';
         this.outer.classList.remove(CLASSES.open);
         this.isOpen = false;
-        this.root.classList.remove('easy-popup-open');
+        this.root.classList.remove(CLASSES.rootOpen);
 
         // prevent scroll > off
         setTimeout(() => {
             // set close status when no popup is active
             if(!window.EasyPopupData.active){
-                this.root.style.paddingRight = ``;
-                this.root.style.overflow = ``;
+                if(this.options.preventScroll){
+                    if(this.lenis.enabled()){
+                        // prevent with Lenis
+                        this.root.classList.remove(CLASSES.preventScrollLenis);
+                        this.lenis.start();
+                    }else{
+                        // prevent via CSS
+                        this.root.classList.remove(CLASSES.preventScroll);
+                    }
+                }
             }
 
             // event
