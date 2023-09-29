@@ -36,7 +36,7 @@ export const ATTRS = {
  * Defaults
  * */
 export const DEFAULTS = {
-    id: uniqueId('easy-popup-'),
+    id: undefined,
     outerClass: '',
     title: '',
     closeButtonHTML: ``,

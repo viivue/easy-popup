@@ -1,6 +1,7 @@
 import PiaEasyPopup from "./pia-easy-popup";
 import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
+import {uniqueId} from "./utils";
 
 /**
  * Private class
@@ -14,7 +15,7 @@ class Popup{
 
         this.root = document.querySelector(':root');
         this.el = el;
-        this.selector = 'data-easy-popup';
+        this.selector = ATTRS.init;
         this.innerHTML = this.el.innerHTML;
         this.isOpen = false;
 
@@ -27,7 +28,10 @@ class Popup{
         });
 
         // options
-        this.options = {...DEFAULTS, id: this.el.id ? this.el.id : DEFAULTS.id};
+        this.options = {
+            ...DEFAULTS,
+            id: this.el.id ? this.el.id : uniqueId('easy-popup-')
+        };
 
         // get options id from attribute
         let idFromAttributeString;
