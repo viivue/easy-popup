@@ -37,7 +37,6 @@ export const ATTRS = {
  * Defaults
  * */
 export const DEFAULTS = {
-    id: undefined,
     outerClass: '',
     title: '',
     closeButtonHTML: ``,

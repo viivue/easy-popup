@@ -174,7 +174,6 @@ const ATTRS = {
  * Defaults
  * */
 const DEFAULTS = {
-    id: undefined,
     outerClass: '',
     title: '',
     closeButtonHTML: ``,
@@ -444,9 +443,10 @@ class Popup{
         });
 
         // options
+        const id = this.el.getAttribute(ATTRS.init);
         this.options = {
             ...DEFAULTS,
-            id: this.el.id ? this.el.id : uniqueId('easy-popup-')
+            id: id ? id : uniqueId('easy-popup-')
         };
 
         // get options id from attribute
@@ -463,9 +463,9 @@ class Popup{
                 }
             });
 
-        if(idFromAttributeString){
-            this.options.id = idFromAttributeString;
-        }
+        // if(idFromAttributeString){
+        //     this.options.id = idFromAttributeString;
+        // }
 
         // get options id from init script
         this.options = {...this.options, ...options};
