@@ -1,6 +1,6 @@
 ## Init
 
-Init ~~with~~ attribute `data-easy-popup` www.google.com
+Init with attribute `data-easy-popup` www.google.com
 
 ```html
 

@@ -4,8 +4,7 @@ import '@/_index';
 import '@/_style.scss';
 
 // private style
-import 'honcau';
-import './style.scss';
+import 'github-markdown-css'
 import {CLOSE_SVG} from "@/configs";
 import {testInit} from "./js/test-init";
 
@@ -22,7 +21,7 @@ document.querySelector('[data-title]').innerHTML = title;
 document.querySelector('[data-description]').innerHTML = packageInfo.description;
 
 // add HTML
-const root = document.querySelector('#app');
+const root = document.querySelector('#content');
 testInit(root);
 
 

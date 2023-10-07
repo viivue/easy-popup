@@ -4,29 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Easy Popup</title>
+    <style>
+        body {box-sizing:border-box;}
+        .container {
+            min-width:300px;
+            max-width:980px;
+            margin-left:auto;
+            margin-right:auto;
+            padding:45px;
+        }
+
+        @media (max-width:767px) {
+            .container {
+                padding:15px;
+            }
+        }
+    </style>
 </head>
-<body>
-
-
+<body class="markdown-body">
 <div class="container">
     <h1 data-title="">Easy Popup</h1>
     <p data-description></p>
 
-    <div id="app"></div>
+    <div id="content"></div>
+
+    <footer>
+        <hr>
+        <p>
+            <a href="https://github.com/viivue/easy-popup">
+                <img src="https://badgen.net/badge/icon/Easy Popup?icon=github&label=Docs&color=6495ED&scale=1.2"
+                     alt="github">
+            </a>
+            <a href="https://github.com/viivue" target="_blank">
+                <img src="https://badgen.net/badge/made with 🧡 by/ViiVue/6495ED?scale=1.2" alt="ViiVue">
+            </a>
+        </p>
+
+    </footer>
 </div>
-
-<footer>
-    <p>
-        <a href="https://github.com/viivue/easy-popup">
-            <img src="https://badgen.net/badge/icon/Easy Popup?icon=github&label=Docs&color=6495ED&scale=1.2"
-                 alt="github">
-        </a>
-        <a href="https://github.com/viivue" target="_blank">
-            <img src="https://badgen.net/badge/made with 🧡 by/ViiVue/6495ED?scale=1.2" alt="ViiVue">
-        </a>
-    </p>
-
-</footer>
-
 </body>
 </html>
