@@ -45,10 +45,27 @@ const paths = {
 /**
  * Server
  */
+// Override function
+const renderer = {
+    heading(text, level){
+        const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+
+        return `
+            <h${level}>
+              <a name="${escapedText}" class="anchor" href="#${escapedText}">
+                <span class="header-link"></span>
+              </a>
+              ${text}
+            </h${level}>`;
+    }
+};
 const server = {
     // Determine how modules within the project are treated
     module: {
         rules: [
+            // Markdown
+            {test: /\.md$/, loader: "html-loader"},
+
             // JavaScript: Use Babel to transpile JavaScript files
             {test: /\.js$/, use: ['babel-loader']},
 
