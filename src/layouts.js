@@ -1,5 +1,5 @@
 import {MatchMediaScreen} from "match-media-screen";
-import {ATTRS} from "@/configs";
+import {ATTRS, CLASSES, CLOSE_SVG} from "@/configs";
 
 /**
  * Set up mobile layout
@@ -39,7 +39,7 @@ export function initMobileLayout(context){
     // const html = `<div class="ep-mobile-heading">
     //                     <div class="ep-mobile-heading__inner">
     //                         ${context.options.title ? `<div class="ep-mobile-heading__title">${context.options.title}</div>` : ''}
-    //                         <button class="${CLASSES.closeButton} for-mobile-layout" ${ATTRS.toggle}>${context.closeButtonHTML}</button>
+    //                         <button class="${CLASSES.closeButton} for-mobile-layout" ${ATTRS.toggle}>${closeButtonInnerText}</button>
     //                     </div>
     //                 </div>`;
 
@@ -67,4 +67,25 @@ function setTheme(context, removeTheme = false){
 
     // set theme
     context.outer.setAttribute(ATTRS.theme, context.options.theme);
+}
+
+
+export function initCloseButton(context){
+    let closeButtonInnerText = CLOSE_SVG;
+
+    // custom close button html
+    if(context.options.closeButtonInnerText){
+        context.outer.classList.add(CLASSES.hasCustomClose);
+        closeButtonInnerText = context.options.closeButtonInnerText;
+    }
+
+    let html = `<button class="${CLASSES.closeButton}" ${ATTRS.toggle}>
+                    ${closeButtonInnerText}
+                </button>`;
+
+    // insert html
+    context.inner.insertAdjacentHTML('beforeend', html);
+
+    // assign close event
+    context.inner.querySelector(`[${ATTRS.toggle}]`)?.addEventListener('click', () => context.close());
 }

@@ -13,7 +13,7 @@ export const CLASSES = {
     container: 'easy-popup-container',
     open: 'open',
     rootOpen: 'easy-popup-open',
-    closeButton: 'easy-popup-close-button',
+    closeButton: 'ep-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
     ignoreClick: 'easy-popup-ignore-click',
     preventScroll: 'ep-prevent-scroll',
@@ -36,7 +36,10 @@ export const ATTRS = {
 export const DEFAULTS = {
     outerClass: '',
     title: '',
-    closeButtonHTML: ``,
+
+    // close button
+    closeButtonInnerText: ``,
+
     triggerSelector: '',
 
     // mobile layout

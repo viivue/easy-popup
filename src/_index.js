@@ -3,7 +3,7 @@ import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
-import {initMobileLayout, initTheme} from "./layouts";
+import {initCloseButton, initMobileLayout, initTheme} from "./layouts";
 
 /**
  * Private class
@@ -60,7 +60,6 @@ class Popup{
         // cookie
         this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
 
-        this.closeButtonHTML = this.options.closeButtonHTML ? this.options.closeButtonHTML : CLOSE_SVG;
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
         this.generateHTML();
@@ -125,14 +124,7 @@ class Popup{
         this.inner = this.wrap(this.el);
         this.inner.classList.add(CLASSES.inner);
 
-        // add inner close button
-        this.closeButton = document.createElement('button');
-        this.closeButton.classList.add(CLASSES.closeButton);
-        this.closeButton.innerHTML = this.closeButtonHTML;
-        this.closeButton.setAttribute(ATTRS.toggle, '');
-        this.closeButton.setAttribute('aria-label', `Close popup ${this.options.title}`);
-        this.closeButton.addEventListener('click', () => this.close());
-        this.inner.appendChild(this.closeButton);
+
 
         // container
         this.container = this.wrap(this.inner);
@@ -146,7 +138,6 @@ class Popup{
         this.outer = this.wrap(this.overflow);
         this.outer.classList.add(CLASSES.outer);
         if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-        if(this.options.closeButtonHTML) this.outer.classList.add(CLASSES.hasCustomClose);
         this.outer.setAttribute(ATTRS.id, this.id);
 
 
@@ -176,6 +167,7 @@ class Popup{
 
         initTheme(this);
         initMobileLayout(this); // must call after initTheme()
+        initCloseButton(this);
     }
 
     isClickOutsideContent(event){

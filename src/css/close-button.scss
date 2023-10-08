@@ -1,5 +1,5 @@
 /* close button */
-.easy-popup-close-button {
+.ep-close-button {
   position: absolute;
   top: 0;
   right: 0;
@@ -34,14 +34,14 @@
 
 /* custom close button */
 .easy-popup.ep-has-custom-close-button {
-  .easy-popup-close-button {
+  .ep-close-button {
     aspect-ratio: unset;
     width: auto;
     color: var(--ep-close-color);
     padding: 10px;
   }
 
-  .easy-popup-close-button:hover {
+  .ep-close-button:hover {
     color: var(--ep-close-color-hover);
   }
 }

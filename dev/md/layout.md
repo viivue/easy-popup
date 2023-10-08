@@ -15,12 +15,16 @@
 
 ```html
 
-<div data-easy-popup='{"theme": "right-side", "hasMobileLayout": "true"}'>
+<div data-easy-popup='{"theme": "right-side"}'>
     <!-- Popup content -->
 </div>
 ```
 
 [Open Right-side Popup](#popup-5)
+
+### Change the close button text
+
+[Open Popup Custom Close Button](#popup-6)
 
 <div data-easy-popup='{"id": "popup-4", "hasMobileLayout": "true"}'>
     <!-- Popup content -->
@@ -87,4 +91,14 @@ Ac lectus interdum auctor praesent quis. Mauris viverra purus blandit natoque su
 letius. Arcu faucibus scelerisque id elit ullamcorper phasellus letius morbi inceptos pulvinar hac. Potenti magna sapien
 nostra lorem libero curabitur.
 </p>
+</div>
+
+<div data-easy-popup='{"id": "popup-6", "closeButtonInnerText": "CLOSE"}'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
 </div>
