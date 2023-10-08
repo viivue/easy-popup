@@ -1,0 +1,70 @@
+/* popup */
+.easy-popup:not(.open) {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.easy-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transition: opacity .4s ease, visibility .4s ease, transform .4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* overflow */
+.easy-popup-overflow {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* custom scrollbar */
+.easy-popup-overflow *::-webkit-scrollbar {
+  width: 5px;
+}
+
+.easy-popup-overflow *::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+.easy-popup-overflow *::-webkit-scrollbar-thumb {
+  background-color: #000;
+}
+
+
+/* container */
+.easy-popup-container {
+  position: relative;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--ep-max-width);
+  margin: 0 auto;
+}
+
+.easy-popup-inner {
+  position: relative;
+}
+
+/* content */
+[data-easy-popup]:not(.easy-popup-enabled) {
+  display: none;
+}
+
+.easy-popup-content {
+  background: #fff;
+  padding: var(--ep-padding);
+  position: relative;
+  border-radius: var(--ep-radius);
+  overflow: hidden;
+}

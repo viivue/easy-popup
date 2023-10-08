@@ -5,9 +5,10 @@ import '@/_style.scss';
 
 // private style
 import 'github-markdown-css/github-markdown-light.css'
+import {highlightCodeSyntax} from "@phucbm/gfm";
 import {CLOSE_SVG} from "@/configs";
 import {testInit} from "./js/test-init";
-import {highlightCodeSyntax} from "@phucbm/gfm";
+import {testLayout} from "./js/test-layout";
 
 // import package info
 const packageInfo = require('../package.json');
@@ -24,6 +25,7 @@ document.querySelector('[data-description]').innerHTML = packageInfo.description
 // add HTML
 const root = document.querySelector('#content');
 testInit(root);
+testLayout(root);
 
 // code highlight
 highlightCodeSyntax().then();

@@ -1,0 +1,26 @@
+/****************************
+ * Easy Popup Theme: right-side
+****************************/
+[data-easy-popup-theme="right-side"] {
+  --ep-close-color: #000;
+
+  &:not(.open) {
+    opacity: 1;
+    transform: translateX(100%);
+  }
+
+  .easy-popup-container {
+    margin: 0 0 0 auto;
+    padding: 0;
+  }
+
+  .easy-popup-content {
+    border-radius: 0;
+    height: 100vh;
+    overflow: auto;
+  }
+
+  .easy-popup-close-button {
+    transform: none;
+  }
+}

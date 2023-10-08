@@ -16,7 +16,7 @@ export const CLASSES = {
     closeButton: 'easy-popup-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
     mobileHeading: 'ep-mobile-heading',
-    hasMobileLayout: 'ep-has-mobile-layout',
+    hasMobileLayout: 'ep-mobile-layout',
     ignoreClick: 'easy-popup-ignore-click',
     preventScroll: 'ep-prevent-scroll',
     preventScrollLenis: 'ep-prevent-scroll-lenis',
