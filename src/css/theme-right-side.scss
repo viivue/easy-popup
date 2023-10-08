@@ -1,8 +1,11 @@
 /****************************
  * Easy Popup Theme: right-side
 ****************************/
-[data-easy-popup-theme="right-side"] {
+[data-ep-theme="right-side"] {
   --ep-close-color: #000;
+  --ep-max-width: 860px;
+
+  position: fixed;
 
   &:not(.open) {
     opacity: 1;
@@ -12,15 +15,22 @@
   .easy-popup-container {
     margin: 0 0 0 auto;
     padding: 0;
+    overflow: auto;
+    max-height: 100vh;
+
+    .easy-popup-inner {
+      min-height: 100vh;
+      background-color: var(--ep-popup-bg);
+
+      .easy-popup-content {
+        border-radius: 0;
+      }
+    }
   }
 
-  .easy-popup-content {
-    border-radius: 0;
-    height: 100vh;
-    overflow: auto;
-  }
 
   .easy-popup-close-button {
     transform: none;
+    position: fixed;
   }
 }

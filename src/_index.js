@@ -3,7 +3,7 @@ import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
-import {initMobileLayout} from "@/mobile-layout";
+import {initMobileLayout, initTheme} from "./layouts";
 
 /**
  * Private class
@@ -53,7 +53,6 @@ class Popup{
 
         // get string options from attribute and js init
         this.options.title = this.el.getAttribute(ATTRS.title) || this.options.title;
-        this.options.theme = this.el.getAttribute(ATTRS.theme) || this.options.theme;
 
         // get boolean options from attribute and js init
         this.options.clickOutsideToClose = this.isBooleanOptionTrue(ATTRS.clickOutsideToClose, this.options.clickOutsideToClose);
@@ -150,8 +149,7 @@ class Popup{
         if(this.options.closeButtonHTML) this.outer.classList.add(CLASSES.hasCustomClose);
         this.outer.setAttribute(ATTRS.id, this.id);
 
-        // set theme
-        this.outer.setAttribute(ATTRS.theme, this.options.theme);
+
 
         // close when click outside of content
         this.outer.addEventListener('click', e => {
@@ -176,7 +174,8 @@ class Popup{
         // done init
         this.el.classList.add(CLASSES.processed, CLASSES.content);
 
-        initMobileLayout(this);
+        initTheme(this);
+        initMobileLayout(this); // must call after initTheme()
     }
 
     isClickOutsideContent(event){

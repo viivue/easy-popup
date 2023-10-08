@@ -28,7 +28,6 @@ Init with HTML
 <!-- Using data attributes -->
 <div data-easy-popup="demo"
      data-easy-popup-title="Popup title"
-     data-easy-popup-theme="my-style"
      data-easy-popup-click-outside-to-close="false">
     <p>Your content.</p>
 </div>
@@ -90,18 +89,6 @@ leads to popup closing when that element clicked.
 <button class="easy-popup-ignore-click">My button</button>
 ```
 
-## Themes
-
-### theme:`right-side`
-
-![](public/images/easy-popup-theme-right-side.gif)
-
-```html
-
-<div data-easy-popup="demo" data-easy-popup-theme="right-side">
-    <p>Your content.</p>
-</div>
-```
 
 ## Deployment
 
