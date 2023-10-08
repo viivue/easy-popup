@@ -51,9 +51,6 @@ class Popup{
             this.idType = this.idType !== 'attribute-id' ? 'json-id' : this.idType;
         }
 
-        // get string options from attribute and js init
-        this.options.title = this.el.getAttribute(ATTRS.title) || this.options.title;
-
         // get boolean options from attribute and js init
         this.options.clickOutsideToClose = this.isBooleanOptionTrue(ATTRS.clickOutsideToClose, this.options.clickOutsideToClose);
 

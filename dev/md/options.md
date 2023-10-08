@@ -14,4 +14,5 @@
 
 | Attribute             | Type   | Default | Description                 | 
 |-----------------------|--------|---------|-----------------------------|
-| ~~`closeButtonHTML`~~ | number | ``      | Inner text for close button |
+| ~~`title`~~           | string | ``      | Title for mobile layout     |
+| ~~`closeButtonHTML`~~ | string | ``      | Inner text for close button |

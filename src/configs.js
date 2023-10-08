@@ -24,7 +24,6 @@ export const CLASSES = {
  * */
 export const ATTRS = {
     id: 'data-easy-popup-id',
-    title: 'data-easy-popup-title',
     toggle: 'data-ep-toggle',
     theme: 'data-ep-theme',
     clickOutsideToClose: 'data-easy-popup-click-outside-to-close',
@@ -35,7 +34,6 @@ export const ATTRS = {
  * */
 export const DEFAULTS = {
     outerClass: '',
-    title: '',
 
     // close button
     closeButtonInnerText: ``,
