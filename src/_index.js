@@ -4,7 +4,8 @@ import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
 import {initCloseButton, initMobileLayout, initTheme} from "./layouts";
-import {initTriggers} from "@/helpers";
+import {initTriggers} from "./helpers";
+import {initKeyboard} from "./keyboard";
 
 /**
  * Private class
@@ -140,14 +141,7 @@ class Popup{
             btn.addEventListener('click', () => this.close());
         });
 
-        // add event listener when press ESC
-        if(this.options.keyboard){
-            document.addEventListener('keyup', (e) => {
-                if(this.isOpen && e.key === 'Escape'){
-                    this.close();
-                }
-            });
-        }
+        initKeyboard(this);
 
         // done init
         this.el.classList.add(CLASSES.processed, CLASSES.content);
