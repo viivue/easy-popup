@@ -4,6 +4,7 @@ import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
 import {initCloseButton, initMobileLayout, initTheme} from "./layouts";
+import {initTriggers} from "@/helpers";
 
 /**
  * Private class
@@ -61,16 +62,7 @@ class Popup{
 
         this.generateHTML();
 
-        // assign triggers via a[href="#id"], [toggle="id"]
-        let triggerSelector = `a[href="#${this.id}"], [${ATTRS.toggle}="${this.id}"]`;
-        triggerSelector = this.options.triggerSelector ? `${this.options.triggerSelector}, ${triggerSelector}` : triggerSelector;
-        document.querySelectorAll(triggerSelector).forEach(trigger => {
-            trigger.classList.add(CLASSES.triggerEnabled);
-            trigger.addEventListener('click', e => {
-                e.preventDefault();
-                this.toggle();
-            });
-        });
+        initTriggers(this);
 
         // auto show
         if(this.options.autoShow !== false){
@@ -122,7 +114,6 @@ class Popup{
         this.inner.classList.add(CLASSES.inner);
 
 
-
         // container
         this.container = this.wrap(this.inner);
         this.container.classList.add(CLASSES.container);
@@ -136,7 +127,6 @@ class Popup{
         this.outer.classList.add(CLASSES.outer);
         if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
         this.outer.setAttribute(ATTRS.id, this.id);
-
 
 
         // close when click outside of content

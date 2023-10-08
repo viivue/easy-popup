@@ -4,7 +4,7 @@
 export const CLASSES = {
     master: 'easy-popup-master',
     processed: 'easy-popup-enabled',
-    triggerEnabled: 'easy-popup-trigger-enabled',
+    triggerEnabled: 'ep-trigger-enabled',
     content: 'easy-popup-content',
     outer: 'easy-popup',
     inner: 'easy-popup-inner',
@@ -38,6 +38,7 @@ export const DEFAULTS = {
     // close button
     closeButtonInnerText: ``,
 
+    // click on this trigger will also toggle the popup
     triggerSelector: '',
 
     // mobile layout
