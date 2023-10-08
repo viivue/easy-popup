@@ -5,24 +5,7 @@
 
 ## Use
 
-### With attribute `data-easy-popup`
-
-```html
-
-<div data-easy-popup>
-    <!-- Popup content -->
-    <p>Lorem ipsum dolor sit amet hendrerit nec neque ultricies.</p>
-</div>
-```
-
-_Well, you can't open this popup as we don't have any ID for it._
-
-<div data-easy-popup>
-    <!-- Popup content -->
-    <p>Lorem ipsum dolor sit amet hendrerit nec neque ultricies.</p>
-</div>
-
-### With an ID
+### With `[data-easy-popup="id"]`
 
 Value of the attribute will be treated as the popup's ID.
 
@@ -65,12 +48,24 @@ Initialize your popup with more options without touching the JavaScript file.
 <div data-easy-popup='{"id": "popup-2"}'>
     <!-- Popup content -->
     <h2>Popup #2</h2>
-    <p>Lorem ipsum dolor sit amet hendrerit nec neque ultricies.</p>
+    <p>You can even open another popup from within the active one.</p>
+    <a href="#popup-3">Open Popup #3</a>
 </div>
+
+### Toggle popup with `[data-ep-toggle="id"]`
 
 An alternative way to toggle a popup
 
 ```html
 
-<button data-easy-popup-toggle="demo">Open popup</button>
+<button data-ep-toggle="popup-3">Open popup</button>
 ```
+
+<button data-ep-toggle="popup-3">Open Popup #3</button>
+
+<div data-easy-popup="popup-3">
+    <!-- Popup content -->
+    <h2>Popup #3</h2>
+    <p>Toggle button can also be placed inside a popup like this.</p>
+    <button data-ep-toggle="popup-3">Close this popup</button>
+</div>

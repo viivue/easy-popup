@@ -27,7 +27,7 @@ export const CLASSES = {
 export const ATTRS = {
     id: 'data-easy-popup-id',
     title: 'data-easy-popup-title',
-    toggle: 'data-easy-popup-toggle',
+    toggle: 'data-ep-toggle',
     mobileLayout: 'data-easy-popup-mobile',
     theme: 'data-easy-popup-theme',
     clickOutsideToClose: 'data-easy-popup-click-outside-to-close',

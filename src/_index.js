@@ -170,7 +170,7 @@ class Popup{
         });
 
         // close buttons on click
-        this.outer.querySelectorAll('[data-easy-popup-toggle]').forEach(btn => {
+        this.outer.querySelectorAll(`${ATTRS.toggle}`).forEach(btn => {
             btn.addEventListener('click', () => this.close());
         });
 

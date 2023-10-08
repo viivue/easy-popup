@@ -19,51 +19,12 @@ Using CDN:
 <script src="https://cdn.jsdelivr.net/gh/viivue/easy-popup@0.2.2/dist/easy-popup.min.js"></script>
 ```
 
-### Init
-
-Setup HTML
-
-```html
-
-<div data-easy-popup="demo">
-    <p>Your content.</p>
-</div>
-```
-
-Use `#demo` as the URL to open popup.
-
-```html
-<a href="#demo">Open popup</a>
-```
-
-or
-
-```html
-
-<button data-easy-popup-toggle="demo">Open popup</button>
-```
-
-Close opening popup with a button in popup body.
-
-```html
-<div data-easy-popup="demo">
-    <p>Your content.</p>
-    <p>
-        <a data-easy-popup-toggle>Close this popup</a>
-    </p>
-</div>
-```
 
 ## Options
 
 Init with HTML
 
 ```html
-<!-- Using data attribute with JSON Format (Recommended) -->
-<div data-easy-popup='{"id": "demo-1"}'>
-    <p>Your content.</p>
-</div>
-
 <!-- Using data attributes -->
 <div data-easy-popup="demo"
      data-easy-popup-mobile="true"
