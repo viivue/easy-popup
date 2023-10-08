@@ -10,6 +10,7 @@ import {testInit} from "./js/test-init";
 import {testLayout} from "./js/test-layout";
 import mdOptions from "./md/options.md";
 import mdEnd from "./md/end.md";
+import mdBegin from "./md/begin.md";
 
 // import package info
 const packageInfo = require('../package.json');
@@ -25,6 +26,8 @@ document.querySelector('[data-description]').innerHTML = packageInfo.description
 
 // add HTML
 const root = document.querySelector('#content');
+root.insertAdjacentHTML('beforeend', mdBegin);
+
 testInit(root);
 testLayout(root);
 
