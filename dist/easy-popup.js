@@ -1,6 +1,6 @@
 
 /**!
- * Easy Popup v0.2.2
+ * Easy Popup v1.0.0
  * @author phucbm
  * @homepage https://github.com/viivue/easy-popup
  * @license MIT 2023
@@ -141,7 +141,7 @@ class PiaEasyPopup{
 const CLASSES = {
     master: 'easy-popup-master',
     processed: 'easy-popup-enabled',
-    triggerEnabled: 'easy-popup-trigger-enabled',
+    triggerEnabled: 'ep-trigger-enabled',
     content: 'easy-popup-content',
     outer: 'easy-popup',
     inner: 'easy-popup-inner',
@@ -150,11 +150,8 @@ const CLASSES = {
     container: 'easy-popup-container',
     open: 'open',
     rootOpen: 'easy-popup-open',
-    closeButton: 'easy-popup-close-button',
+    closeButton: 'ep-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
-    mobileHeading: 'ep-mobile-heading',
-    hasMobileLayout: 'ep-has-mobile-layout',
-    ignoreClick: 'easy-popup-ignore-click',
     preventScroll: 'ep-prevent-scroll',
     preventScrollLenis: 'ep-prevent-scroll-lenis',
 };
@@ -163,11 +160,8 @@ const CLASSES = {
  * */
 const ATTRS = {
     id: 'data-easy-popup-id',
-    title: 'data-easy-popup-title',
-    toggle: 'data-easy-popup-toggle',
-    mobileLayout: 'data-easy-popup-mobile',
-    theme: 'data-easy-popup-theme',
-    clickOutsideToClose: 'data-easy-popup-click-outside-to-close',
+    toggle: 'data-ep-toggle',
+    theme: 'data-ep-theme',
     init: 'data-easy-popup',
 };
 /**
@@ -175,11 +169,20 @@ const ATTRS = {
  * */
 const DEFAULTS = {
     outerClass: '',
-    title: '',
-    closeButtonHTML: ``,
+    activeHtmlClass: '',
+
+    // close button
+    closeButtonInnerText: ``,
+
+    // click on this trigger will also toggle the popup
     triggerSelector: '',
+
+    // mobile layout
     hasMobileLayout: false, // has mobile layout, false by default
-    theme: 'default',
+    mobileBreakpoint: 768, // switch to mobile layout when the screen size is <=1023px
+
+    // theme
+    theme: 'default', // right-side
 
     keyboard: true, // option for closing the popup by keyboard (ESC)
 
@@ -196,7 +199,7 @@ const DEFAULTS = {
 const CLOSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
 ;// CONCATENATED MODULE: ./node_modules/@phucbm/os-util/src/events-manager.js
 /**
- * Events Manager v0.0.1
+ * Events Manager v0.0.2
  * An util class to manage event with these features:
  * 1. Able to assign event via context.options or context.config
  * 2. Able to assign event via method on()
@@ -241,8 +244,10 @@ class EventsManager{
 
         // fire event from option
         const contextOptions = this.context.config ? this.context.config : this.context.options;
-        const eventFromOption = contextOptions[eventName];
-        if(typeof eventFromOption === 'function') eventFromOption(response);
+        if(contextOptions){
+            const eventFromOption = contextOptions[eventName];
+            if(typeof eventFromOption === 'function') eventFromOption(response);
+        }
 
         // fire event from late-assign list
         const eventFromList = this.eventsList[eventName];
@@ -411,7 +416,207 @@ class LenisEasyPopup{
 }
 
 /* harmony default export */ const lenis_easy_popup = (LenisEasyPopup);
+;// CONCATENATED MODULE: ./node_modules/match-media-screen/dist/match-media-screen.module.js
+/**!
+ * Match Media Screen v0.0.3
+ * @author phucbm
+ * @homepage https://github.com/phucbm/match-media-screen
+ * @license MIT 2022
+ */var t={d:(e,i)=>{for(var o in i)t.o(i,o)&&!t.o(e,o)&&Object.defineProperty(e,o,{enumerable:!0,get:i[o]})},o:(t,e)=>Object.prototype.hasOwnProperty.call(t,e)},e={};function i(t,e=!0){const i=[...t];return e?i.sort(((t,e)=>t.breakpoint<e.breakpoint?1:-1)):i.sort(((t,e)=>t.breakpoint>e.breakpoint?1:-1)),i}function o(t,e=150){let i;return(...o)=>{clearTimeout(i),i=setTimeout((()=>{t.apply(this,o)}),e)}}t.d(e,{o:()=>r});class r{constructor(t){if(this.dev=!0===t.dev,this.object=t.object||void 0,this.object){if(this.onMatched=t.onMatched,this.onUpdate=t.onUpdate,window.addEventListener("resize",o((()=>{"function"==typeof this.onUpdate&&this.onUpdate(this.currentObject)}),this.debounce)),!this.object.responsive)return this.currentObject={type:"no-responsive",lastBreakpoint:void 0,breakpoint:-1,object:this.mergeObject(-1,this.object)},"function"==typeof this.onMatched&&this.onMatched(this.currentObject),this.dev&&console.warn("Property object must have responsive array."),!1;this.isInherit=void 0===t.isInherit||t.isInherit,this.debounce=t.debounce||100,this.currentObject={breakpoint:void 0,object:{}},this.object.responsive=i(this.object.responsive),this.match(),window.addEventListener("resize",o((()=>this.match()),this.debounce))}else console.error("Property object:{} must be provided.")}match(){let t=!1;for(let e=0;e<this.object.responsive.length;e++){const i=this.object.responsive[e];if(t=matchMedia(this.getQuery(e)).matches,t){this.currentObject.breakpoint!==i.breakpoint&&(this.currentObject={type:"responsive",lastBreakpoint:this.currentObject.breakpoint,breakpoint:i.breakpoint,object:this.mergeObject(i.breakpoint,i.settings)},"function"==typeof this.onMatched&&this.onMatched(this.currentObject));break}}t||-1===this.currentObject.breakpoint||(this.currentObject={type:"default",lastBreakpoint:this.currentObject.breakpoint,breakpoint:-1,object:this.mergeObject(-1,this.object)},"function"==typeof this.onMatched&&this.onMatched(this.currentObject))}getQuery(t){let e=`screen and (max-width:${this.object.responsive[t].breakpoint}px)`;const i=this.object.responsive[t+1];return i&&(e+=` and (min-width:${i.breakpoint+1}px)`),e}mergeObject(t,e){let o={...e};if(this.isInherit&&-1!==t){const e=i(this.object.responsive,!1);for(let i=0;i<e.length;i++)e[i].breakpoint>t&&(o={...e[i].settings,...o})}return o={...this.object,...o},delete o.responsive,o}}var n=e.o;
+;// CONCATENATED MODULE: ./src/layouts.js
+
+
+
+/**
+ * Set up mobile layout
+ * @param context
+ */
+function initMobileLayout(context){
+    if(!context.options.hasMobileLayout) return;
+
+    new n({
+        object: {
+            isMobile: false,
+            responsive: [
+                {
+                    breakpoint: context.options.mobileBreakpoint,
+                    settings: {
+                        isMobile: true,
+                    }
+                }
+            ],
+        },
+        debounce: 100, // [ms] debounce time on resize event
+        // fire everytime a matched breakpoint is found
+        onMatched: data => {
+            if(data.object.isMobile){
+                context.outer.classList.add('ep-mobile-layout');
+
+                setTheme(context, true);
+            }else{
+                context.outer.classList.remove('ep-mobile-layout');
+
+                setTheme(context);
+            }
+        },
+    });
+
+    // create html
+    // const html = `<div class="ep-mobile-heading">
+    //                     <div class="ep-mobile-heading__inner">
+    //                         ${context.options.title ? `<div class="ep-mobile-heading__title">${context.options.title}</div>` : ''}
+    //                         <button class="${CLASSES.closeButton} for-mobile-layout" ${ATTRS.toggle}>${closeButtonInnerText}</button>
+    //                     </div>
+    //                 </div>`;
+
+    //context.overflow.insertAdjacentHTML('beforeend', html);
+
+}
+
+function initTheme(context){
+    if(!context.options.theme.length) return;
+    if(context.options.theme === 'default') return;
+
+    setTheme(context);
+}
+
+/**
+ * Set theme via attribute (PRIVATELY USE)
+ * @param context
+ * @param removeTheme
+ */
+function setTheme(context, removeTheme = false){
+    if(removeTheme){
+        context.outer.removeAttribute(ATTRS.theme);
+        return;
+    }
+
+    // set theme
+    context.outer.setAttribute(ATTRS.theme, context.options.theme);
+}
+
+
+function addCloseButton(context){
+    let closeButtonInnerText = CLOSE_SVG;
+
+    // custom close button html
+    if(context.options.closeButtonInnerText){
+        context.outer.classList.add(CLASSES.hasCustomClose);
+        closeButtonInnerText = context.options.closeButtonInnerText;
+    }
+
+    let html = `<button class="${CLASSES.closeButton}" ${ATTRS.toggle}>
+                    ${closeButtonInnerText}
+                </button>`;
+
+    // insert html
+    context.inner.insertAdjacentHTML('beforeend', html);
+}
+;// CONCATENATED MODULE: ./src/helpers.js
+
+
+function initToggleTrigger(context){
+    // assign triggers via a[href="#id"], [toggle="id"]
+    let triggerSelector = `a[href="#${context.id}"], [${ATTRS.toggle}="${context.id}"]`;
+
+    // custom triggers
+    if(context.options.triggerSelector && context.options.triggerSelector.length){
+        triggerSelector += `, ${context.options.triggerSelector}`;
+    }
+
+    // look for triggers that link with this popup by id
+    assignToggle(context, document.querySelectorAll(triggerSelector));
+
+    // any triggers without id inside this popup will also toggle this popup
+    assignToggle(context, context.outer.querySelectorAll(`[${ATTRS.toggle}]`));
+}
+
+function assignToggle(context, triggers){
+    triggers.forEach(trigger => {
+        // avoid duplicate assign
+        if(trigger.classList.contains(CLASSES.triggerEnabled)) return;
+
+        trigger.addEventListener('click', e => {
+            e.preventDefault();
+            context.toggle();
+        });
+
+        trigger.classList.add(CLASSES.triggerEnabled);
+    });
+}
+
+
+/**
+ * Wrap element
+ * @param innerEl
+ * @param outerEl
+ * @returns {HTMLDivElement}
+ */
+function wrapElement(innerEl, outerEl = document.createElement('div')){
+    innerEl.parentNode.insertBefore(outerEl, innerEl);
+    outerEl.appendChild(innerEl);
+    return outerEl;
+}
+
+
+/**
+ * Get scrollbar width
+ * https://stackoverflow.com/a/986977/6453822
+ * @returns {number}
+ */
+function getScrollbarWidth(){
+    // Creating invisible container
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+    document.body.appendChild(outer);
+
+    // Creating inner element and placing it in the container
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+
+    // Calculating difference between container's full width and the child width
+    const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+
+    // Removing temporary elements from the DOM
+    outer.parentNode.removeChild(outer);
+
+    return scrollbarWidth;
+}
+;// CONCATENATED MODULE: ./src/keyboard.js
+function initKeyboard(context){
+    if(!context.options.keyboard) return;
+
+    // add event listener when press ESC
+    document.addEventListener('keyup', (e) => {
+        if(context.isOpen && e.key === 'Escape'){
+            context.close();
+        }
+    });
+}
+;// CONCATENATED MODULE: ./src/outside-click.js
+function initOutsideClick(context){
+    // detect outside click
+    context.outer.addEventListener('click', e => {
+        if(isClickOutsideContent(context, e)){
+            // is close
+            if(context.options.clickOutsideToClose){
+                context.close();
+            }
+        }
+    });
+}
+
+function isClickOutsideContent(context, event){
+    return !context.inner.contains(event.target);
+}
+
 ;// CONCATENATED MODULE: ./src/_index.js
+
+
+
+
 
 
 
@@ -433,6 +638,8 @@ class Popup{
         this.selector = ATTRS.init;
         this.innerHTML = this.el.innerHTML;
         this.isOpen = false;
+        this.id = uniqueId('easy-popup-');
+        this.idType = 'auto-id';
 
         // skip double init
         if(this.el.classList.contains(CLASSES.processed)) return;
@@ -442,63 +649,42 @@ class Popup{
             names: ['onClose', 'onOpen']
         });
 
-        // options
-        const id = this.el.getAttribute(ATTRS.init);
-        this.options = {
-            ...DEFAULTS,
-            id: id ? id : uniqueId('easy-popup-')
-        };
-
         // get options id from attribute
-        let idFromAttributeString;
         this.options = getOptionsFromAttribute(
             {
                 target: this.el,
                 attributeName: ATTRS.init,
-                defaultOptions: DEFAULTS,
+                defaultOptions: {...DEFAULTS, ...options},
                 numericValues: ['autoShow', 'showingTimes'],
-                onIsString: dataAttribute => {
-                    // data attribute exist => string
-                    if(dataAttribute) idFromAttributeString = dataAttribute;
+                onIsString: value => {
+                    // value is not a json => use value as ID
+                    this.idType = 'attr-id';
+                    this.id = value;
                 }
             });
 
-        // if(idFromAttributeString){
-        //     this.options.id = idFromAttributeString;
-        // }
+        // found id from user options
+        if(this.options.id){
+            this.id = this.options.id;
+            this.idType = this.idType !== 'attr-id' ? 'json-id' : this.idType;
+        }
 
-        // get options id from init script
-        this.options = {...this.options, ...options};
+        // in case attr is a number (will be skipped by onIsString)
+        const attrId = this.el.getAttribute(ATTRS.init);
+        if(!isNaN(attrId)){
+            this.id = `${attrId}`;
+            this.idType = 'attr-id';
 
-        // instance get id
-        this.id = this.options.id;
-
-        // get string options from attribute and js init
-        this.options.title = this.el.getAttribute(ATTRS.title) || this.options.title;
-        this.options.theme = this.el.getAttribute(ATTRS.theme) || this.options.theme;
-
-        // get boolean options from attribute and js init
-        this.options.clickOutsideToClose = this.isBooleanOptionTrue(ATTRS.clickOutsideToClose, this.options.clickOutsideToClose);
-        this.options.hasMobileLayout = this.isBooleanOptionTrue(ATTRS.mobileLayout, this.options.hasMobileLayout);
+            // id is a number
+            console.warn(`Popup ID should be a string, consider adding a prefix to your ID to avoid unexpected issue, your ID:`, this.id);
+        }
 
         // cookie
         this.cookie = this.options.cookie ? new pia_easy_popup(this) : null;
 
-        this.closeButtonHTML = this.options.closeButtonHTML ? this.options.closeButtonHTML : CLOSE_SVG;
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
         this.generateHTML();
-
-        // assign triggers via a[href="#id"], [toggle="id"]
-        let triggerSelector = `a[href="#${this.id}"], [${ATTRS.toggle}="${this.id}"]`;
-        triggerSelector = this.options.triggerSelector ? `${this.options.triggerSelector}, ${triggerSelector}` : triggerSelector;
-        document.querySelectorAll(triggerSelector).forEach(trigger => {
-            trigger.classList.add(CLASSES.triggerEnabled);
-            trigger.addEventListener('click', e => {
-                e.preventDefault();
-                this.toggle();
-            });
-        });
 
         // auto show
         if(this.options.autoShow !== false){
@@ -528,11 +714,6 @@ class Popup{
         this.events.add(eventName, callback);
     }
 
-    isBooleanOptionTrue(attr, option){
-        const attrValue = this.el.getAttribute(attr);
-        return attrValue ? attrValue !== 'false' : option;
-    }
-
     generateHTML(){
         // check flag
         if(this.el.classList.contains(CLASSES.processed)) return;
@@ -546,75 +727,39 @@ class Popup{
         this.masterContainer.appendChild(this.el);
 
         // inner
-        this.inner = this.wrap(this.el);
+        this.inner = wrapElement(this.el);
         this.inner.classList.add(CLASSES.inner);
 
-        // add inner close button
-        this.closeButton = document.createElement('button');
-        this.closeButton.classList.add(CLASSES.closeButton);
-        this.closeButton.innerHTML = this.closeButtonHTML;
-        this.closeButton.setAttribute(ATTRS.toggle, '');
-        this.closeButton.setAttribute('aria-label', `Close popup ${this.options.title}`);
-        this.closeButton.addEventListener('click', () => this.close());
-        this.inner.appendChild(this.closeButton);
-
         // container
-        this.container = this.wrap(this.inner);
+        this.container = wrapElement(this.inner);
         this.container.classList.add(CLASSES.container);
 
         // overflow
-        this.overflow = this.wrap(this.container);
+        this.overflow = wrapElement(this.container);
         this.overflow.classList.add(CLASSES.overflow);
 
-        // overflow > mobile heading
-        this.mobileHeading = document.createElement('div');
-        this.mobileHeading.classList.add(CLASSES.mobileHeading);
-        this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
-            <div>${this.options.title}</div>
-            <button class="${CLASSES.closeButton} mobile" ${ATTRS.toggle}>${this.closeButtonHTML}</button>
-            </div>`;
-        this.overflow.appendChild(this.mobileHeading);
-
         // outer
-        this.outer = this.wrap(this.overflow);
+        this.outer = wrapElement(this.overflow);
         this.outer.classList.add(CLASSES.outer);
         if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-        if(this.options.hasMobileLayout) this.outer.classList.add(CLASSES.hasMobileLayout);
-        if(this.options.closeButtonHTML) this.outer.classList.add(CLASSES.hasCustomClose);
         this.outer.setAttribute(ATTRS.id, this.id);
 
-        // set theme
-        this.outer.setAttribute(ATTRS.theme, this.options.theme);
-
-        // close when click outside of content
-        this.outer.addEventListener('click', e => {
-            if(e.target.classList.contains(CLASSES.ignoreClick)) return;
-            if(this.isClickOutsideContent(e) && this.options.clickOutsideToClose) this.close();
-        });
-
-        // close buttons on click
-        this.outer.querySelectorAll('[data-easy-popup-toggle]').forEach(btn => {
-            btn.addEventListener('click', () => this.close());
-        });
-
-        // add event listener when press ESC
-        if(this.options.keyboard){
-            document.addEventListener('keyup', (e) => {
-                if(this.isOpen && e.key === 'Escape'){
-                    this.close();
-                }
-            });
-        }
+        initOutsideClick(this);
+        initKeyboard(this);
+        initTheme(this);
+        initMobileLayout(this); // must call after initTheme()
+        addCloseButton(this);
+        initToggleTrigger(this); // call at last
 
         // done init
         this.el.classList.add(CLASSES.processed, CLASSES.content);
     }
 
-    isClickOutsideContent(event){
-        return !this.inner.contains(event.target) && !this.mobileHeading.contains(event.target);
-    }
 
     open(){
+        // only open when is close
+        if(this.isOpen) return;
+
         // check active popup
         if(window.EasyPopupData.active){
             EasyPopup.get(window.EasyPopupData.active).close();
@@ -625,6 +770,7 @@ class Popup{
         this.outer.classList.add(CLASSES.open);
         this.isOpen = true;
         this.root.classList.add(CLASSES.rootOpen);
+        if(this.options.activeHtmlClass) this.root.classList.add(this.options.activeHtmlClass);
 
         // prevent scroll > on
         if(this.options.preventScroll){
@@ -635,9 +781,10 @@ class Popup{
             }else{
                 // prevent via CSS
                 this.root.classList.add(CLASSES.preventScroll);
-                this.root.style.setProperty('--ep-scroll-bar-w', `${this.getScrollbarWidth()}px`);
+                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth()}px`);
             }
         }
+
 
         // let Pia know that the popup was just opened
         this.cookie?.onPopupOpen();
@@ -647,11 +794,15 @@ class Popup{
     }
 
     close(){
+        // only close when is open
+        if(!this.isOpen) return;
+
         // close
         window.EasyPopupData.active = '';
         this.outer.classList.remove(CLASSES.open);
         this.isOpen = false;
         this.root.classList.remove(CLASSES.rootOpen);
+        if(this.options.activeHtmlClass) this.root.classList.remove(this.options.activeHtmlClass);
 
         // prevent scroll > off
         setTimeout(() => {
@@ -676,44 +827,6 @@ class Popup{
 
     toggle(){
         this.isOpen ? this.close() : this.open();
-    }
-
-    /**
-     * Wrap element
-     * @param innerEl
-     * @param outerEl
-     * @returns {HTMLDivElement}
-     */
-    wrap(innerEl, outerEl = document.createElement('div')){
-        innerEl.parentNode.insertBefore(outerEl, innerEl);
-        outerEl.appendChild(innerEl);
-        return outerEl;
-    }
-
-    /**
-     * Get scrollbar width
-     * https://stackoverflow.com/a/986977/6453822
-     * @returns {number}
-     */
-    getScrollbarWidth(){
-        // Creating invisible container
-        const outer = document.createElement('div');
-        outer.style.visibility = 'hidden';
-        outer.style.overflow = 'scroll'; // forcing scrollbar to appear
-        outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-        document.body.appendChild(outer);
-
-        // Creating inner element and placing it in the container
-        const inner = document.createElement('div');
-        outer.appendChild(inner);
-
-        // Calculating difference between container's full width and the child width
-        const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
-
-        // Removing temporary elements from the DOM
-        outer.parentNode.removeChild(outer);
-
-        return scrollbarWidth;
     }
 }
 
