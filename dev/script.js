@@ -6,7 +6,6 @@ import '@/_style.scss';
 // private style
 import 'github-markdown-css/github-markdown-light.css'
 import {highlightCodeSyntax} from "@phucbm/gfm";
-import {CLOSE_SVG} from "@/configs";
 import {testInit} from "./js/test-init";
 import {testLayout} from "./js/test-layout";
 import mdOptions from "./md/options.md";

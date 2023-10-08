@@ -1,4 +1,4 @@
-import {ATTRS, CLASSES} from "@/configs";
+import {ATTRS, CLASSES} from "./configs";
 
 export function initToggleTrigger(context){
     // assign triggers via a[href="#id"], [toggle="id"]

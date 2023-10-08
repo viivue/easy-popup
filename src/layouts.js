@@ -1,5 +1,5 @@
 import {MatchMediaScreen} from "match-media-screen";
-import {ATTRS, CLASSES, CLOSE_SVG} from "@/configs";
+import {ATTRS, CLASSES, CLOSE_SVG} from "./configs";
 
 /**
  * Set up mobile layout
