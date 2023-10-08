@@ -19,6 +19,8 @@ class Popup{
         this.selector = ATTRS.init;
         this.innerHTML = this.el.innerHTML;
         this.isOpen = false;
+        this.id = uniqueId('easy-popup-');
+        this.idType = 'auto-id';
 
         // skip double init
         if(this.el.classList.contains(CLASSES.processed)) return;
@@ -28,36 +30,25 @@ class Popup{
             names: ['onClose', 'onOpen']
         });
 
-        // options
-        const id = this.el.getAttribute(ATTRS.init);
-        this.options = {
-            ...DEFAULTS,
-            id: id ? id : uniqueId('easy-popup-')
-        };
-
         // get options id from attribute
-        let idFromAttributeString;
         this.options = getOptionsFromAttribute(
             {
                 target: this.el,
                 attributeName: ATTRS.init,
-                defaultOptions: DEFAULTS,
+                defaultOptions: {...DEFAULTS, ...options},
                 numericValues: ['autoShow', 'showingTimes'],
-                onIsString: dataAttribute => {
-                    // data attribute exist => string
-                    if(dataAttribute) idFromAttributeString = dataAttribute;
+                onIsString: value => {
+                    // value is not a json => use value as ID
+                    this.idType = 'attr-id';
+                    this.id = value;
                 }
             });
 
-        // if(idFromAttributeString){
-        //     this.options.id = idFromAttributeString;
-        // }
-
-        // get options id from init script
-        this.options = {...this.options, ...options};
-
-        // instance get id
-        this.id = this.options.id;
+        // found id from user options
+        if(this.options.id){
+            this.id = this.options.id;
+            this.idType = this.idType !== 'attribute-id' ? 'json-id' : this.idType;
+        }
 
         // get string options from attribute and js init
         this.options.title = this.el.getAttribute(ATTRS.title) || this.options.title;
