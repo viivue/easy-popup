@@ -51,7 +51,17 @@ class Popup{
         // found id from user options
         if(this.options.id){
             this.id = this.options.id;
-            this.idType = this.idType !== 'attribute-id' ? 'json-id' : this.idType;
+            this.idType = this.idType !== 'attr-id' ? 'json-id' : this.idType;
+        }
+
+        // in case attr is a number (will be skipped by onIsString)
+        const attrId = this.el.getAttribute(ATTRS.init);
+        if(!isNaN(attrId)){
+            this.id = `${attrId}`;
+            this.idType = 'attr-id';
+
+            // id is a number
+            console.warn(`Popup ID should be a string, consider adding a prefix to your ID to avoid unexpected issue, your ID:`, this.id);
         }
 
         // cookie
@@ -145,6 +155,7 @@ class Popup{
         this.outer.classList.add(CLASSES.open);
         this.isOpen = true;
         this.root.classList.add(CLASSES.rootOpen);
+        if(this.options.activeHtmlClass) this.root.classList.add(this.options.activeHtmlClass);
 
         // prevent scroll > on
         if(this.options.preventScroll){
@@ -158,6 +169,7 @@ class Popup{
                 this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth()}px`);
             }
         }
+
 
         // let Pia know that the popup was just opened
         this.cookie?.onPopupOpen();
@@ -175,6 +187,7 @@ class Popup{
         this.outer.classList.remove(CLASSES.open);
         this.isOpen = false;
         this.root.classList.remove(CLASSES.rootOpen);
+        if(this.options.activeHtmlClass) this.root.classList.remove(this.options.activeHtmlClass);
 
         // prevent scroll > off
         setTimeout(() => {

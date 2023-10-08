@@ -32,6 +32,7 @@ export const ATTRS = {
  * */
 export const DEFAULTS = {
     outerClass: '',
+    activeHtmlClass: '',
 
     // close button
     closeButtonInnerText: ``,
