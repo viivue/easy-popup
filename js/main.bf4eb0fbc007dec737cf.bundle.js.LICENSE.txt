@@ -1,6 +1,0 @@
-/**!
- * Pia JS v0.0.4
- * @author phucbm
- * @homepage https://github.com/phucbm/pia
- * @license MIT 2023
- */
