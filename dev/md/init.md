@@ -16,7 +16,37 @@ Or with JSON format for more options
 <div data-easy-popup='{"id": "demo-1"}'>
 ```
 
-Click here to <a href="#demo-1">open popup 1</a>.
+```js
+const showdown = require('showdown');
+const showdownHighlight = require("showdown-highlight");
+const {showdownCopyCode} = require("showdown-copy-code");
+```
+
+```css
+.easy-popup-master {
+    --ep-heading-height:45px;
+    --ep-top-empty-space:100px; /* on mobile */
+    --ep-bg:rgba(0, 0, 0, .3);
+    --ep-padding:clamp(20px, 2vw, 40px);
+    --ep-max-width:915px;
+    --ep-radius:10px;
+    --ep-close-width:40px;
+    --ep-close-color:#fff;
+    --ep-close-color-hover:#ef1616;
+
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:9999;
+    background:var(--ep-bg);
+    backdrop-filter:blur(2px);
+    transition:opacity .4s ease, visibility .4s ease;
+}
+```
+
+Click here to <a href="#demo-1">open popup 1</a>. [open](#demo-1)
 
 <div data-easy-popup='{"id": "demo-1"}'>
     <h2>Demo 1</h2>

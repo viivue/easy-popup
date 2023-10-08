@@ -1,8 +1,11 @@
 import md from "../md/init.md";
-import toMarkdown from "../../config/showdown";
+import {highlightCodeSyntax} from "@phucbm/gfm";
 
 export function testInit(root){
-    root.insertAdjacentHTML('beforeend', toMarkdown(md));
+    root.insertAdjacentHTML('beforeend', md);
+
+    // code highlight
+    highlightCodeSyntax().then();
 
     EasyPopup.init();
 }
