@@ -27,7 +27,6 @@ Init with HTML
 ```html
 <!-- Using data attributes -->
 <div data-easy-popup="demo"
-     data-easy-popup-mobile="true"
      data-easy-popup-title="Popup title"
      data-easy-popup-theme="my-style"
      data-easy-popup-click-outside-to-close="false">

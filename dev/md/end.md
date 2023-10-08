@@ -1,7 +1,3 @@
-## API
-
-### Options
-
 ### Events
 
 ### Methods

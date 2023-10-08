@@ -9,6 +9,8 @@ import {highlightCodeSyntax} from "@phucbm/gfm";
 import {CLOSE_SVG} from "@/configs";
 import {testInit} from "./js/test-init";
 import {testLayout} from "./js/test-layout";
+import mdOptions from "./md/options.md";
+import mdEnd from "./md/end.md";
 
 // import package info
 const packageInfo = require('../package.json');
@@ -27,17 +29,8 @@ const root = document.querySelector('#content');
 testInit(root);
 testLayout(root);
 
+root.insertAdjacentHTML('beforeend', mdOptions);
+root.insertAdjacentHTML('beforeend', mdEnd);
+
 // code highlight
 highlightCodeSyntax().then();
-
-/**
- * Lib usage
- */
-EasyPopup.init('.demo-2', {
-    id: 'demo-2',
-    title: 'Demo 2',
-    triggerSelector: '.open-demo-2',
-    closeButtonHTML: `${CLOSE_SVG}<span>Close</span>`,
-    outerClass: 'outer-class-test',
-    theme: 'style-2'
-});

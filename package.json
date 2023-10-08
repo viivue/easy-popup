@@ -66,6 +66,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@phucbm/os-util": "0.0.5"
+    "@phucbm/os-util": "0.0.5",
+    "match-media-screen": "^0.0.3"
   }
 }

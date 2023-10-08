@@ -15,8 +15,6 @@ export const CLASSES = {
     rootOpen: 'easy-popup-open',
     closeButton: 'easy-popup-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
-    mobileHeading: 'ep-mobile-heading',
-    hasMobileLayout: 'ep-mobile-layout',
     ignoreClick: 'easy-popup-ignore-click',
     preventScroll: 'ep-prevent-scroll',
     preventScrollLenis: 'ep-prevent-scroll-lenis',
@@ -28,7 +26,6 @@ export const ATTRS = {
     id: 'data-easy-popup-id',
     title: 'data-easy-popup-title',
     toggle: 'data-ep-toggle',
-    mobileLayout: 'data-easy-popup-mobile',
     theme: 'data-easy-popup-theme',
     clickOutsideToClose: 'data-easy-popup-click-outside-to-close',
     init: 'data-easy-popup',
@@ -41,7 +38,11 @@ export const DEFAULTS = {
     title: '',
     closeButtonHTML: ``,
     triggerSelector: '',
+
+    // mobile layout
     hasMobileLayout: false, // has mobile layout, false by default
+    mobileBreakpoint: 768, // switch to mobile layout when the screen size is <=1023px
+
     theme: 'default',
 
     keyboard: true, // option for closing the popup by keyboard (ESC)

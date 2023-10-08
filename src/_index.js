@@ -3,6 +3,7 @@ import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
+import {initMobileLayout} from "@/mobile-layout";
 
 /**
  * Private class
@@ -56,7 +57,6 @@ class Popup{
 
         // get boolean options from attribute and js init
         this.options.clickOutsideToClose = this.isBooleanOptionTrue(ATTRS.clickOutsideToClose, this.options.clickOutsideToClose);
-        this.options.hasMobileLayout = this.isBooleanOptionTrue(ATTRS.mobileLayout, this.options.hasMobileLayout);
 
         // cookie
         this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
@@ -143,20 +143,10 @@ class Popup{
         this.overflow = this.wrap(this.container);
         this.overflow.classList.add(CLASSES.overflow);
 
-        // overflow > mobile heading
-        this.mobileHeading = document.createElement('div');
-        this.mobileHeading.classList.add(CLASSES.mobileHeading);
-        this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
-            <div>${this.options.title}</div>
-            <button class="${CLASSES.closeButton} mobile" ${ATTRS.toggle}>${this.closeButtonHTML}</button>
-            </div>`;
-        this.overflow.appendChild(this.mobileHeading);
-
         // outer
         this.outer = this.wrap(this.overflow);
         this.outer.classList.add(CLASSES.outer);
         if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-        if(this.options.hasMobileLayout) this.outer.classList.add(CLASSES.hasMobileLayout);
         if(this.options.closeButtonHTML) this.outer.classList.add(CLASSES.hasCustomClose);
         this.outer.setAttribute(ATTRS.id, this.id);
 
@@ -185,10 +175,12 @@ class Popup{
 
         // done init
         this.el.classList.add(CLASSES.processed, CLASSES.content);
+
+        initMobileLayout(this);
     }
 
     isClickOutsideContent(event){
-        return !this.inner.contains(event.target) && !this.mobileHeading.contains(event.target);
+        return !this.inner.contains(event.target);
     }
 
     open(){

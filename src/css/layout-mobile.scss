@@ -2,18 +2,21 @@
  * Easy Popup Layout: Mobile
 ****************************/
 .easy-popup.ep-mobile-layout {
-  --ep-heading-height: 45px;
-  --ep-heading-color: #eee;
-  --ep-top-empty-space: 100px; /* on mobile */
-  --ep-mobile-min-h: calc(80vh - var(--ep-top-empty-space));
+  --ep-top-empty-space: 100px;
+  --ep-mobile-height: calc(100vh - var(--ep-top-empty-space));
 }
 
 @media only screen and (max-width: 1023px) {
   .easy-popup.ep-mobile-layout {
     align-items: flex-end;
 
+    /* hiding transition */
+    &:not(.open) {
+      transform: scale(0.98) translate(0, 50px);
+    }
+
+
     .easy-popup-overflow {
-      padding-top: var(--ep-heading-height);
       overflow: hidden;
       display: flex;
     }
@@ -22,42 +25,25 @@
       padding: 0;
       overflow: auto;
       max-width: 100%;
-      min-height: var(--ep-mobile-min-h);
+      height: var(--ep-mobile-height);
       background: var(--ep-popup-bg);
     }
 
-    .easy-popup-close-button:not(.mobile) {
-      display: none;
-    }
-
-
-    /* transition */
-    &:not(.open) .easy-popup-overflow {
-      transform: translateY(20%);
-    }
-
-    .easy-popup-overflow {
-      transition: transform .3s ease;
-    }
-
-
-    /* mobile heading */
-    .ep-mobile-heading {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: var(--ep-heading-color);
-      border-radius: var(--ep-radius) var(--ep-radius) 0 0;
-
-      .easy-popup-heading-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        min-height: var(--ep-heading-height);
-        padding: 5px 20px;
-      }
+    /* close button */
+    .easy-popup-close-button {
+      --ep-close-color: #000;
+      transform: none;
+      position: fixed;
+      top: var(--ep-top-empty-space);
+      //&:not(.for-mobile-layout) {
+      //  display: none;
+      //}
+      //
+      //&.for-mobile-layout {
+      //  --ep-close-color: #000;
+      //  top: 50%;
+      //  transform: translate(0, -50%);
+      //}
     }
 
   }
