@@ -3,9 +3,10 @@ import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
-import {initCloseButton, initMobileLayout, initTheme} from "./layouts";
-import {initTriggers} from "./helpers";
+import {addCloseButton, initMobileLayout, initTheme} from "./layouts";
+import {initToggleTrigger} from "./helpers";
 import {initKeyboard} from "./keyboard";
+import {initOutsideClick} from "./outside-click";
 
 /**
  * Private class
@@ -53,17 +54,12 @@ class Popup{
             this.idType = this.idType !== 'attribute-id' ? 'json-id' : this.idType;
         }
 
-        // get boolean options from attribute and js init
-        this.options.clickOutsideToClose = this.isBooleanOptionTrue(ATTRS.clickOutsideToClose, this.options.clickOutsideToClose);
-
         // cookie
         this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
 
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
         this.generateHTML();
-
-        initTriggers(this);
 
         // auto show
         if(this.options.autoShow !== false){
@@ -93,11 +89,6 @@ class Popup{
         this.events.add(eventName, callback);
     }
 
-    isBooleanOptionTrue(attr, option){
-        const attrValue = this.el.getAttribute(attr);
-        return attrValue ? attrValue !== 'false' : option;
-    }
-
     generateHTML(){
         // check flag
         if(this.el.classList.contains(CLASSES.processed)) return;
@@ -114,7 +105,6 @@ class Popup{
         this.inner = this.wrap(this.el);
         this.inner.classList.add(CLASSES.inner);
 
-
         // container
         this.container = this.wrap(this.inner);
         this.container.classList.add(CLASSES.container);
@@ -129,33 +119,22 @@ class Popup{
         if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
         this.outer.setAttribute(ATTRS.id, this.id);
 
-
-        // close when click outside of content
-        this.outer.addEventListener('click', e => {
-            if(e.target.classList.contains(CLASSES.ignoreClick)) return;
-            if(this.isClickOutsideContent(e) && this.options.clickOutsideToClose) this.close();
-        });
-
-        // close buttons on click
-        this.outer.querySelectorAll(`${ATTRS.toggle}`).forEach(btn => {
-            btn.addEventListener('click', () => this.close());
-        });
-
+        initOutsideClick(this);
         initKeyboard(this);
+        initTheme(this);
+        initMobileLayout(this); // must call after initTheme()
+        addCloseButton(this);
+        initToggleTrigger(this); // call at last
 
         // done init
         this.el.classList.add(CLASSES.processed, CLASSES.content);
-
-        initTheme(this);
-        initMobileLayout(this); // must call after initTheme()
-        initCloseButton(this);
     }
 
-    isClickOutsideContent(event){
-        return !this.inner.contains(event.target);
-    }
 
     open(){
+        // only open when is close
+        if(this.isOpen) return;
+
         // check active popup
         if(window.EasyPopupData.active){
             EasyPopup.get(window.EasyPopupData.active).close();
@@ -188,6 +167,9 @@ class Popup{
     }
 
     close(){
+        // only close when is open
+        if(!this.isOpen) return;
+
         // close
         window.EasyPopupData.active = '';
         this.outer.classList.remove(CLASSES.open);

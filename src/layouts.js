@@ -70,7 +70,7 @@ function setTheme(context, removeTheme = false){
 }
 
 
-export function initCloseButton(context){
+export function addCloseButton(context){
     let closeButtonInnerText = CLOSE_SVG;
 
     // custom close button html
@@ -85,7 +85,4 @@ export function initCloseButton(context){
 
     // insert html
     context.inner.insertAdjacentHTML('beforeend', html);
-
-    // assign close event
-    context.inner.querySelector(`[${ATTRS.toggle}]`)?.addEventListener('click', () => context.close());
 }

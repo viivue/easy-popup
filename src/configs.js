@@ -15,7 +15,6 @@ export const CLASSES = {
     rootOpen: 'easy-popup-open',
     closeButton: 'ep-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
-    ignoreClick: 'easy-popup-ignore-click',
     preventScroll: 'ep-prevent-scroll',
     preventScrollLenis: 'ep-prevent-scroll-lenis',
 };
@@ -26,7 +25,6 @@ export const ATTRS = {
     id: 'data-easy-popup-id',
     toggle: 'data-ep-toggle',
     theme: 'data-ep-theme',
-    clickOutsideToClose: 'data-easy-popup-click-outside-to-close',
     init: 'data-easy-popup',
 };
 /**
