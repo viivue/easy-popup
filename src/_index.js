@@ -4,7 +4,7 @@ import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
 import {addCloseButton, initMobileLayout, initTheme} from "./layouts";
-import {initToggleTrigger} from "./helpers";
+import {getScrollbarWidth, initToggleTrigger, wrapElement} from "./helpers";
 import {initKeyboard} from "./keyboard";
 import {initOutsideClick} from "./outside-click";
 
@@ -102,19 +102,19 @@ class Popup{
         this.masterContainer.appendChild(this.el);
 
         // inner
-        this.inner = this.wrap(this.el);
+        this.inner = wrapElement(this.el);
         this.inner.classList.add(CLASSES.inner);
 
         // container
-        this.container = this.wrap(this.inner);
+        this.container = wrapElement(this.inner);
         this.container.classList.add(CLASSES.container);
 
         // overflow
-        this.overflow = this.wrap(this.container);
+        this.overflow = wrapElement(this.container);
         this.overflow.classList.add(CLASSES.overflow);
 
         // outer
-        this.outer = this.wrap(this.overflow);
+        this.outer = wrapElement(this.overflow);
         this.outer.classList.add(CLASSES.outer);
         if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
         this.outer.setAttribute(ATTRS.id, this.id);
@@ -155,7 +155,7 @@ class Popup{
             }else{
                 // prevent via CSS
                 this.root.classList.add(CLASSES.preventScroll);
-                this.root.style.setProperty('--ep-scroll-bar-w', `${this.getScrollbarWidth()}px`);
+                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth()}px`);
             }
         }
 
@@ -199,44 +199,6 @@ class Popup{
 
     toggle(){
         this.isOpen ? this.close() : this.open();
-    }
-
-    /**
-     * Wrap element
-     * @param innerEl
-     * @param outerEl
-     * @returns {HTMLDivElement}
-     */
-    wrap(innerEl, outerEl = document.createElement('div')){
-        innerEl.parentNode.insertBefore(outerEl, innerEl);
-        outerEl.appendChild(innerEl);
-        return outerEl;
-    }
-
-    /**
-     * Get scrollbar width
-     * https://stackoverflow.com/a/986977/6453822
-     * @returns {number}
-     */
-    getScrollbarWidth(){
-        // Creating invisible container
-        const outer = document.createElement('div');
-        outer.style.visibility = 'hidden';
-        outer.style.overflow = 'scroll'; // forcing scrollbar to appear
-        outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-        document.body.appendChild(outer);
-
-        // Creating inner element and placing it in the container
-        const inner = document.createElement('div');
-        outer.appendChild(inner);
-
-        // Calculating difference between container's full width and the child width
-        const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
-
-        // Removing temporary elements from the DOM
-        outer.parentNode.removeChild(outer);
-
-        return scrollbarWidth;
     }
 }
 
