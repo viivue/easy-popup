@@ -1,10 +1,13 @@
 ## Use
 
-### With `[data-easy-popup="id"]`
+### Default init
+
+#### With attribute
 
 Value of the attribute will be treated as the popup's ID.
 
 ```html
+
 <div data-easy-popup="popup-1">
     <!-- Popup content -->
     <h2>Popup #1</h2>
@@ -24,15 +27,19 @@ Value of the attribute will be treated as the popup's ID.
     <p>Lorem ipsum dolor sit amet hendrerit nec neque ultricies.</p>
 </div>
 
-### With more options
+#### With JSON
 
 Initialize your popup with more options without touching the JavaScript file. [View popup](#popup-json).
 
 ```html
+
 <div data-easy-popup='{"id": "my_popup"}'>
     <!-- Popup content -->
 </div>
 ```
+
+> Make sure the script always execute after the HTML has been loaded. Or run `EasyPopup.init()` anytime the HTML is
+> ready.
 
 <div data-easy-popup='{"id": "popup-json"}'>
     <!-- Popup content -->
@@ -41,12 +48,11 @@ Initialize your popup with more options without touching the JavaScript file. [V
     <a href="#popup-js">Open Popup init by JS</a>
 </div>
 
-### With JavaScript
+### Custom init
 
 Init anytime with JavaScript. [View popup](#popup-js).
 
 ```html
-
 <div class="your-class">
     <!-- Popup content -->
 </div>
