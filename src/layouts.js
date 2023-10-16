@@ -34,17 +34,6 @@ export function initMobileLayout(context){
             }
         },
     });
-
-    // create html
-    // const html = `<div class="ep-mobile-heading">
-    //                     <div class="ep-mobile-heading__inner">
-    //                         ${context.options.title ? `<div class="ep-mobile-heading__title">${context.options.title}</div>` : ''}
-    //                         <button class="${CLASSES.closeButton} for-mobile-layout" ${ATTRS.toggle}>${closeButtonInnerText}</button>
-    //                     </div>
-    //                 </div>`;
-
-    //context.overflow.insertAdjacentHTML('beforeend', html);
-
 }
 
 export function initTheme(context){
@@ -79,10 +68,16 @@ export function addCloseButton(context){
         closeButtonInnerText = context.options.closeButtonInnerText;
     }
 
-    let html = `<button class="${CLASSES.closeButton}" ${ATTRS.toggle}>
+    const getButtonHtml = (classes = CLASSES.closeButton, attr = ATTRS.toggle) => {
+        return `<button class="${classes}" ${attr}>
                     ${closeButtonInnerText}
                 </button>`;
+    }
 
     // insert html
-    context.inner.insertAdjacentHTML('beforeend', html);
+    context.inner.insertAdjacentHTML('beforeend', getButtonHtml());
+
+
+    // sticky mobile close button
+    context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + ' for-mobile-layout'));
 }

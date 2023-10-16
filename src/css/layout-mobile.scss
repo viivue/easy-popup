@@ -31,19 +31,17 @@
 
     /* close button */
     .ep-close-button {
-      --ep-close-color: #000;
-      transform: none;
-      position: fixed;
-      top: var(--ep-top-empty-space);
-      //&:not(.for-mobile-layout) {
-      //  display: none;
-      //}
-      //
-      //&.for-mobile-layout {
-      //  --ep-close-color: #000;
-      //  top: 50%;
-      //  transform: translate(0, -50%);
-      //}
+
+      &:not(.for-mobile-layout) {
+        display: none;
+      }
+
+      &.for-mobile-layout {
+        --ep-close-color: #000;
+        position: absolute;
+        top: 0;
+        transform: none;
+      }
     }
 
   }
