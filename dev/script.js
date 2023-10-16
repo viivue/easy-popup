@@ -15,6 +15,7 @@ import mdEnd from "./md/end.md";
 import mdBegin from "./md/begin.md";
 import {testCookie} from "./js/test-cookie";
 import {testEvents} from "./js/test-events";
+import {testMethods} from "./js/test-methods";
 
 // import package info
 const packageInfo = require('../package.json');
@@ -39,6 +40,7 @@ testCookie(root);
 
 root.insertAdjacentHTML('beforeend', mdOptions);
 testEvents(root);
+testMethods(root);
 root.insertAdjacentHTML('beforeend', mdEnd);
 
 // code highlight

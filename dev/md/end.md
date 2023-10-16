@@ -1,5 +1,3 @@
-### Methods
-
 ## Development
 
 Clone this repo, then:
