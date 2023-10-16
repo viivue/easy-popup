@@ -8,6 +8,7 @@ import 'github-markdown-css/github-markdown-light.css'
 import {highlightCodeSyntax} from "@phucbm/gfm";
 import {testInit} from "./js/test-init";
 import {testLayout} from "./js/test-layout";
+import {testAutoShow} from "./js/test-auto-show";
 import mdOptions from "./md/options.md";
 import mdEnd from "./md/end.md";
 import mdBegin from "./md/begin.md";
@@ -30,6 +31,7 @@ root.insertAdjacentHTML('beforeend', mdBegin);
 
 testInit(root);
 testLayout(root);
+testAutoShow(root);
 
 root.insertAdjacentHTML('beforeend', mdOptions);
 root.insertAdjacentHTML('beforeend', mdEnd);

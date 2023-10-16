@@ -1,32 +1,14 @@
 ## Layouts
 
-### Mobile layout
+Layout could be customized with these provided options.
 
-```html
+| Description | Option | Buttons |
+|--|--|--|
+| Use custom layout on mobile | `hasMobileLayout: true` | [View popup](#popup-mobile) |
+| Display popup on the right side | `theme: "right-side"` | [View popup](#popup-right-side) |
+| Change the close button text | `closeButtonInnerText: "CLOSE"` | [View popup](#popup-custom-close) |
 
-<div data-easy-popup='{"hasMobileLayout": "true"}'>
-    <!-- Popup content -->
-</div>
-```
-
-[Open Mobile Layout Popup](#popup-4)
-
-### Right side popup
-
-```html
-
-<div data-easy-popup='{"theme": "right-side"}'>
-    <!-- Popup content -->
-</div>
-```
-
-[Open Right-side Popup](#popup-5)
-
-### Change the close button text
-
-[Open Popup Custom Close Button](#popup-6)
-
-<div data-easy-popup='{"id": "popup-4", "hasMobileLayout": "true"}'>
+<div data-easy-popup='{"id": "popup-mobile", "hasMobileLayout": "true"}'>
     <!-- Popup content -->
 <h2>Adjust the screen size to see the layout changes.</h2>    
 <p>
@@ -47,7 +29,7 @@ nostra lorem libero curabitur.
 </p>
 </div>
 
-<div data-easy-popup='{"id": "popup-5", "theme": "right-side", "hasMobileLayout": "false"}'>
+<div data-easy-popup='{"id": "popup-right-side", "theme": "right-side", "hasMobileLayout": "false"}'>
     <!-- Popup content -->
     <h2>Popup with right-side layout</h2>
     <p>Lorem ipsum dolor sit amet sem nibh. Natoque sit elit diam consequat nostra fames. Maecenas facilisi finibus si arcu nulla gravida metus congue facilisis hac. Primis turpis nullam sed aliquam eros in ultricies. Tristique interdum est tortor augue nullam morbi ante imperdiet metus. Nunc imperdiet massa aliquam sapien purus est vehicula sed congue habitant. Quisque suscipit sollicitudin tempus lorem ac viverra habitant nostra aliquam nec aenean.
@@ -93,7 +75,7 @@ nostra lorem libero curabitur.
 </p>
 </div>
 
-<div data-easy-popup='{"id": "popup-6", "closeButtonInnerText": "CLOSE"}'>
+<div data-easy-popup='{"id": "popup-custom-close", "closeButtonInnerText": "CLOSE"}'>
     <!-- Popup content -->
 <h2>Ac lectus interdum auctor praesent quis</h2>  
 <p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
