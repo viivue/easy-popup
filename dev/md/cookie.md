@@ -12,30 +12,50 @@ Show popup for **a number of times** and reset after a period of time.
 
 - Shows 3 times, then re-appears after 7 days: `{autoShow:true, cookie: 7, showingTimes: 3}`
 
-### Clear cookie
+### Remove/clear cookie
 
-To clear cookie for all client devices.
+To stop using cookie to control a popup, simply change the init options:
 
 - `{autoShow:false}`: prevent the popup reappears, however, the cookie still exists in the client
   devices.
 - `{cookie:undefined}`: clear cookie if any.
 
-### Update cookie
+Or use method:
 
-Set a new cookie name to disconnect with the current cookie. Otherwise, the popup will always look for the cookie with
-the
-default name.
+```js
+const popup = EasyPopup.get('my-popup');
+popup.cookie.remove(); // remove the cookie data completely
+```
+
+### Update/reset cookie
+
+Once the popup with cookie has been init, the only way to update the cookie is to set a new name for the cookie.
+
+Useful when you want to reset the cookie expiration, or set new expiration.
 
 - `{cookie:"new_expiration_value", cookieName:"new_name"}`
 
 ### Test cookie
 
-Using [`Pia.test()`](https://github.com/phucbm/pia#test-record).
+You can use [`Pia.test()`](https://github.com/phucbm/pia#test-record) to see cookie info.
 
 ```js
-const popup = EasyPopup.get('popup-cookie');
-
+const popup = EasyPopup.get('my-popup');
 console.log(Pia.test(popup.cookie.key));
 ```
 
-> [Click here to reload and view demo cookie popups](?view-cookie-popup)
+### Cookie demo
+
+> [Click here to view demo cookie popup](?view-cookie-popup)
+
+<details>
+<summary>View demo code</summary>
+
+```html
+
+<div data-easy-popup='{"id": "popup-cookie", "autoShow": "true", "cookie": "1 day", "showingTimes": "5"}'>
+    <!-- Popup content -->
+</div>
+```
+
+</details>
