@@ -10,9 +10,11 @@ import {testInit} from "./js/test-init";
 import {testLayout} from "./js/test-layout";
 import {testAutoShow} from "./js/test-auto-show";
 import mdOptions from "./md/options.md";
+import mdEvents from "./md/events.md";
 import mdEnd from "./md/end.md";
 import mdBegin from "./md/begin.md";
 import {testCookie} from "./js/test-cookie";
+import {testEvents} from "./js/test-events";
 
 // import package info
 const packageInfo = require('../package.json');
@@ -36,6 +38,7 @@ testAutoShow(root);
 testCookie(root);
 
 root.insertAdjacentHTML('beforeend', mdOptions);
+testEvents(root);
 root.insertAdjacentHTML('beforeend', mdEnd);
 
 // code highlight
