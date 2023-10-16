@@ -12,6 +12,7 @@ import {testAutoShow} from "./js/test-auto-show";
 import mdOptions from "./md/options.md";
 import mdEnd from "./md/end.md";
 import mdBegin from "./md/begin.md";
+import {testCookie} from "./js/test-cookie";
 
 // import package info
 const packageInfo = require('../package.json');
@@ -32,6 +33,7 @@ root.insertAdjacentHTML('beforeend', mdBegin);
 testInit(root);
 testLayout(root);
 testAutoShow(root);
+testCookie(root);
 
 root.insertAdjacentHTML('beforeend', mdOptions);
 root.insertAdjacentHTML('beforeend', mdEnd);
