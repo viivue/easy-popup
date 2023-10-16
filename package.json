@@ -1,5 +1,5 @@
 {
-  "name": "easy-popup",
+  "name": "@viivue/easy-popup",
   "outputFilename": "easy-popup",
   "prettyName": "Easy Popup",
   "codeName": "EasyPopup",
@@ -22,6 +22,9 @@
     "es6"
   ],
   "main": "./dist/easy-popup.module.js",
+  "files": [
+    "./dist/*"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "webpack serve --config config/webpack.dev.js",
@@ -32,7 +35,7 @@
     "prod-umd": "cross-env TARGET=umd webpack --config config/webpack.prod.js",
     "prod-umd-min": "cross-env TARGET=umd MIN=yes webpack --config config/webpack.prod.js",
     "prod-module": "cross-env TARGET=module MIN=yes webpack --config config/webpack.prod.js",
-    "prod": "npm run prod-umd && npm run prod-umd-min && npm run output-css",
+    "prod": "npm run prod-umd && npm run prod-module && npm run prod-umd-min && npm run output-css",
     "publish": "npm run prod & npm publish"
   },
   "devDependencies": {
