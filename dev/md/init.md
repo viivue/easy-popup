@@ -5,7 +5,6 @@
 Value of the attribute will be treated as the popup's ID.
 
 ```html
-
 <div data-easy-popup="popup-1">
     <!-- Popup content -->
     <h2>Popup #1</h2>
@@ -30,7 +29,6 @@ Value of the attribute will be treated as the popup's ID.
 Initialize your popup with more options without touching the JavaScript file. [View popup](#popup-json).
 
 ```html
-
 <div data-easy-popup='{"id": "my_popup"}'>
     <!-- Popup content -->
 </div>
@@ -47,14 +45,21 @@ Initialize your popup with more options without touching the JavaScript file. [V
 
 Init anytime with JavaScript. [View popup](#popup-js).
 
+```html
+
+<div class="your-class">
+    <!-- Popup content -->
+</div>
+```
+
 ```js
-EasyPopup.init('.my-popup', {
-    id: 'my_popup',
+EasyPopup.init('.your-class', {
+    id: 'popup-js',
     // more options here
 });
 ```
 
-<div data-easy-popup='{"id": "popup-js"}'>
+<div class="your-class">
     <!-- Popup content -->
     <h2>Popup init by JS</h2>
     <p>Lorem ipsum dolor sit amet hendrerit nec neque ultricies.</p>
@@ -65,7 +70,6 @@ EasyPopup.init('.my-popup', {
 An alternative way to toggle a popup: <button data-ep-toggle="popup-3">Open Popup #3</button>
 
 ```html
-
 <button data-ep-toggle="popup-3">Open popup</button>
 ```
 

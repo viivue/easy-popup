@@ -52,7 +52,6 @@ console.log(Pia.test(popup.cookie.key));
 <summary>View demo code</summary>
 
 ```html
-
 <div data-easy-popup='{"id": "popup-cookie", "autoShow": "true", "cookie": "1 day", "showingTimes": "5"}'>
     <!-- Popup content -->
 </div>

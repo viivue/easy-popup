@@ -56,7 +56,7 @@ class Popup{
 
         // in case attr is a number (will be skipped by onIsString)
         const attrId = this.el.getAttribute(ATTRS.init);
-        if(!isNaN(attrId)){
+        if(attrId !== null && !isNaN(attrId)){
             this.id = `${attrId}`;
             this.idType = 'attr-id';
 
