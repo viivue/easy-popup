@@ -82,6 +82,7 @@ class PiaEasyPopup{
         let cookieName = context.options.cookieName;
         cookieName = typeof cookieName === 'string' && cookieName.length > 0 ? cookieName : context.id;
         this.key = 'easy-popup-' + stringToSlug(cookieName);
+        this.popupId = context.id;
 
         // validate expires
         this.piaOptions = {expires: piaValue};
@@ -130,6 +131,10 @@ class PiaEasyPopup{
 
     updateVal(val){
         Pia.update(this.key, val);
+    }
+
+    remove(){
+        Pia.remove(this.key);
     }
 }
 
@@ -460,17 +465,6 @@ function initMobileLayout(context){
             }
         },
     });
-
-    // create html
-    // const html = `<div class="ep-mobile-heading">
-    //                     <div class="ep-mobile-heading__inner">
-    //                         ${context.options.title ? `<div class="ep-mobile-heading__title">${context.options.title}</div>` : ''}
-    //                         <button class="${CLASSES.closeButton} for-mobile-layout" ${ATTRS.toggle}>${closeButtonInnerText}</button>
-    //                     </div>
-    //                 </div>`;
-
-    //context.overflow.insertAdjacentHTML('beforeend', html);
-
 }
 
 function initTheme(context){
@@ -505,12 +499,18 @@ function addCloseButton(context){
         closeButtonInnerText = context.options.closeButtonInnerText;
     }
 
-    let html = `<button class="${CLASSES.closeButton}" ${ATTRS.toggle}>
+    const getButtonHtml = (classes = CLASSES.closeButton, attr = ATTRS.toggle) => {
+        return `<button class="${classes}" ${attr}>
                     ${closeButtonInnerText}
                 </button>`;
+    }
 
     // insert html
-    context.inner.insertAdjacentHTML('beforeend', html);
+    context.inner.insertAdjacentHTML('beforeend', getButtonHtml());
+
+
+    // sticky mobile close button
+    context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + ' for-mobile-layout'));
 }
 ;// CONCATENATED MODULE: ./src/helpers.js
 
@@ -671,7 +671,7 @@ class Popup{
 
         // in case attr is a number (will be skipped by onIsString)
         const attrId = this.el.getAttribute(ATTRS.init);
-        if(!isNaN(attrId)){
+        if(attrId !== null && !isNaN(attrId)){
             this.id = `${attrId}`;
             this.idType = 'attr-id';
 
