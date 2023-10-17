@@ -1,6 +1,10 @@
 import PiaEasyPopup from "./pia-easy-popup";
-import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
+import {CLASSES, ATTRS, DEFAULTS} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
+import {uniqueId} from "./utils";
+import LenisEasyPopup from "./lenis-easy-popup";
+import {getScrollbarWidth} from "./helpers";
+import {generateHTML} from "./html";
 
 /**
  * Private class
@@ -14,9 +18,11 @@ class Popup{
 
         this.root = document.querySelector(':root');
         this.el = el;
-        this.selector = 'data-easy-popup';
+        this.selector = ATTRS.init;
         this.innerHTML = this.el.innerHTML;
         this.isOpen = false;
+        this.id = uniqueId('easy-popup-');
+        this.idType = 'auto-id';
 
         // skip double init
         if(this.el.classList.contains(CLASSES.processed)) return;
@@ -26,59 +32,44 @@ class Popup{
             names: ['onClose', 'onOpen']
         });
 
-        // options
-        this.options = {...DEFAULTS, id: this.el.id ? this.el.id : DEFAULTS.id};
-
         // get options id from attribute
-        let idFromAttributeString;
         this.options = getOptionsFromAttribute(
             {
                 target: this.el,
                 attributeName: ATTRS.init,
-                defaultOptions: DEFAULTS,
+                defaultOptions: {...DEFAULTS, ...options},
                 numericValues: ['autoShow', 'showingTimes'],
-                onIsString: dataAttribute => {
-                    // data attribute exist => string
-                    if(dataAttribute) idFromAttributeString = dataAttribute;
+                onIsString: value => {
+                    // value is not a json => use value as ID
+                    this.idType = 'attr-id';
+                    this.id = value;
                 }
             });
 
-        if(idFromAttributeString){
-            this.options.id = idFromAttributeString;
+        // found id from user options
+        if(this.options.id){
+            this.id = this.options.id;
+            this.idType = this.idType !== 'attr-id' ? 'json-id' : this.idType;
         }
 
-        // get options id from init script
-        this.options = {...this.options, ...options};
+        // in case attr is a number (will be skipped by onIsString)
+        const attrId = this.el.getAttribute(ATTRS.init);
+        if(attrId !== null && !isNaN(attrId)){
+            this.id = `${attrId}`;
+            this.idType = 'attr-id';
 
-        // instance get id
-        this.id = this.options.id;
-
-        // get string options from attribute and js init
-        this.options.title = this.el.getAttribute(ATTRS.title) || this.options.title;
-        this.options.theme = this.el.getAttribute(ATTRS.theme) || this.options.theme;
-
-        // get boolean options from attribute and js init
-        this.options.clickOutsideToClose = this.isBooleanOptionTrue(ATTRS.clickOutsideToClose, this.options.clickOutsideToClose);
-        this.options.hasMobileLayout = this.isBooleanOptionTrue(ATTRS.mobileLayout, this.options.hasMobileLayout);
+            // id is a number
+            console.warn(`Popup ID should be a string, consider adding a prefix to your ID to avoid unexpected issue, your ID:`, this.id);
+        }
 
         // cookie
         this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
 
-        this.closeButtonHTML = this.options.closeButtonHTML ? this.options.closeButtonHTML : CLOSE_SVG;
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
-        this.generateHTML();
-
-        // assign triggers via a[href="#id"], [toggle="id"]
-        let triggerSelector = `a[href="#${this.id}"], [${ATTRS.toggle}="${this.id}"]`;
-        triggerSelector = this.options.triggerSelector ? `${this.options.triggerSelector}, ${triggerSelector}` : triggerSelector;
-        document.querySelectorAll(triggerSelector).forEach(trigger => {
-            trigger.classList.add(CLASSES.triggerEnabled);
-            trigger.addEventListener('click', e => {
-                e.preventDefault();
-                this.toggle();
-            });
-        });
+        // generate html
+        this.outer = undefined;
+        generateHTML(this);
 
         // auto show
         if(this.options.autoShow !== false){
@@ -93,6 +84,9 @@ class Popup{
                 setTimeout(() => this.open(), timeout);
             }
         }
+
+        // lenis integrate
+        this.lenis = new LenisEasyPopup(this);
     }
 
     /******************************
@@ -105,93 +99,11 @@ class Popup{
         this.events.add(eventName, callback);
     }
 
-    isBooleanOptionTrue(attr, option){
-        const attrValue = this.el.getAttribute(attr);
-        return attrValue ? attrValue !== 'false' : option;
-    }
-
-    generateHTML(){
-        // check flag
-        if(this.el.classList.contains(CLASSES.processed)) return;
-
-        // relocate HTML to body tag
-        if(!this.masterContainer){
-            this.masterContainer = document.createElement('div');
-            this.masterContainer.classList.add(CLASSES.master);
-        }
-        document.querySelector('body').appendChild(this.masterContainer);
-        this.masterContainer.appendChild(this.el);
-
-        // inner
-        this.inner = this.wrap(this.el);
-        this.inner.classList.add(CLASSES.inner);
-
-        // add inner close button
-        this.closeButton = document.createElement('button');
-        this.closeButton.classList.add(CLASSES.closeButton);
-        this.closeButton.innerHTML = this.closeButtonHTML;
-        this.closeButton.setAttribute(ATTRS.toggle, '');
-        this.closeButton.setAttribute('aria-label', `Close popup ${this.options.title}`);
-        this.closeButton.addEventListener('click', () => this.close());
-        this.inner.appendChild(this.closeButton);
-
-        // container
-        this.container = this.wrap(this.inner);
-        this.container.classList.add(CLASSES.container);
-
-        // overflow
-        this.overflow = this.wrap(this.container);
-        this.overflow.classList.add(CLASSES.overflow);
-
-        // overflow > mobile heading
-        this.mobileHeading = document.createElement('div');
-        this.mobileHeading.classList.add(CLASSES.mobileHeading);
-        this.mobileHeading.innerHTML = `<div class="easy-popup-heading-inner">
-            <div>${this.options.title}</div>
-            <button class="${CLASSES.closeButton} mobile" ${ATTRS.toggle}>${this.closeButtonHTML}</button>
-            </div>`;
-        this.overflow.appendChild(this.mobileHeading);
-
-        // outer
-        this.outer = this.wrap(this.overflow);
-        this.outer.classList.add(CLASSES.outer);
-        if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-        if(this.options.hasMobileLayout) this.outer.classList.add(CLASSES.hasMobileLayout);
-        if(this.options.closeButtonHTML) this.outer.classList.add(CLASSES.hasCustomClose);
-        this.outer.setAttribute(ATTRS.id, this.id);
-
-        // set theme
-        this.outer.setAttribute(ATTRS.theme, this.options.theme);
-
-        // close when click outside of content
-        this.outer.addEventListener('click', e => {
-            if(e.target.classList.contains(CLASSES.ignoreClick)) return;
-            if(this.isClickOutsideContent(e) && this.options.clickOutsideToClose) this.close();
-        });
-
-        // close buttons on click
-        this.outer.querySelectorAll('[data-easy-popup-toggle]').forEach(btn => {
-            btn.addEventListener('click', () => this.close());
-        });
-
-        // add event listener when press ESC
-        if(this.options.keyboard){
-            document.addEventListener('keyup', (e) => {
-                if(this.isOpen && e.key === 'Escape'){
-                    this.close();
-                }
-            });
-        }
-
-        // done init
-        this.el.classList.add(CLASSES.processed, CLASSES.content);
-    }
-
-    isClickOutsideContent(event){
-        return !this.inner.contains(event.target) && !this.mobileHeading.contains(event.target);
-    }
 
     open(){
+        // only open when is close
+        if(this.isOpen) return;
+
         // check active popup
         if(window.EasyPopupData.active){
             EasyPopup.get(window.EasyPopupData.active).close();
@@ -201,11 +113,22 @@ class Popup{
         window.EasyPopupData.active = this.id;
         this.outer.classList.add(CLASSES.open);
         this.isOpen = true;
-        this.root.classList.add('easy-popup-open');
+        this.root.classList.add(CLASSES.rootOpen);
+        if(this.options.activeHtmlClass) this.root.classList.add(this.options.activeHtmlClass);
 
         // prevent scroll > on
-        this.root.style.paddingRight = `${this.getScrollbarWidth()}px`;
-        this.root.style.overflow = `hidden`;
+        if(this.options.preventScroll){
+            if(this.lenis.enabled()){
+                // prevent with Lenis
+                this.root.classList.add(CLASSES.preventScrollLenis);
+                this.lenis.stop();
+            }else{
+                // prevent via CSS
+                this.root.classList.add(CLASSES.preventScroll);
+                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth()}px`);
+            }
+        }
+
 
         // let Pia know that the popup was just opened
         this.cookie?.onPopupOpen();
@@ -215,18 +138,30 @@ class Popup{
     }
 
     close(){
+        // only close when is open
+        if(!this.isOpen) return;
+
         // close
         window.EasyPopupData.active = '';
         this.outer.classList.remove(CLASSES.open);
         this.isOpen = false;
-        this.root.classList.remove('easy-popup-open');
+        this.root.classList.remove(CLASSES.rootOpen);
+        if(this.options.activeHtmlClass) this.root.classList.remove(this.options.activeHtmlClass);
 
         // prevent scroll > off
         setTimeout(() => {
             // set close status when no popup is active
             if(!window.EasyPopupData.active){
-                this.root.style.paddingRight = ``;
-                this.root.style.overflow = ``;
+                if(this.options.preventScroll){
+                    if(this.lenis.enabled()){
+                        // prevent with Lenis
+                        this.root.classList.remove(CLASSES.preventScrollLenis);
+                        this.lenis.start();
+                    }else{
+                        // prevent via CSS
+                        this.root.classList.remove(CLASSES.preventScroll);
+                    }
+                }
             }
 
             // event
@@ -236,44 +171,6 @@ class Popup{
 
     toggle(){
         this.isOpen ? this.close() : this.open();
-    }
-
-    /**
-     * Wrap element
-     * @param innerEl
-     * @param outerEl
-     * @returns {HTMLDivElement}
-     */
-    wrap(innerEl, outerEl = document.createElement('div')){
-        innerEl.parentNode.insertBefore(outerEl, innerEl);
-        outerEl.appendChild(innerEl);
-        return outerEl;
-    }
-
-    /**
-     * Get scrollbar width
-     * https://stackoverflow.com/a/986977/6453822
-     * @returns {number}
-     */
-    getScrollbarWidth(){
-        // Creating invisible container
-        const outer = document.createElement('div');
-        outer.style.visibility = 'hidden';
-        outer.style.overflow = 'scroll'; // forcing scrollbar to appear
-        outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-        document.body.appendChild(outer);
-
-        // Creating inner element and placing it in the container
-        const inner = document.createElement('div');
-        outer.appendChild(inner);
-
-        // Calculating difference between container's full width and the child width
-        const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
-
-        // Removing temporary elements from the DOM
-        outer.parentNode.removeChild(outer);
-
-        return scrollbarWidth;
     }
 }
 

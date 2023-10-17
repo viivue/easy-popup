@@ -1,0 +1,48 @@
+/****************************
+ * Easy Popup Layout: Mobile
+****************************/
+.easy-popup.ep-mobile-layout {
+  --ep-top-empty-space: 100px;
+  --ep-mobile-height: calc(100vh - var(--ep-top-empty-space));
+}
+
+@media only screen and (max-width: 1023px) {
+  .easy-popup.ep-mobile-layout {
+    align-items: flex-end;
+
+    /* hiding transition */
+    &:not(.open) {
+      transform: scale(0.98) translate(0, 50px);
+    }
+
+
+    .easy-popup-overflow {
+      overflow: hidden;
+      display: flex;
+    }
+
+    .easy-popup-container {
+      padding: 0;
+      overflow: auto;
+      max-width: 100%;
+      height: var(--ep-mobile-height);
+      background: var(--ep-popup-bg);
+    }
+
+    /* close button */
+    .ep-close-button {
+
+      &:not(.for-mobile-layout) {
+        display: none;
+      }
+
+      &.for-mobile-layout {
+        --ep-close-color: #000;
+        position: absolute;
+        top: 0;
+        transform: none;
+      }
+    }
+
+  }
+}

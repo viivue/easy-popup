@@ -1,16 +1,21 @@
 // source script
-//import "piajs";
 import './pia.module.js';
 import '@/_index';
 import '@/_style.scss';
-import 'honcau';
-
-// public styles
-import '../public/style/fonts.css';
 
 // private style
-import './style.scss';
-import {CLOSE_SVG} from "@/configs";
+import 'github-markdown-css/github-markdown-light.css'
+import {highlightCodeSyntax} from "@phucbm/gfm";
+import {testInit} from "./js/test-init";
+import {testLayout} from "./js/test-layout";
+import {testAutoShow} from "./js/test-auto-show";
+import mdOptions from "./md/options.md";
+import mdEvents from "./md/events.md";
+import mdEnd from "./md/end.md";
+import mdBegin from "./md/begin.md";
+import {testCookie} from "./js/test-cookie";
+import {testEvents} from "./js/test-events";
+import {testMethods} from "./js/test-methods";
 
 // import package info
 const packageInfo = require('../package.json');
@@ -24,16 +29,19 @@ document.title = `${title} - ${packageInfo.description}`;
 document.querySelector('[data-title]').innerHTML = title;
 document.querySelector('[data-description]').innerHTML = packageInfo.description;
 
-/**
- * Lib usage
- */
-EasyPopup.init();
+// add HTML
+const root = document.querySelector('#content');
+root.insertAdjacentHTML('beforeend', mdBegin);
 
-EasyPopup.init('.demo-2', {
-    id: 'demo-2',
-    title: 'Demo 2',
-    triggerSelector: '.open-demo-2',
-    closeButtonHTML: `${CLOSE_SVG}<span>Close</span>`,
-    outerClass: 'outer-class-test',
-    theme: 'style-2'
-});
+testInit(root);
+testLayout(root);
+testAutoShow(root);
+testCookie(root);
+
+root.insertAdjacentHTML('beforeend', mdOptions);
+testEvents(root);
+testMethods(root);
+root.insertAdjacentHTML('beforeend', mdEnd);
+
+// code highlight
+highlightCodeSyntax().then();

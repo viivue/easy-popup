@@ -1,0 +1,47 @@
+/* close button */
+.ep-close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transform: translate(0, -100%);
+  transition: all .3s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  width: var(--ep-close-width);
+
+  svg {
+    transition: all .3s ease;
+    fill: var(--ep-close-color);
+  }
+
+  /* close button > hover */
+  &:hover {
+    color: var(--ep-close-color-hover);
+  }
+
+  &:hover svg {
+    fill: var(--ep-close-color-hover);
+  }
+}
+
+
+/* custom close button */
+.easy-popup.ep-has-custom-close-button {
+  .ep-close-button {
+    aspect-ratio: unset;
+    width: auto;
+    color: var(--ep-close-color);
+    padding: 10px;
+  }
+
+  .ep-close-button:hover {
+    color: var(--ep-close-color-hover);
+  }
+}

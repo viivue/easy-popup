@@ -16,6 +16,7 @@ class PiaEasyPopup{
         let cookieName = context.options.cookieName;
         cookieName = typeof cookieName === 'string' && cookieName.length > 0 ? cookieName : context.id;
         this.key = 'easy-popup-' + stringToSlug(cookieName);
+        this.popupId = context.id;
 
         // validate expires
         this.piaOptions = {expires: piaValue};
@@ -64,6 +65,10 @@ class PiaEasyPopup{
 
     updateVal(val){
         Pia.update(this.key, val);
+    }
+
+    remove(){
+        Pia.remove(this.key);
     }
 }
 
