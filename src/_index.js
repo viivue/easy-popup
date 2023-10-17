@@ -1,12 +1,10 @@
 import PiaEasyPopup from "./pia-easy-popup";
-import {CLASSES, ATTRS, DEFAULTS, CLOSE_SVG} from "./configs"
+import {CLASSES, ATTRS, DEFAULTS} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
-import {addCloseButton, initMobileLayout, initTheme} from "./layouts";
-import {getScrollbarWidth, initToggleTrigger, wrapElement} from "./helpers";
-import {initKeyboard} from "./keyboard";
-import {initOutsideClick} from "./outside-click";
+import {getScrollbarWidth} from "./helpers";
+import {generateHTML} from "./html";
 
 /**
  * Private class
@@ -69,7 +67,9 @@ class Popup{
 
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
-        this.generateHTML();
+        // generate html
+        this.outer = undefined;
+        generateHTML(this);
 
         // auto show
         if(this.options.autoShow !== false){
@@ -97,47 +97,6 @@ class Popup{
      */
     on(eventName, callback){
         this.events.add(eventName, callback);
-    }
-
-    generateHTML(){
-        // check flag
-        if(this.el.classList.contains(CLASSES.processed)) return;
-
-        // relocate HTML to body tag
-        if(!this.masterContainer){
-            this.masterContainer = document.createElement('div');
-            this.masterContainer.classList.add(CLASSES.master);
-        }
-        document.querySelector('body').appendChild(this.masterContainer);
-        this.masterContainer.appendChild(this.el);
-
-        // inner
-        this.inner = wrapElement(this.el);
-        this.inner.classList.add(CLASSES.inner);
-
-        // container
-        this.container = wrapElement(this.inner);
-        this.container.classList.add(CLASSES.container);
-
-        // overflow
-        this.overflow = wrapElement(this.container);
-        this.overflow.classList.add(CLASSES.overflow);
-
-        // outer
-        this.outer = wrapElement(this.overflow);
-        this.outer.classList.add(CLASSES.outer);
-        if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-        this.outer.setAttribute(ATTRS.id, this.id);
-
-        initOutsideClick(this);
-        initKeyboard(this);
-        initTheme(this);
-        initMobileLayout(this); // must call after initTheme()
-        addCloseButton(this);
-        initToggleTrigger(this); // call at last
-
-        // done init
-        this.el.classList.add(CLASSES.processed, CLASSES.content);
     }
 
 
