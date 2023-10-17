@@ -5,7 +5,7 @@
   "codeName": "EasyPopup",
   "version": "1.0.0",
   "description": "Super light-weight JavaScript library to create a simple popup",
-  "homepage": "https://github.com/viivue/easy-popup",
+  "homepage": "https://easy-popup.netlify.app/",
   "repository": {
     "type": "git",
     "url": "git@github.com:viivue/easy-popup"
