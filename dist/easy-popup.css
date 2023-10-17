@@ -186,25 +186,25 @@ html:not(.easy-popup-open) .easy-popup-master {
     transform: scale(0.98) translate(0, 50px);
   }
   .easy-popup.ep-mobile-layout .easy-popup-overflow {
-      overflow:hidden;
-      display:flex;
+    overflow: hidden;
+    display: flex;
   }
-    .easy-popup.ep-mobile-layout .easy-popup-container {
-        padding:0;
-        overflow:auto;
-        max-width:100%;
-        height:var(--ep-mobile-height);
-        background:var(--ep-popup-bg);
-    }
-    .easy-popup.ep-mobile-layout .ep-close-button:not(.for-mobile-layout) {
-        display:none;
-    }
-    .easy-popup.ep-mobile-layout .ep-close-button.for-mobile-layout {
-        --ep-close-color:#000;
-        position:absolute;
-        top:0;
-        transform:none;
-    }
+  .easy-popup.ep-mobile-layout .easy-popup-container {
+    padding: 0;
+    overflow: auto;
+    max-width: 100%;
+    height: var(--ep-mobile-height);
+    background: var(--ep-popup-bg);
+  }
+  .easy-popup.ep-mobile-layout .ep-close-button:not(.for-mobile-layout) {
+    display: none;
+  }
+  .easy-popup.ep-mobile-layout .ep-close-button.for-mobile-layout {
+    --ep-close-color: #000;
+    position: absolute;
+    top: 0;
+    transform: none;
+  }
 }
 /* prevent scroll */
 .ep-prevent-scroll {

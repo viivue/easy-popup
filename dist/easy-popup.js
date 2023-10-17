@@ -421,6 +421,106 @@ class LenisEasyPopup{
 }
 
 /* harmony default export */ const lenis_easy_popup = (LenisEasyPopup);
+;// CONCATENATED MODULE: ./src/helpers.js
+
+
+function initToggleTrigger(context){
+    // assign triggers via a[href="#id"], [toggle="id"]
+    let triggerSelector = `a[href="#${context.id}"], [${ATTRS.toggle}="${context.id}"]`;
+
+    // custom triggers
+    if(context.options.triggerSelector && context.options.triggerSelector.length){
+        triggerSelector += `, ${context.options.triggerSelector}`;
+    }
+
+    // look for triggers that link with this popup by id
+    assignToggle(context, document.querySelectorAll(triggerSelector));
+
+    // any triggers without id inside this popup will also toggle this popup
+    assignToggle(context, context.outer.querySelectorAll(`[${ATTRS.toggle}]`));
+}
+
+function assignToggle(context, triggers){
+    triggers.forEach(trigger => {
+        // avoid duplicate assign
+        if(trigger.classList.contains(CLASSES.triggerEnabled)) return;
+
+        trigger.addEventListener('click', e => {
+            e.preventDefault();
+            context.toggle();
+        });
+
+        trigger.classList.add(CLASSES.triggerEnabled);
+    });
+}
+
+
+/**
+ * Wrap element
+ * @param innerEl
+ * @param outerEl
+ * @returns {HTMLDivElement}
+ */
+function wrapElement(innerEl, outerEl = document.createElement('div')){
+    innerEl.parentNode.insertBefore(outerEl, innerEl);
+    outerEl.appendChild(innerEl);
+    return outerEl;
+}
+
+
+/**
+ * Get scrollbar width
+ * https://stackoverflow.com/a/986977/6453822
+ * @returns {number}
+ */
+function getScrollbarWidth(){
+    // Creating invisible container
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+    document.body.appendChild(outer);
+
+    // Creating inner element and placing it in the container
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+
+    // Calculating difference between container's full width and the child width
+    const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+
+    // Removing temporary elements from the DOM
+    outer.parentNode.removeChild(outer);
+
+    return scrollbarWidth;
+}
+;// CONCATENATED MODULE: ./src/outside-click.js
+function initOutsideClick(context){
+    // detect outside click
+    context.outer.addEventListener('click', e => {
+        if(isClickOutsideContent(context, e)){
+            // is close
+            if(context.options.clickOutsideToClose){
+                context.close();
+            }
+        }
+    });
+}
+
+function isClickOutsideContent(context, event){
+    return !context.inner.contains(event.target);
+}
+
+;// CONCATENATED MODULE: ./src/keyboard.js
+function initKeyboard(context){
+    if(!context.options.keyboard) return;
+
+    // add event listener when press ESC
+    document.addEventListener('keyup', (e) => {
+        if(context.isOpen && e.key === 'Escape'){
+            context.close();
+        }
+    });
+}
 ;// CONCATENATED MODULE: ./node_modules/match-media-screen/dist/match-media-screen.module.js
 /**!
  * Match Media Screen v0.0.3
@@ -512,109 +612,54 @@ function addCloseButton(context){
     // sticky mobile close button
     context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + ' for-mobile-layout'));
 }
-;// CONCATENATED MODULE: ./src/helpers.js
+;// CONCATENATED MODULE: ./src/html.js
 
 
-function initToggleTrigger(context){
-    // assign triggers via a[href="#id"], [toggle="id"]
-    let triggerSelector = `a[href="#${context.id}"], [${ATTRS.toggle}="${context.id}"]`;
 
-    // custom triggers
-    if(context.options.triggerSelector && context.options.triggerSelector.length){
-        triggerSelector += `, ${context.options.triggerSelector}`;
+
+
+
+function generateHTML(context){
+    // check flag
+    if(context.el.classList.contains(CLASSES.processed)) return;
+
+    // relocate HTML to body tag
+    if(!context.masterContainer){
+        context.masterContainer = document.createElement('div');
+        context.masterContainer.classList.add(CLASSES.master);
     }
+    document.querySelector('body').appendChild(context.masterContainer);
+    context.masterContainer.appendChild(context.el);
 
-    // look for triggers that link with this popup by id
-    assignToggle(context, document.querySelectorAll(triggerSelector));
+    // inner
+    context.inner = wrapElement(context.el);
+    context.inner.classList.add(CLASSES.inner);
 
-    // any triggers without id inside this popup will also toggle this popup
-    assignToggle(context, context.outer.querySelectorAll(`[${ATTRS.toggle}]`));
+    // container
+    context.container = wrapElement(context.inner);
+    context.container.classList.add(CLASSES.container);
+
+    // overflow
+    context.overflow = wrapElement(context.container);
+    context.overflow.classList.add(CLASSES.overflow);
+
+    // outer
+    context.outer = wrapElement(context.overflow);
+    context.outer.classList.add(CLASSES.outer);
+    if(context.options.outerClass) context.outer.classList.add(context.options.outerClass);
+    context.outer.setAttribute(ATTRS.id, context.id);
+
+    initOutsideClick(context);
+    initKeyboard(context);
+    initTheme(context);
+    initMobileLayout(context); // must call after initTheme()
+    addCloseButton(context);
+    initToggleTrigger(context); // call at last
+
+    // done init
+    context.el.classList.add(CLASSES.processed, CLASSES.content);
 }
-
-function assignToggle(context, triggers){
-    triggers.forEach(trigger => {
-        // avoid duplicate assign
-        if(trigger.classList.contains(CLASSES.triggerEnabled)) return;
-
-        trigger.addEventListener('click', e => {
-            e.preventDefault();
-            context.toggle();
-        });
-
-        trigger.classList.add(CLASSES.triggerEnabled);
-    });
-}
-
-
-/**
- * Wrap element
- * @param innerEl
- * @param outerEl
- * @returns {HTMLDivElement}
- */
-function wrapElement(innerEl, outerEl = document.createElement('div')){
-    innerEl.parentNode.insertBefore(outerEl, innerEl);
-    outerEl.appendChild(innerEl);
-    return outerEl;
-}
-
-
-/**
- * Get scrollbar width
- * https://stackoverflow.com/a/986977/6453822
- * @returns {number}
- */
-function getScrollbarWidth(){
-    // Creating invisible container
-    const outer = document.createElement('div');
-    outer.style.visibility = 'hidden';
-    outer.style.overflow = 'scroll'; // forcing scrollbar to appear
-    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-    document.body.appendChild(outer);
-
-    // Creating inner element and placing it in the container
-    const inner = document.createElement('div');
-    outer.appendChild(inner);
-
-    // Calculating difference between container's full width and the child width
-    const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
-
-    // Removing temporary elements from the DOM
-    outer.parentNode.removeChild(outer);
-
-    return scrollbarWidth;
-}
-;// CONCATENATED MODULE: ./src/keyboard.js
-function initKeyboard(context){
-    if(!context.options.keyboard) return;
-
-    // add event listener when press ESC
-    document.addEventListener('keyup', (e) => {
-        if(context.isOpen && e.key === 'Escape'){
-            context.close();
-        }
-    });
-}
-;// CONCATENATED MODULE: ./src/outside-click.js
-function initOutsideClick(context){
-    // detect outside click
-    context.outer.addEventListener('click', e => {
-        if(isClickOutsideContent(context, e)){
-            // is close
-            if(context.options.clickOutsideToClose){
-                context.close();
-            }
-        }
-    });
-}
-
-function isClickOutsideContent(context, event){
-    return !context.inner.contains(event.target);
-}
-
 ;// CONCATENATED MODULE: ./src/_index.js
-
-
 
 
 
@@ -684,7 +729,9 @@ class Popup{
 
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
-        this.generateHTML();
+        // generate html
+        this.outer = undefined;
+        generateHTML(this);
 
         // auto show
         if(this.options.autoShow !== false){
@@ -712,47 +759,6 @@ class Popup{
      */
     on(eventName, callback){
         this.events.add(eventName, callback);
-    }
-
-    generateHTML(){
-        // check flag
-        if(this.el.classList.contains(CLASSES.processed)) return;
-
-        // relocate HTML to body tag
-        if(!this.masterContainer){
-            this.masterContainer = document.createElement('div');
-            this.masterContainer.classList.add(CLASSES.master);
-        }
-        document.querySelector('body').appendChild(this.masterContainer);
-        this.masterContainer.appendChild(this.el);
-
-        // inner
-        this.inner = wrapElement(this.el);
-        this.inner.classList.add(CLASSES.inner);
-
-        // container
-        this.container = wrapElement(this.inner);
-        this.container.classList.add(CLASSES.container);
-
-        // overflow
-        this.overflow = wrapElement(this.container);
-        this.overflow.classList.add(CLASSES.overflow);
-
-        // outer
-        this.outer = wrapElement(this.overflow);
-        this.outer.classList.add(CLASSES.outer);
-        if(this.options.outerClass) this.outer.classList.add(this.options.outerClass);
-        this.outer.setAttribute(ATTRS.id, this.id);
-
-        initOutsideClick(this);
-        initKeyboard(this);
-        initTheme(this);
-        initMobileLayout(this); // must call after initTheme()
-        addCloseButton(this);
-        initToggleTrigger(this); // call at last
-
-        // done init
-        this.el.classList.add(CLASSES.processed, CLASSES.content);
     }
 
 
