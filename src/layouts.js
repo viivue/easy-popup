@@ -69,7 +69,7 @@ export function addCloseButton(context){
     }
 
     const getButtonHtml = (classes = CLASSES.closeButton, attr = ATTRS.toggle) => {
-        return `<button class="${classes}" ${attr}>
+        return `<button class="${classes}" ${attr} aria-label='Close popup'>
                     ${closeButtonInnerText}
                 </button>`;
     }
