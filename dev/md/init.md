@@ -8,17 +8,17 @@ Value of the attribute will be treated as the popup's ID.
 
 ```html
 
-<div data-easy-popup="popup-1">
-    <!-- Popup content -->
-    <h2>Popup #1</h2>
-    <p>Lorem ipsum dolor sit amet hendrerit nec neque ultricies.</p>
+<div data-easy-popup='popup-1'>
+  <!-- Popup content -->
+  <h2>Popup #1</h2>
+  <p>Lorem ipsum dolor sit amet hendrerit nec neque ultricies.</p>
 </div>
 ```
 
 ...then you can use the popup's ID as the URL to [View popup](#popup-1).
 
 ```html
-<a href="#popup-1">Open Popup #1</a>
+<a href='#popup-1'>Open Popup #1</a>
 ```
 
 <div data-easy-popup="popup-1">
@@ -34,7 +34,7 @@ Initialize your popup with more options without touching the JavaScript file. [V
 ```html
 
 <div data-easy-popup='{"id": "my_popup"}'>
-    <!-- Popup content -->
+  <!-- Popup content -->
 </div>
 ```
 
@@ -53,15 +53,16 @@ Initialize your popup with more options without touching the JavaScript file. [V
 Init anytime with JavaScript. [View popup](#popup-js).
 
 ```html
-<div class="your-class">
-    <!-- Popup content -->
+
+<div class='your-class'>
+  <!-- Popup content -->
 </div>
 ```
 
 ```js
 EasyPopup.init('.your-class', {
-    id: 'popup-js',
-    // more options here
+  id: 'popup-js',
+  // more options here
 });
 ```
 
@@ -76,7 +77,8 @@ EasyPopup.init('.your-class', {
 An alternative way to toggle a popup: <button data-ep-toggle="popup-3">Open Popup #3</button>
 
 ```html
-<button data-ep-toggle="popup-3">Open popup</button>
+
+<button data-ep-toggle='popup-3'>Open popup</button>
 ```
 
 <div data-easy-popup="popup-3">
@@ -84,4 +86,18 @@ An alternative way to toggle a popup: <button data-ep-toggle="popup-3">Open Popu
     <h2>Popup #3</h2>
     <p>Toggle button can also be placed inside a popup like this.</p>
     <button data-ep-toggle="popup-3">Close this popup</button>
+</div>
+
+A popup with adding multiple class with option `outerClass`. Click : <button data-ep-toggle="popup-4">Open Popup #4</button> and inspect to see in `.easy-popup`
+
+```html
+
+<button data-ep-toggle='popup-4'>Open popup</button>
+```
+
+<div data-easy-popup='{"id": "popup-4", "outerClass":"class-test class-test-1"}'>
+    <!-- Popup content -->
+    <h2>Popup #4</h2>
+    <p>This example for extra classes in option "outerClass".</p>
+    <button data-ep-toggle="popup-4">Close this popup</button>
 </div>
