@@ -1,9 +1,9 @@
 
 /**!
- * Easy Popup v1.0.0
+ * Easy Popup v1.0.0-staging
  * @author phucbm
- * @homepage https://github.com/viivue/easy-popup
- * @license MIT 2023
+ * @homepage https://easy-popup.netlify.app/
+ * @license MIT 2024
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -600,7 +600,7 @@ function addCloseButton(context){
     }
 
     const getButtonHtml = (classes = CLASSES.closeButton, attr = ATTRS.toggle) => {
-        return `<button class="${classes}" ${attr}>
+        return `<button class="${classes}" ${attr} aria-label='Close popup'>
                     ${closeButtonInnerText}
                 </button>`;
     }
@@ -646,7 +646,10 @@ function generateHTML(context){
     // outer
     context.outer = wrapElement(context.overflow);
     context.outer.classList.add(CLASSES.outer);
-    if(context.options.outerClass) context.outer.classList.add(context.options.outerClass);
+    if(context.options.outerClass){
+      const classes = context.options.outerClass.split(' ');
+      for(let i = 0; i < classes.length; i++) context.outer.classList.add(classes[i])
+    }
     context.outer.setAttribute(ATTRS.id, context.id);
 
     initOutsideClick(context);
