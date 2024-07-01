@@ -10,7 +10,7 @@ const {paths, packageInfo, server, env} = require("./config");
  * PORT: open a server in this port
  * ENTRY: folder to start building the bundle
  */
-const port = env.PORT || '8080';
+const port = env.PORT || '8080'; // not assign port to let webpack decide
 const entryFolder = env.ENTRY || 'dev';
 const entryPath = path.resolve(__dirname, `../${entryFolder}`);
 
@@ -19,7 +19,7 @@ module.exports = merge(server, {
     mode: 'development',
 
     // Where webpack looks to start building the bundle
-    entry: [entryPath + '/script.js'],
+    entry: [entryPath + '/script.ts'],
 
     // Where webpack outputs the assets and bundles
     output: {
@@ -62,9 +62,9 @@ module.exports = merge(server, {
     // Spin up a server for quick development
     devServer: {
         historyApiFallback: true,
-        open: false,
+        open: true,
         compress: true,
         hot: true,
-        port: port,
+        //port: port,
     },
 });

@@ -11,7 +11,7 @@ const path = require("path");
  * Sample variables: "cross-env ENTRY=web"
  * ENTRY: folder to start building the bundle
  */
-const entryFolder = env.ENTRY || 'web';
+const entryFolder = 'dev';
 const entryPath = path.resolve(__dirname, `../${entryFolder}`);
 
 module.exports = merge(server, {
@@ -23,7 +23,7 @@ module.exports = merge(server, {
 
     output: {
         path: paths.build,
-        publicPath: './',
+        publicPath: '/',
         filename: 'js/[name].[contenthash].bundle.js',
     },
     module: {

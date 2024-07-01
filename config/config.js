@@ -29,7 +29,7 @@ const path = require('path');
 const paths = {
     // Source files
     src: path.resolve(__dirname, '../src'),
-    entry: path.resolve(__dirname, '../src/_index.js'),
+    entry: path.resolve(__dirname, '../src/_index.ts'),
 
     // Production build files
     dist: path.resolve(__dirname, '../dist'),
@@ -80,8 +80,20 @@ const server = {
                 ],
             },
 
-            // JavaScript: Use Babel to transpile JavaScript files
-            {test: /\.js$/, use: ['babel-loader']},
+            // JavaScript and TypeScript: Use Babel and ts-loader to transpile files
+            {
+                test: /\.(js|jsx|ts|tsx)$/,
+                use: [
+                    'babel-loader',
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true
+                        }
+                    }
+                ],
+                exclude: /node_modules/
+            },
 
             // Images: Copy image files to build folder
             {test: /\.(?:ico|gif|png|jpg|jpeg)$/i, type: 'asset/resource'},
@@ -110,7 +122,7 @@ const server = {
 
     resolve: {
         modules: [paths.src, 'node_modules'],
-        extensions: ['.js', '.jsx', '.json'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
         alias: {
             '@': paths.src,
             assets: paths.public,
