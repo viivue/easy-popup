@@ -3,7 +3,7 @@
   "outputFilename": "easy-popup",
   "prettyName": "Easy Popup",
   "codeName": "EasyPopup",
-  "version": "1.0.0",
+  "version": "1.0.0-staging",
   "description": "Super light-weight JavaScript library to create a simple popup",
   "homepage": "https://easy-popup.netlify.app/",
   "repository": {

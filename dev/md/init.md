@@ -85,3 +85,17 @@ An alternative way to toggle a popup: <button data-ep-toggle="popup-3">Open Popu
     <p>Toggle button can also be placed inside a popup like this.</p>
     <button data-ep-toggle="popup-3">Close this popup</button>
 </div>
+
+A popup with adding multiple class with option `outerClass`. Click : <button data-ep-toggle="popup-4">Open Popup #4</button> and inspect to see in `.easy-popup`
+
+```html
+
+<button data-ep-toggle='popup-4'>Open popup</button>
+```
+
+<div data-easy-popup='{"id": "popup-4", "outerClass":"class-test class-test-1"}'>
+    <!-- Popup content -->
+    <h2>Popup #4</h2>
+    <p>This example for extra classes in option "outerClass".</p>
+    <button data-ep-toggle="popup-4">Close this popup</button>
+</div>

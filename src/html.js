@@ -31,7 +31,10 @@ export function generateHTML(context){
     // outer
     context.outer = wrapElement(context.overflow);
     context.outer.classList.add(CLASSES.outer);
-    if(context.options.outerClass) context.outer.classList.add(context.options.outerClass);
+    if(context.options.outerClass){
+      const classes = context.options.outerClass.split(' ');
+      for(let i = 0; i < classes.length; i++) context.outer.classList.add(classes[i])
+    }
     context.outer.setAttribute(ATTRS.id, context.id);
 
     initOutsideClick(context);
