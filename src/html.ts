@@ -4,16 +4,29 @@ import {initOutsideClick} from "./outside-click";
 import {initKeyboard} from "./keyboard";
 import {addCloseButton, initMobileLayout, initTheme} from "./layouts";
 
-export function generateHTML(context){
+interface Context {
+    el: HTMLElement;
+    id: string;
+    options: {
+        outerClass?: string;
+    };
+    masterContainer: HTMLElement | null;
+    inner?: HTMLElement;
+    container?: HTMLElement;
+    overflow?: HTMLElement;
+    outer?: HTMLElement;
+}
+
+export function generateHTML(context: Context): void {
     // check flag
-    if(context.el.classList.contains(CLASSES.processed)) return;
+    if (context.el.classList.contains(CLASSES.processed)) return;
 
     // relocate HTML to body tag
-    if(!context.masterContainer){
+    if (!context.masterContainer) {
         context.masterContainer = document.createElement('div');
         context.masterContainer.classList.add(CLASSES.master);
     }
-    document.querySelector('body').appendChild(context.masterContainer);
+    document.querySelector('body')?.appendChild(context.masterContainer);
     context.masterContainer.appendChild(context.el);
 
     // inner
@@ -31,9 +44,9 @@ export function generateHTML(context){
     // outer
     context.outer = wrapElement(context.overflow);
     context.outer.classList.add(CLASSES.outer);
-    if(context.options.outerClass){
-      const classes = context.options.outerClass.split(' ');
-      for(let i = 0; i < classes.length; i++) context.outer.classList.add(classes[i])
+    if (context.options.outerClass) {
+        const classes = context.options.outerClass.split(' ');
+        for (let i = 0; i < classes.length; i++) context.outer.classList.add(classes[i]);
     }
     context.outer.setAttribute(ATTRS.id, context.id);
 

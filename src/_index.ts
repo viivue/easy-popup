@@ -26,13 +26,14 @@ class EasyPopup implements Popup {
     outer: HTMLElement | undefined;
     lenis: LenisEasyPopup;
 
+
     constructor(el: HTMLElement, options: PopupOptions) {
         if (!el) {
             console.warn('Init popup fail due to empty input!');
             return;
         }
 
-        this.root = document.querySelector(':root');
+        this.root = document.querySelector(':root') as HTMLElement;
         this.el = el;
         this.selector = ATTRS.init;
         this.innerHTML = this.el.innerHTML;
@@ -59,7 +60,7 @@ class EasyPopup implements Popup {
                 this.idType = 'attr-id';
                 this.id = value;
             }
-        });
+        }) as PopupOptions;
 
         // found id from user options
         if (this.options.id) {
