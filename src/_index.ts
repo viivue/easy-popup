@@ -1,17 +1,33 @@
 import PiaEasyPopup from "./pia-easy-popup";
-import {CLASSES, ATTRS, DEFAULTS} from "./configs"
-import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
+import {CLASSES, ATTRS, DEFAULTS} from "./configs";
+import {getOptionsFromAttribute} from '@phucbm/os-util';
+import {EventsManager} from "@phucbm/events-manager";
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
 import {getScrollbarWidth} from "./helpers";
 import {generateHTML} from "./html";
+import {PopupOptions, Popup, PopupControllerInterface} from "./types";
 
 /**
  * Private class
  */
-class Popup{
-    constructor(el, options){
-        if(!el){
+class EasyPopup implements Popup {
+    root: HTMLElement;
+    el: HTMLElement;
+    selector: string;
+    innerHTML: string;
+    isOpen: boolean;
+    id: string;
+    idType: string;
+    options: PopupOptions;
+    events: EventsManager;
+    cookie: PiaEasyPopup | null;
+    masterContainer: HTMLElement | null;
+    outer: HTMLElement | undefined;
+    lenis: LenisEasyPopup;
+
+    constructor(el: HTMLElement, options: PopupOptions) {
+        if (!el) {
             console.warn('Init popup fail due to empty input!');
             return;
         }
@@ -25,7 +41,7 @@ class Popup{
         this.idType = 'auto-id';
 
         // skip double init
-        if(this.el.classList.contains(CLASSES.processed)) return;
+        if (this.el.classList.contains(CLASSES.processed)) return;
 
         // init events manager
         this.events = new EventsManager(this, {
@@ -33,28 +49,28 @@ class Popup{
         });
 
         // get options id from attribute
-        this.options = getOptionsFromAttribute(
-            {
-                target: this.el,
-                attributeName: ATTRS.init,
-                defaultOptions: {...DEFAULTS, ...options},
-                numericValues: ['autoShow', 'showingTimes'],
-                onIsString: value => {
-                    // value is not a json => use value as ID
-                    this.idType = 'attr-id';
-                    this.id = value;
-                }
-            });
+        this.options = getOptionsFromAttribute({
+            target: this.el,
+            attributeName: ATTRS.init,
+            defaultOptions: {...DEFAULTS, ...options},
+            numericValues: ['autoShow', 'showingTimes'],
+            onIsString: value => {
+                // value is not a json => use value as ID
+                this.idType = 'attr-id';
+                this.id = value;
+            }
+        });
 
         // found id from user options
-        if(this.options.id){
+        if (this.options.id) {
             this.id = this.options.id;
             this.idType = this.idType !== 'attr-id' ? 'json-id' : this.idType;
         }
 
         // in case attr is a number (will be skipped by onIsString)
-        const attrId = this.el.getAttribute(ATTRS.init);
-        if(attrId !== null && !isNaN(attrId)){
+        const attrId = this.el.getAttribute(ATTRS.init) || '';
+        // check if attr is a number
+        if (attrId !== '' && !isNaN(Number(attrId))) {
             this.id = `${attrId}`;
             this.idType = 'attr-id';
 
@@ -72,12 +88,12 @@ class Popup{
         generateHTML(this);
 
         // auto show
-        if(this.options.autoShow !== false){
+        if (this.options.autoShow !== false) {
             // if Pia exists, check showing status from Pia
             // otherwise, always open popup
             const isShowingPopup = this.cookie ? this.cookie.isShow() : true;
 
-            if(isShowingPopup){
+            if (isShowingPopup) {
                 // default auto show duration is 1000ms
                 // or set specifically by a number
                 const timeout = this.options.autoShow === true ? 1000 : this.options.autoShow;
@@ -95,40 +111,38 @@ class Popup{
     /**
      * Assign late-events
      */
-    on(eventName, callback){
+    on(eventName: string, callback: () => void): void {
         this.events.add(eventName, callback);
     }
 
-
-    open(){
+    open(): void {
         // only open when is close
-        if(this.isOpen) return;
+        if (this.isOpen) return;
 
         // check active popup
-        if(window.EasyPopupData.active){
-            EasyPopup.get(window.EasyPopupData.active).close();
+        if (window.EasyPopupData.active) {
+            window.EasyPopupData.get(window.EasyPopupData.active)?.close();
         }
 
         // open
         window.EasyPopupData.active = this.id;
-        this.outer.classList.add(CLASSES.open);
+        this.outer!.classList.add(CLASSES.open);
         this.isOpen = true;
         this.root.classList.add(CLASSES.rootOpen);
-        if(this.options.activeHtmlClass) this.root.classList.add(this.options.activeHtmlClass);
+        if (this.options.activeHtmlClass) this.root.classList.add(this.options.activeHtmlClass);
 
         // prevent scroll > on
-        if(this.options.preventScroll){
-            if(this.lenis.enabled()){
+        if (this.options.preventScroll) {
+            if (this.lenis.enabled()) {
                 // prevent with Lenis
                 this.root.classList.add(CLASSES.preventScrollLenis);
                 this.lenis.stop();
-            }else{
+            } else {
                 // prevent via CSS
                 this.root.classList.add(CLASSES.preventScroll);
                 this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth()}px`);
             }
         }
-
 
         // let Pia know that the popup was just opened
         this.cookie?.onPopupOpen();
@@ -137,27 +151,27 @@ class Popup{
         this.events.fire('onOpen');
     }
 
-    close(){
+    close(): void {
         // only close when is open
-        if(!this.isOpen) return;
+        if (!this.isOpen) return;
 
         // close
         window.EasyPopupData.active = '';
-        this.outer.classList.remove(CLASSES.open);
+        this.outer!.classList.remove(CLASSES.open);
         this.isOpen = false;
         this.root.classList.remove(CLASSES.rootOpen);
-        if(this.options.activeHtmlClass) this.root.classList.remove(this.options.activeHtmlClass);
+        if (this.options.activeHtmlClass) this.root.classList.remove(this.options.activeHtmlClass);
 
         // prevent scroll > off
         setTimeout(() => {
             // set close status when no popup is active
-            if(!window.EasyPopupData.active){
-                if(this.options.preventScroll){
-                    if(this.lenis.enabled()){
+            if (!window.EasyPopupData.active) {
+                if (this.options.preventScroll) {
+                    if (this.lenis.enabled()) {
                         // prevent with Lenis
                         this.root.classList.remove(CLASSES.preventScrollLenis);
                         this.lenis.start();
-                    }else{
+                    } else {
                         // prevent via CSS
                         this.root.classList.remove(CLASSES.preventScroll);
                     }
@@ -169,31 +183,32 @@ class Popup{
         }, 300);
     }
 
-    toggle(){
+    toggle(): void {
         this.isOpen ? this.close() : this.open();
     }
 }
-
 
 /**
  * Private class PopupController
  * This class will hold instances of the library's objects
  */
-class PopupController{
-    constructor(){
+class PopupController implements PopupControllerInterface {
+    active: string;
+    popups: EasyPopup[];
+
+    constructor() {
         this.active = '';
         this.popups = [];
     }
 
-    add(popup){
+    add(popup: EasyPopup): void {
         this.popups.push(popup);
     }
 
-    get(id){
-        return this.popups.filter(popup => popup.id === id)[0];
+    get(id: string): EasyPopup | undefined {
+        return this.popups.find(popup => popup.id === id);
     }
 }
-
 
 /**
  * Public data
@@ -207,11 +222,11 @@ window.EasyPopupData = new PopupController();
  */
 window.EasyPopup = {
     // init new instances
-    init: (selector = `[${ATTRS.init}]`, options = {}) => {
-        document.querySelectorAll(selector).forEach(el => window.EasyPopupData.add(new Popup(el, options)));
+    init: (selector: string = `[${ATTRS.init}]`, options: PopupOptions = {}) => {
+        document.querySelectorAll<HTMLElement>(selector).forEach(el => window.EasyPopupData.add(new EasyPopup(el, options)));
     },
     // Get instance object by ID
-    get: id => window.EasyPopupData.get(id)
+    get: (id: string): EasyPopup | undefined => window.EasyPopupData.get(id)
 };
 
 // init
