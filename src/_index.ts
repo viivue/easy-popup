@@ -1,6 +1,6 @@
 import PiaEasyPopup from "./pia-easy-popup";
 import {CLASSES, ATTRS, DEFAULTS} from "./configs";
-import {getOptionsFromAttribute} from '@phucbm/os-util';
+import {getOptionsFromAttribute} from '@phucbm/get-options-from-html-attr';
 import {EventsManager} from "@phucbm/events-manager";
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";

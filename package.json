@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@phucbm/events-manager": "^1.0.0",
-    "@phucbm/os-util": "^0.0.5",
+    "@phucbm/get-options-from-html-attr": "^1.0.0",
     "match-media-screen": "^0.0.3"
   }
 }
