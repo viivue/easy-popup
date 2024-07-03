@@ -2,16 +2,17 @@ import PiaEasyPopup from "./pia-easy-popup";
 import {CLASSES, ATTRS, DEFAULTS} from "./configs";
 import {getOptionsFromAttribute} from '@phucbm/get-options-from-html-attr';
 import {EventsManager} from "@phucbm/events-manager";
-import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
-import {getScrollbarWidth} from "./helpers";
+import {getScrollbarWidth, uniqueId} from "./helpers";
 import {generateHTML} from "./html";
-import {PopupOptions, Popup, PopupControllerInterface} from "./types";
+import {PopupOptions} from "./types/PopupOptions";
+import {PopupInstance} from "./types/PopupInstance";
+import {PopupControllerInterface} from "./types/PopupControllerInterface";
 
 /**
  * Private class
  */
-class EasyPopup implements Popup {
+class EasyPopup implements PopupInstance {
     root: HTMLElement;
     el: HTMLElement;
     selector: string;
@@ -24,7 +25,10 @@ class EasyPopup implements Popup {
     cookie: PiaEasyPopup | null;
     masterContainer: HTMLElement | null;
     outer: HTMLElement | undefined;
+    inner: HTMLElement | undefined;
     lenis: LenisEasyPopup;
+    container: HTMLElement | undefined;
+    overflow: HTMLElement | undefined;
 
 
     constructor(el: HTMLElement, options: PopupOptions) {
@@ -121,11 +125,14 @@ class EasyPopup implements Popup {
         if (this.isOpen) return;
 
         // check active popup
+
         if (window.EasyPopupData.active) {
+
             window.EasyPopupData.get(window.EasyPopupData.active)?.close();
         }
 
         // open
+
         window.EasyPopupData.active = this.id;
         this.outer!.classList.add(CLASSES.open);
         this.isOpen = true;
@@ -157,6 +164,7 @@ class EasyPopup implements Popup {
         if (!this.isOpen) return;
 
         // close
+
         window.EasyPopupData.active = '';
         this.outer!.classList.remove(CLASSES.open);
         this.isOpen = false;
@@ -166,6 +174,7 @@ class EasyPopup implements Popup {
         // prevent scroll > off
         setTimeout(() => {
             // set close status when no popup is active
+
             if (!window.EasyPopupData.active) {
                 if (this.options.preventScroll) {
                     if (this.lenis.enabled()) {
@@ -211,24 +220,40 @@ class PopupController implements PopupControllerInterface {
     }
 }
 
+// Extend the global Window interface to include EasyPopupData
+declare global {
+    interface Window {
+        EasyPopupData: PopupController;
+        EasyPopup: {
+            init: (selector?: string, options?: PopupOptions) => void;
+            get: (id: string) => EasyPopup | undefined;
+        };
+    }
+}
+
 /**
  * Public data
  * access via window.EasyPopupData
  */
+
 window.EasyPopupData = new PopupController();
 
 /**
  * Public library object
  * access via window.EasyPopupData
  */
+
 window.EasyPopup = {
     // init new instances
     init: (selector: string = `[${ATTRS.init}]`, options: PopupOptions = {}) => {
+
         document.querySelectorAll<HTMLElement>(selector).forEach(el => window.EasyPopupData.add(new EasyPopup(el, options)));
     },
     // Get instance object by ID
+
     get: (id: string): EasyPopup | undefined => window.EasyPopupData.get(id)
 };
 
 // init
+
 window.EasyPopup.init();

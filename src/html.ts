@@ -3,21 +3,10 @@ import {initToggleTrigger, wrapElement} from "./helpers";
 import {initOutsideClick} from "./outside-click";
 import {initKeyboard} from "./keyboard";
 import {addCloseButton, initMobileLayout, initTheme} from "./layouts";
+import {PopupInstance} from "./types/PopupInstance";
 
-interface Context {
-    el: HTMLElement;
-    id: string;
-    options: {
-        outerClass?: string;
-    };
-    masterContainer: HTMLElement | null;
-    inner?: HTMLElement;
-    container?: HTMLElement;
-    overflow?: HTMLElement;
-    outer?: HTMLElement;
-}
 
-export function generateHTML(context: Context): void {
+export function generateHTML(context: PopupInstance): void {
     // check flag
     if (context.el.classList.contains(CLASSES.processed)) return;
 

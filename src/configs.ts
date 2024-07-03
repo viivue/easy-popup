@@ -1,6 +1,5 @@
-/**
- * Classes
- * */
+import {PopupOptions} from "./types/PopupOptions";
+
 export const CLASSES = {
     master: 'easy-popup-master',
     processed: 'easy-popup-enabled',
@@ -30,7 +29,7 @@ export const ATTRS = {
 /**
  * Defaults
  * */
-export const DEFAULTS = {
+export const DEFAULTS: PopupOptions = {
     outerClass: '',
     activeHtmlClass: '',
 

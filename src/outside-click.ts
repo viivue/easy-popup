@@ -1,6 +1,6 @@
-import {Popup} from "./types";
+import {PopupInstance} from "./types/PopupInstance";
 
-export function initOutsideClick(context: Popup) {
+export function initOutsideClick(context: PopupInstance) {
     // detect outside click
     if ("addEventListener" in context.outer) {
         context.outer?.addEventListener('click', (e: MouseEvent) => {
@@ -14,7 +14,7 @@ export function initOutsideClick(context: Popup) {
     }
 }
 
-function isClickOutsideContent(context: Popup, event: MouseEvent): boolean {
+function isClickOutsideContent(context: PopupInstance, event: MouseEvent): boolean {
     // check if HTMLElement contains HTMLElement
     return !context.inner?.contains(event.target as Node);
 }

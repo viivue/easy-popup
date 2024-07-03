@@ -1,19 +1,8 @@
 import {MatchMediaScreen} from "match-media-screen";
 import {ATTRS, CLASSES, CLOSE_SVG} from "./configs";
-import {PopupOptions} from "./types"; // Assuming PopupOptions is defined in ./types
+import {PopupInstance} from "./types/PopupInstance";
 
-interface Context {
-    el: HTMLElement;
-    id: string;
-    masterContainer: HTMLElement | null;
-    inner?: HTMLElement;
-    container?: HTMLElement;
-    overflow?: HTMLElement;
-    outer?: HTMLElement;
-    options: PopupOptions;
-}
-
-export function initMobileLayout(context: Context): void {
+export function initMobileLayout(context: PopupInstance): void {
     if (!context.options.hasMobileLayout) return;
 
     new MatchMediaScreen({
@@ -41,8 +30,8 @@ export function initMobileLayout(context: Context): void {
     });
 }
 
-export function initTheme(context: Context): void {
-    if (!context.options.theme.length) return;
+export function initTheme(context: PopupInstance): void {
+    if (!context.options.theme?.length) return;
     if (context.options.theme === 'default') return;
 
     setTheme(context);
@@ -53,17 +42,17 @@ export function initTheme(context: Context): void {
  * @param context
  * @param removeTheme
  */
-function setTheme(context: Context, removeTheme: boolean = false): void {
+function setTheme(context: PopupInstance, removeTheme: boolean = false): void {
     if (removeTheme) {
         context.outer?.removeAttribute(ATTRS.theme);
         return;
     }
 
     // set theme
-    context.outer?.setAttribute(ATTRS.theme, context.options.theme);
+    context.outer?.setAttribute(ATTRS.theme, context.options.theme || '');
 }
 
-export function addCloseButton(context: Context): void {
+export function addCloseButton(context: PopupInstance): void {
     let closeButtonInnerText = CLOSE_SVG;
 
     // custom close button html

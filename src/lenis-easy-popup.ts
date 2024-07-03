@@ -1,7 +1,11 @@
+import {PopupInstance} from "./types/PopupInstance";
+
+declare const lenis: any;
+
 class LenisEasyPopup {
     root: HTMLElement;
 
-    constructor(context: { root: HTMLElement }) {
+    constructor(context: PopupInstance) {
         this.root = context.root;
     }
 

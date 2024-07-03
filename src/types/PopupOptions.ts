@@ -1,7 +1,3 @@
-import {EventsManager} from "@phucbm/events-manager";
-import PiaEasyPopup from "./pia-easy-popup";
-import LenisEasyPopup from "./lenis-easy-popup";
-
 export interface PopupOptions {
     el?: HTMLElement;
     outerClass?: string;
@@ -33,36 +29,4 @@ export interface PopupOptions {
     preventScroll?: boolean; // prevent page scroll when popup is open
 
     [key: string]: any;
-}
-
-export interface Popup {
-    root: HTMLElement;
-    el: HTMLElement;
-    selector: string;
-    innerHTML: string;
-    isOpen: boolean;
-    id: string;
-    idType: string;
-    options: PopupOptions;
-    events: EventsManager;
-    cookie: PiaEasyPopup | null;
-    masterContainer: HTMLElement | null;
-    outer: HTMLElement | undefined;
-    inner: HTMLElement | undefined;
-    lenis: LenisEasyPopup;
-
-    open(): void;
-
-    close(): void;
-
-    toggle(): void;
-}
-
-export interface PopupControllerInterface {
-    active: string;
-    popups: Popup[];
-
-    add(popup: Popup): void;
-
-    get(id: string): Popup | undefined;
 }

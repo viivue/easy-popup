@@ -1,7 +1,7 @@
 import {ATTRS, CLASSES} from "./configs";
-import {Popup} from "./types"; // Assuming Popup type is defined in './types'
+import {PopupInstance} from "./types/PopupInstance";
 
-export function initToggleTrigger(context: Popup): void {
+export function initToggleTrigger(context: PopupInstance): void {
     // assign triggers via a[href="#id"], [toggle="id"]
     let triggerSelector = `a[href="#${context.id}"], [${ATTRS.toggle}="${context.id}"]`;
 
@@ -17,7 +17,7 @@ export function initToggleTrigger(context: Popup): void {
     assignToggle(context, context.outer!.querySelectorAll(`[${ATTRS.toggle}]`));
 }
 
-function assignToggle(context: Popup, triggers: NodeListOf<Element>): void {
+function assignToggle(context: PopupInstance, triggers: NodeListOf<Element>): void {
     triggers.forEach(trigger => {
         // avoid duplicate assign
         if (trigger.classList.contains(CLASSES.triggerEnabled)) return;
@@ -72,4 +72,30 @@ export function getScrollbarWidth(): number {
     outer.parentNode!.removeChild(outer);
 
     return scrollbarWidth;
+}
+
+
+/**
+ * String to slug
+ * https://stackoverflow.com/a/1054862/10636614
+ * https://www.tunglt.com/2018/11/bo-dau-tieng-viet-javascript-es6/
+ * @param string
+ * @returns {string}
+ */
+export function stringToSlug(string) {
+    return string
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-');
+}
+
+/**
+ * Generate unique ID
+ */
+export function uniqueId(prefix = '') {
+    return prefix + (+new Date()).toString(16) +
+        (Math.random() * 100000000 | 0).toString(16);
 }

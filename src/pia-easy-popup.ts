@@ -1,5 +1,5 @@
-import {stringToSlug} from "./utils";
-import {Popup} from "./types";
+import {PopupInstance} from "./types/PopupInstance";
+import {stringToSlug} from "./helpers";
 
 declare const Pia: any;
 
@@ -8,7 +8,7 @@ class PiaEasyPopup {
     popupId: string;
     piaOptions: { expires: any };
 
-    constructor(context: Popup) {
+    constructor(context: PopupInstance) {
         // check if pia option is using
         const piaValue = context.options.cookie;
         if (!piaValue) return; // skip if not in use
