@@ -1,5 +1,5 @@
-import {PopupInstance} from "./types/PopupInstance";
-import {stringToSlug} from "./helpers";
+import {PopupInstance} from "../types/PopupInstance";
+import {stringToSlug} from "../helpers";
 
 declare const Pia: any;
 

@@ -1,7 +1,7 @@
 import {PopupOptions} from "./PopupOptions";
 import {EventsManager} from "@phucbm/events-manager";
-import PiaEasyPopup from "../pia-easy-popup";
-import LenisEasyPopup from "../lenis-easy-popup";
+import PiaEasyPopup from "../plugins/pia-easy-popup";
+import LenisEasyPopup from "../plugins/lenis-easy-popup";
 
 export interface PopupInstance {
     root: HTMLElement;

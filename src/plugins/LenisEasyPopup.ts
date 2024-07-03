@@ -1,4 +1,4 @@
-import {PopupInstance} from "./types/PopupInstance";
+import {PopupInstance} from "../types/PopupInstance";
 
 declare const lenis: any;
 
