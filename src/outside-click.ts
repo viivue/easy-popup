@@ -1,15 +1,20 @@
-export function initOutsideClick(context: { outer: HTMLElement; options: { clickOutsideToClose: boolean }; close: () => void; inner: HTMLElement }) {
+import {Popup} from "./types";
+
+export function initOutsideClick(context: Popup) {
     // detect outside click
-    context.outer.addEventListener('click', (e: MouseEvent) => {
-        if (isClickOutsideContent(context, e)) {
-            // is close
-            if (context.options.clickOutsideToClose) {
-                context.close();
+    if ("addEventListener" in context.outer) {
+        context.outer?.addEventListener('click', (e: MouseEvent) => {
+            if (isClickOutsideContent(context, e)) {
+                // is close
+                if (context.options.clickOutsideToClose) {
+                    context.close();
+                }
             }
-        }
-    });
+        });
+    }
 }
 
-function isClickOutsideContent(context: { inner: HTMLElement }, event: MouseEvent): boolean {
-    return !context.inner.contains(event.target as Node);
+function isClickOutsideContent(context: Popup, event: MouseEvent): boolean {
+    // check if HTMLElement contains HTMLElement
+    return !context.inner?.contains(event.target as Node);
 }

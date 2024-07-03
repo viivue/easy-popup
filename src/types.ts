@@ -48,6 +48,7 @@ export interface Popup {
     cookie: PiaEasyPopup | null;
     masterContainer: HTMLElement | null;
     outer: HTMLElement | undefined;
+    inner: HTMLElement | undefined;
     lenis: LenisEasyPopup;
 
     open(): void;

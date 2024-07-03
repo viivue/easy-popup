@@ -1,15 +1,22 @@
 import {stringToSlug} from "./utils";
+import {Popup} from "./types";
 
-class PiaEasyPopup{
-    constructor(context){
+declare const Pia: any;
+
+class PiaEasyPopup {
+    key: string;
+    popupId: string;
+    piaOptions: { expires: any };
+
+    constructor(context: Popup) {
         // check if pia option is using
         const piaValue = context.options.cookie;
-        if(!piaValue) return null; // skip if not in use
+        if (!piaValue) return; // skip if not in use
 
         // check if Pia is exists
-        if(typeof Pia === 'undefined'){
+        if (typeof Pia === 'undefined') {
             console.warn(`PiaJs not found.`);
-            return null;
+            return;
         }
 
         // use popup id as key for Pia
@@ -22,11 +29,11 @@ class PiaEasyPopup{
         this.piaOptions = {expires: piaValue};
 
         // validate times
-        const showingTimes = parseInt(context.options.showingTimes) ?? 1;
+        const showingTimes = parseInt(context.options.showingTimes as string) ?? 1;
 
         // set cookie if is not exists and,
         // if cookie options are using
-        if(this.getVal() === null && piaValue){
+        if (this.getVal() === null && piaValue) {
             // when cookie is still exists, the popup will keep showing for n times
             // by default, popup will show once
             // save directly to Pia to avoid mismatched values
@@ -35,7 +42,7 @@ class PiaEasyPopup{
         // otherwise, do nothing
     }
 
-    isShow(){
+    isShow(): boolean {
         // get val from Pia
         const val = this.getVal();
 
@@ -44,30 +51,30 @@ class PiaEasyPopup{
     }
 
     // run everytime the popup opens
-    onPopupOpen(){
+    onPopupOpen(): void {
         const val = this.getVal();
 
         // decrease remaining showing times on open
-        if(typeof val === 'number'){
+        if (typeof val === 'number') {
             // update
             this.updateVal(val - 1);
         }
     }
 
-    getVal(){
+    getVal(): any {
         return Pia.get(this.key);
     }
 
-    setVal(val){
+    setVal(val: any): void {
         // save the new record
         Pia.set(this.key, val, this.piaOptions);
     }
 
-    updateVal(val){
+    updateVal(val: any): void {
         Pia.update(this.key, val);
     }
 
-    remove(){
+    remove(): void {
         Pia.remove(this.key);
     }
 }
