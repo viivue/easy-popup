@@ -1,6 +1,8 @@
 import {PopupInstance} from "./types/PopupInstance";
 
 export function initOutsideClick(context: PopupInstance) {
+    if (!context.outer) return;
+
     // detect outside click
     if ("addEventListener" in context.outer) {
         context.outer?.addEventListener('click', (e: MouseEvent) => {

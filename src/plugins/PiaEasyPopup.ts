@@ -4,9 +4,9 @@ import {stringToSlug} from "../helpers";
 declare const Pia: any;
 
 class PiaEasyPopup {
-    key: string;
-    popupId: string;
-    piaOptions: { expires: any };
+    key: string = '';
+    popupId: string = '';
+    piaOptions: { expires: any } = {expires: undefined};
 
     constructor(context: PopupInstance) {
         // check if pia option is using
@@ -29,7 +29,7 @@ class PiaEasyPopup {
         this.piaOptions = {expires: piaValue};
 
         // validate times
-        const showingTimes = parseInt(context.options.showingTimes as string) ?? 1;
+        const showingTimes = context.options.showingTimes ? parseInt(context.options.showingTimes.toString()) : 1;
 
         // set cookie if is not exists and,
         // if cookie options are using

@@ -8,7 +8,8 @@ import {PopupInstance} from "./types/PopupInstance";
 
 export function generateHTML(context: PopupInstance): void {
     // check flag
-    if (context.el.classList.contains(CLASSES.processed)) return;
+    if (context.el?.classList.contains(CLASSES.processed)) return;
+    if (!context.el) return;
 
     // relocate HTML to body tag
     if (!context.masterContainer) {

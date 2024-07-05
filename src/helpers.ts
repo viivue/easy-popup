@@ -82,7 +82,7 @@ export function getScrollbarWidth(): number {
  * @param string
  * @returns {string}
  */
-export function stringToSlug(string) {
+export function stringToSlug(string = '') {
     return string
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')

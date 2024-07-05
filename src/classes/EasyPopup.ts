@@ -8,27 +8,26 @@ import {getScrollbarWidth, uniqueId} from "../helpers";
 import {getOptionsFromAttribute} from "@phucbm/get-options-from-html-attr";
 import {generateHTML} from "../html";
 
-
 /**
  * Private class
  */
 export class EasyPopup implements PopupInstance {
-    root: HTMLElement;
-    el: HTMLElement;
-    selector: string;
-    innerHTML: string;
-    isOpen: boolean;
-    id: string;
-    idType: string;
-    options: PopupOptions;
-    events: EventsManager;
-    cookie: PiaEasyPopup | null;
-    masterContainer: HTMLElement | null;
-    outer: HTMLElement | undefined;
-    inner: HTMLElement | undefined;
-    lenis: LenisEasyPopup;
-    container: HTMLElement | undefined;
-    overflow: HTMLElement | undefined;
+    root!: HTMLElement;
+    el!: HTMLElement;
+    selector: string = '';
+    innerHTML: string = '';
+    isOpen: boolean = false;
+    id: string = '';
+    idType: string = 'auto-id';
+    options!: PopupOptions;
+    events!: EventsManager;
+    cookie: PiaEasyPopup | null = null;
+    masterContainer: HTMLElement | null = null;
+    container: HTMLElement | null = null;
+    overflow: HTMLElement | null = null;
+    outer: HTMLElement | null = null;
+    inner: HTMLElement | null = null;
+    lenis!: LenisEasyPopup;
 
     constructor(el: HTMLElement, options: PopupOptions) {
         if (!el) {
@@ -58,7 +57,7 @@ export class EasyPopup implements PopupInstance {
             attributeName: ATTRS.init,
             defaultOptions: {...DEFAULTS, ...options},
             numericValues: ['autoShow', 'showingTimes'],
-            onIsString: value => {
+            onIsString: (value: string) => {
                 // value is not a json => use value as ID
                 this.idType = 'attr-id';
                 this.id = value;
@@ -88,7 +87,7 @@ export class EasyPopup implements PopupInstance {
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
         // generate html
-        this.outer = undefined;
+        this.outer = null;
         generateHTML(this);
 
         // auto show

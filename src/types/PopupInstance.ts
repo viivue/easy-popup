@@ -1,12 +1,12 @@
 import {PopupOptions} from "./PopupOptions";
 import {EventsManager} from "@phucbm/events-manager";
-import PiaEasyPopup from "../plugins/pia-easy-popup";
-import LenisEasyPopup from "../plugins/lenis-easy-popup";
+import PiaEasyPopup from "../plugins/PiaEasyPopup";
+import LenisEasyPopup from "../plugins/LenisEasyPopup";
 
 export interface PopupInstance {
-    root: HTMLElement;
-    el: HTMLElement;
-    selector: string;
+    root: HTMLElement | null;
+    el: HTMLElement | null;
+    selector: string | '';
     innerHTML: string;
     isOpen: boolean;
     id: string;
@@ -15,10 +15,10 @@ export interface PopupInstance {
     events: EventsManager;
     cookie: PiaEasyPopup | null;
     masterContainer: HTMLElement | null;
-    container: HTMLElement | undefined;
-    overflow: HTMLElement | undefined;
-    outer: HTMLElement | undefined;
-    inner: HTMLElement | undefined;
+    container: HTMLElement | null;
+    overflow: HTMLElement | null;
+    outer: HTMLElement | null;
+    inner: HTMLElement | null;
     lenis: LenisEasyPopup;
 
     open(): void;

@@ -3,7 +3,7 @@ import {PopupInstance} from "../types/PopupInstance";
 declare const lenis: any;
 
 class LenisEasyPopup {
-    root: HTMLElement;
+    root: HTMLElement | null = null
 
     constructor(context: PopupInstance) {
         this.root = context.root;
