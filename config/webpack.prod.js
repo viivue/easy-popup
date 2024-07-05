@@ -28,15 +28,41 @@ switch(libraryTarget){
 module.exports = {
     mode: 'production',
     devtool: false,
-    entry: paths.entry,
+    entry: {
+        main: paths.entry,
+        mainModule: paths.entry, // For ES module output
+        mainTS: paths.entry // For TypeScript output
+    },
     experiments,
     output: {
-        filename,
+        filename: (pathData) => {
+            const name = pathData.chunk.name;
+            switch(name){
+                case 'mainModule':
+                    return `${packageInfo.outputFilename}.module.js`;
+                case 'mainTS':
+                    return `${packageInfo.outputFilename}.ts`;
+                default:
+                    return isMinified ? `${packageInfo.outputFilename}.min.js` : `${packageInfo.outputFilename}.js`;
+            }
+        },
         library,
         libraryTarget,
         umdNamedDefine: true,
-        // prevent error: `Uncaught ReferenceError: self is not define`
         globalObject: 'this',
+        path: paths.dist
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(ts|tsx)$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js']
     },
     plugins: [
         new webpack.BannerPlugin(bannerConfig)
