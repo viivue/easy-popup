@@ -79,5 +79,5 @@ export function addCloseButton(context){
 
 
     // sticky mobile close button
-    context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + ' for-mobile-layout'));
+    context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + `${context.options.hasMobileLayout ? ' for-mobile-layout' : ' '}`));
 }

@@ -31,6 +31,17 @@
   }
 }
 
+@media only screen and (min-width: 769px) {
+  .ep-close-button.for-mobile-layout {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .ep-close-button.for-mobile-layout .ep-close-button {
+    display: none;
+  }
+}
 
 /* custom close button */
 .easy-popup.ep-has-custom-close-button {
