@@ -7,6 +7,7 @@ import {ATTRS, CLASSES, CLOSE_SVG} from "./configs";
  */
 export function initMobileLayout(context){
     if(!context.options.hasMobileLayout) return;
+    context.outer.classList.add('will-have-mobile-layout');
 
     new MatchMediaScreen({
         object: {
@@ -79,5 +80,7 @@ export function addCloseButton(context){
 
 
     // sticky mobile close button
-    context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + `${context.options.hasMobileLayout ? ' for-mobile-layout' : ' '}`));
+    if(context.options.hasMobileLayout){
+        context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + ' for-mobile-layout'));
+    }
 }
