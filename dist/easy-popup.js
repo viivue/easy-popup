@@ -1,6 +1,6 @@
 
 /**!
- * Easy Popup v1.0.0-staging
+ * Easy Popup v1.1.0
  * @author phucbm
  * @homepage https://easy-popup.netlify.app/
  * @license MIT 2024
@@ -538,6 +538,7 @@ function initKeyboard(context){
  */
 function initMobileLayout(context){
     if(!context.options.hasMobileLayout) return;
+    context.outer.classList.add('will-have-mobile-layout');
 
     new n({
         object: {
@@ -610,7 +611,9 @@ function addCloseButton(context){
 
 
     // sticky mobile close button
-    context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + ' for-mobile-layout'));
+    if(context.options.hasMobileLayout){
+        context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + ' for-mobile-layout'));
+    }
 }
 ;// CONCATENATED MODULE: ./src/html.js
 
