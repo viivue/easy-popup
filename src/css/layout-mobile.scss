@@ -6,6 +6,13 @@
   --ep-mobile-height: calc(100vh - var(--ep-top-empty-space));
 }
 
+.easy-popup.will-have-mobile-layout:not(.ep-mobile-layout) {
+  /* close button */
+  .ep-close-button.for-mobile-layout {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 1023px) {
   .easy-popup.ep-mobile-layout {
     align-items: flex-end;
