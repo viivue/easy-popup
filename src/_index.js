@@ -3,8 +3,8 @@ import {CLASSES, ATTRS, DEFAULTS} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
-import {getScrollbarWidth} from "./helpers";
 import {generateHTML} from "./html";
+import {getScrollbarWidth} from "./utils/getScrollbarWidth";
 
 /**
  * Private class
