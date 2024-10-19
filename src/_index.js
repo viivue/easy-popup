@@ -5,6 +5,7 @@ import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
 import {generateHTML} from "./html";
 import {getScrollbarWidth} from "./utils/getScrollbarWidth";
+import {dragToClose} from "@/drag-to-close";
 
 /**
  * Private class
@@ -84,6 +85,9 @@ class Popup{
                 setTimeout(() => this.open(), timeout);
             }
         }
+
+        /** DRAG TO CLOSE **/
+        dragToClose(this);
 
         // lenis integrate
         this.lenis = new LenisEasyPopup(this);
