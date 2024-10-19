@@ -125,7 +125,7 @@ class Popup{
             }else{
                 // prevent via CSS
                 this.root.classList.add(CLASSES.preventScroll);
-                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth()}px`);
+                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth(this)}px`);
             }
         }
 
