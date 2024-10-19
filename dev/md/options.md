@@ -15,6 +15,7 @@
 | `keyboard`             | boolean                | `true`            | Close popup by pressing ESC key                                                                                          |
 | `clickOutsideToClose`  | boolean                | `true`            | Click on empty outside an opening open will close the popup                                                              |
 | `preventScroll`        | boolean                | `true`            | Prevent page scroll when popup is open                                                                                   |
+| `scrollbarWidth`       | number                 | `undefined`       | Set the scrollbar width manually to avoid page jumping when open a popup, only works for `preventScroll:true`            |
 | `autoShow`             | boolean or number (ms) | `false`           | `true` to show the popup right after page loaded, set number for delay, e.g. 1000 for 1000ms after init                  |
 | `cookie`               | string or number       | `undefined`       | Requires `autoShow:true`. Set expiration for a popup. Use [PiaJs `expires`](https://github.com/phucbm/pia#set-expires).  |
 | `showingTimes`         | number                 | `1`               | Requires `cookie`. Show n times before expiration day, only works with cookie                                            |
