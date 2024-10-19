@@ -14,12 +14,13 @@ When you enable the `preventScroll` option:
 4. The scrollbar width is auto-calculated by JavaScript.
     - Note: This may not be 100% accurate across all browsers/devices.
 
+Easy Popup has a built-in function to calculate the scrollbar width automatically depending on the browser/device.
+However, this may not work as expected in some cases.
+
 For optimal results:
 
 - Set the scrollbar width via CSS.
 - Use the same value for the `scrollbarWidth` option in Easy Popup.
-
-This approach ensures consistent behavior across different browsers and devices.
 
 ```css
 /* custom scrollbar */
@@ -37,8 +38,13 @@ body::-webkit-scrollbar-thumb {
 }
 ```
 
-```js
-// Easy Popup options
+Easy Popup options
+
+```json
+{
+  "preventScroll": true,
+  "scrollbarWidth": 8
+}
 ```
 
 Note: On touch screen, the scrollbar width is set to `0` automatically.
