@@ -3,8 +3,8 @@ import {CLASSES, ATTRS, DEFAULTS} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
-import {getScrollbarWidth} from "./helpers";
 import {generateHTML} from "./html";
+import {getScrollbarWidth} from "./utils/getScrollbarWidth";
 
 /**
  * Private class
@@ -125,7 +125,7 @@ class Popup{
             }else{
                 // prevent via CSS
                 this.root.classList.add(CLASSES.preventScroll);
-                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth()}px`);
+                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth(this)}px`);
             }
         }
 
