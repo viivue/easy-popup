@@ -13,6 +13,7 @@ import mdOptions from "./md/options.md";
 import mdEvents from "./md/events.md";
 import mdEnd from "./md/end.md";
 import mdBegin from "./md/begin.md";
+import mdFaq from "./md/faq.md";
 import {testCookie} from "./js/test-cookie";
 import {testEvents} from "./js/test-events";
 import {testMethods} from "./js/test-methods";
@@ -41,6 +42,7 @@ testCookie(root);
 root.insertAdjacentHTML('beforeend', mdOptions);
 testEvents(root);
 testMethods(root);
+root.insertAdjacentHTML('beforeend', mdFaq);
 root.insertAdjacentHTML('beforeend', mdEnd);
 
 // code highlight
