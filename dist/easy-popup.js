@@ -17,8 +17,40 @@
 })(this, () => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 147:
+/***/ ((module) => {
+
+module.exports = JSON.parse('{"name":"@viivue/easy-popup","outputFilename":"easy-popup","prettyName":"Easy Popup","codeName":"EasyPopup","version":"1.2.0","description":"Super light-weight JavaScript library to create a simple popup","homepage":"https://easy-popup.netlify.app/","repository":{"type":"git","url":"git@github.com:viivue/easy-popup"},"author":{"name":"phucbm","url":"https://github.com/phucbm"},"keywords":["phucbm","javascript","popup","viivue","es6"],"main":"./dist/easy-popup.module.js","files":["./dist/*"],"license":"MIT","scripts":{"dev":"webpack serve --config config/webpack.dev.js","build":"cross-env ENTRY=dev webpack --config config/webpack.build.js","sass:compressed":"sass src/_style.scss:dist/easy-popup.css --no-source-map","optimize":"csso dist/easy-popup.css --output dist/easy-popup.min.css --stat","output-css":"npm run sass:compressed && npm run optimize","prod-umd":"cross-env TARGET=umd webpack --config config/webpack.prod.js","prod-umd-min":"cross-env TARGET=umd MIN=yes webpack --config config/webpack.prod.js","prod-module":"cross-env TARGET=module MIN=yes webpack --config config/webpack.prod.js","prod":"npm run prod-umd && npm run prod-module && npm run prod-umd-min && npm run output-css","publish":"npm run prod & npm publish"},"devDependencies":{"@babel/core":"^7.15.8","@babel/plugin-proposal-class-properties":"^7.14.5","@babel/preset-env":"^7.15.8","@phucbm/gfm":"^0.0.1","babel-loader":"^8.2.2","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^4.0.0","copy-webpack-plugin":"^9.1.0","cross-env":"^7.0.3","css-loader":"^6.4.0","css-minimizer-webpack-plugin":"^3.1.1","csso-cli":"^4.0.1","github-markdown-css":"^5.2.0","html-loader":"^3.1.0","html-webpack-plugin":"^5.3.2","markdown-loader":"^8.0.0","mini-css-extract-plugin":"^2.4.2","piajs":"^0.0.3","postcss-loader":"^6.2.0","postcss-preset-env":"^6.7.0","sass":"^1.43.5","sass-loader":"^12.2.0","style-loader":"^3.3.0","terser-webpack-plugin":"^5.3.1","webpack":"^5.58.2","webpack-cli":"^4.9.0","webpack-dev-server":"^4.3.1","webpack-merge":"^5.8.0"},"dependencies":{"@phucbm/os-util":"0.0.5","match-media-screen":"^0.0.3"}}');
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/make namespace object */
@@ -34,6 +66,8 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -140,6 +174,8 @@ class PiaEasyPopup{
 
 /* harmony default export */ const pia_easy_popup = (PiaEasyPopup);
 ;// CONCATENATED MODULE: ./src/configs.js
+const packageInfo = __webpack_require__(147);
+
 /**
  * Classes
  * */
@@ -173,6 +209,10 @@ const ATTRS = {
  * Defaults
  * */
 const DEFAULTS = {
+    // set dev to true when run production
+    dev: "production" === 'development', // development mode
+    version: packageInfo.version,
+
     outerClass: '',
     activeHtmlClass: '',
 
@@ -945,6 +985,8 @@ window.EasyPopup = {
 
 // init
 window.EasyPopup.init();
+})();
+
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;
