@@ -13,6 +13,7 @@ class Popup{
     constructor(el, options){
         if(!el){
             console.warn('Init popup fail due to empty input!');
+            this.id = -1;
             return;
         }
 
@@ -25,11 +26,15 @@ class Popup{
         this.idType = 'auto-id';
 
         // skip double init
-        if(this.el.classList.contains(CLASSES.processed)) return;
+        if(this.el.classList.contains(CLASSES.processed)){
+            // if(EasyPopupData.dev) console.log('Popup already processed:', this.id);
+            this.id = -1;
+            return;
+        }
 
         // init events manager
         this.events = new EventsManager(this, {
-            names: ['onClose', 'onOpen']
+            names: ['onClose', 'onOpen', 'onInit']
         });
 
         // get options id from attribute
@@ -62,15 +67,23 @@ class Popup{
             console.warn(`Popup ID should be a string, consider adding a prefix to your ID to avoid unexpected issue, your ID:`, this.id);
         }
 
+        /** DONE GETTING OPTIONS **/
+
+        /** ------ **/
+
+        /** COOKIE **/
+
         // cookie
         this.cookie = this.options.cookie ? new PiaEasyPopup(this) : null;
 
+        /** HTML **/
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
         // generate html
         this.outer = undefined;
         generateHTML(this);
 
+        /** AUTO SHOW **/
         // auto show
         if(this.options.autoShow !== false){
             // if Pia exists, check showing status from Pia
@@ -85,8 +98,14 @@ class Popup{
             }
         }
 
+        /** LENIS **/
         // lenis integrate
         this.lenis = new LenisEasyPopup(this);
+
+
+        /** INIT COMPLETE **/
+        if(EasyPopupData.dev) console.log('Popup initialized:', this.id);
+        this.events.fire('onInit');
     }
 
     /******************************
@@ -183,14 +202,35 @@ class PopupController{
     constructor(){
         this.active = '';
         this.popups = [];
+        this.nodeEnv = process.env.NODE_ENV; // 'development' or 'production'
+        this.dev = this.getDev();
     }
 
     add(popup){
-        this.popups.push(popup);
+        if(popup.id !== -1) this.popups.push(popup);
     }
 
     get(id){
         return this.popups.filter(popup => popup.id === id)[0];
+    }
+
+    setDev(isDev){
+        // save the dev status to session storage
+        sessionStorage.setItem('easy-popup-dev', isDev);
+
+        this.dev = isDev;
+
+        console.info(`EasyPopup: Dev mode is ${isDev ? 'enabled' : 'disabled'} for this session. Please refresh the page to take full effect.`);
+    }
+
+    getDev(){
+        // if session storage is not available, check dev mode from NODE_ENV
+        if(sessionStorage.getItem('easy-popup-dev') === null){
+            // by default, true for development, false for production
+            return this.nodeEnv === 'development';
+        }
+
+        return sessionStorage.getItem('easy-popup-dev') === 'true';
     }
 }
 
@@ -211,7 +251,10 @@ window.EasyPopup = {
         document.querySelectorAll(selector).forEach(el => window.EasyPopupData.add(new Popup(el, options)));
     },
     // Get instance object by ID
-    get: id => window.EasyPopupData.get(id)
+    get: id => window.EasyPopupData.get(id),
+
+    // Set global default options
+    setDev: isDev => window.EasyPopupData.setDev(isDev),
 };
 
 // init
