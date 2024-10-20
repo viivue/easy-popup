@@ -1,3 +1,5 @@
+const packageInfo = require('../package.json');
+
 /**
  * Classes
  * */
@@ -31,6 +33,10 @@ export const ATTRS = {
  * Defaults
  * */
 export const DEFAULTS = {
+    // set dev to true when run production
+    dev: process.env.NODE_ENV === 'development', // development mode
+    version: packageInfo.version,
+
     outerClass: '',
     activeHtmlClass: '',
 
