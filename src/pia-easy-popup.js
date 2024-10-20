@@ -55,20 +55,24 @@ class PiaEasyPopup{
     }
 
     getVal(){
+        if(EasyPopupData.dev) console.log('Cookie get:', this.popupId, this.key, Pia.get(this.key));
         return Pia.get(this.key);
     }
 
     setVal(val){
         // save the new record
         Pia.set(this.key, val, this.piaOptions);
+        if(EasyPopupData.dev) console.log('Cookie set:', this.popupId, this.key, val);
     }
 
     updateVal(val){
         Pia.update(this.key, val);
+        if(EasyPopupData.dev) console.log('Cookie updated:', this.popupId, this.key, val);
     }
 
     remove(){
         Pia.remove(this.key);
+        if(EasyPopupData.dev) console.log('Cookie removed:', this.popupId, this.key);
     }
 }
 
