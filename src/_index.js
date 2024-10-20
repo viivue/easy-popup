@@ -141,10 +141,14 @@ class Popup{
                 // prevent with Lenis
                 this.root.classList.add(CLASSES.preventScrollLenis);
                 this.lenis.stop();
+
+                if(EasyPopupData.dev) console.log('Disable scroll with Lenis');
             }else{
                 // prevent via CSS
                 this.root.classList.add(CLASSES.preventScroll);
                 this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth(this)}px`);
+
+                if(EasyPopupData.dev) console.log('Disable scroll with CSS');
             }
         }
 
@@ -153,6 +157,7 @@ class Popup{
         this.cookie?.onPopupOpen();
 
         // event
+        if(EasyPopupData.dev) console.log('Popup opened:', this.id);
         this.events.fire('onOpen');
     }
 
@@ -180,10 +185,13 @@ class Popup{
                         // prevent via CSS
                         this.root.classList.remove(CLASSES.preventScroll);
                     }
+
+                    if(EasyPopupData.dev) console.log('Enable scroll.');
                 }
             }
 
             // event
+            if(EasyPopupData.dev) console.log('Popup closed:', this.id);
             this.events.fire('onClose');
         }, 300);
     }
