@@ -31,6 +31,6 @@ View package at [@viivue/easy-popup](https://www.npmjs.com/package/@viivue/easy-
 
 ```html
 <!-- Easy Popup -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/viivue/easy-popup@1.1.0/dist/easy-popup.min.css">
-<script src="https://cdn.jsdelivr.net/gh/viivue/easy-popup@1.1.0/dist/easy-popup.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/viivue/easy-popup@1.2.0/dist/easy-popup.min.css">
+<script src="https://cdn.jsdelivr.net/gh/viivue/easy-popup@1.2.0/dist/easy-popup.min.js"></script>
 ```

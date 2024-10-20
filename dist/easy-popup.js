@@ -1,6 +1,6 @@
 
 /**!
- * Easy Popup v1.1.0
+ * Easy Popup v1.2.0
  * @author phucbm
  * @homepage https://easy-popup.netlify.app/
  * @license MIT 2024
@@ -17,8 +17,40 @@
 })(this, () => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 147:
+/***/ ((module) => {
+
+module.exports = JSON.parse('{"name":"@viivue/easy-popup","outputFilename":"easy-popup","prettyName":"Easy Popup","codeName":"EasyPopup","version":"1.2.0","description":"Super light-weight JavaScript library to create a simple popup","homepage":"https://easy-popup.netlify.app/","repository":{"type":"git","url":"git@github.com:viivue/easy-popup"},"author":{"name":"phucbm","url":"https://github.com/phucbm"},"keywords":["phucbm","javascript","popup","viivue","es6"],"main":"./dist/easy-popup.module.js","files":["./dist/*"],"license":"MIT","scripts":{"dev":"webpack serve --config config/webpack.dev.js","build":"cross-env ENTRY=dev webpack --config config/webpack.build.js","sass:compressed":"sass src/_style.scss:dist/easy-popup.css --no-source-map","optimize":"csso dist/easy-popup.css --output dist/easy-popup.min.css --stat","output-css":"npm run sass:compressed && npm run optimize","prod-umd":"cross-env TARGET=umd webpack --config config/webpack.prod.js","prod-umd-min":"cross-env TARGET=umd MIN=yes webpack --config config/webpack.prod.js","prod-module":"cross-env TARGET=module MIN=yes webpack --config config/webpack.prod.js","prod":"npm run prod-umd && npm run prod-module && npm run prod-umd-min && npm run output-css","publish":"npm run prod & npm publish"},"devDependencies":{"@babel/core":"^7.15.8","@babel/plugin-proposal-class-properties":"^7.14.5","@babel/preset-env":"^7.15.8","@phucbm/gfm":"^0.0.1","babel-loader":"^8.2.2","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^4.0.0","copy-webpack-plugin":"^9.1.0","cross-env":"^7.0.3","css-loader":"^6.4.0","css-minimizer-webpack-plugin":"^3.1.1","csso-cli":"^4.0.1","github-markdown-css":"^5.2.0","html-loader":"^3.1.0","html-webpack-plugin":"^5.3.2","markdown-loader":"^8.0.0","mini-css-extract-plugin":"^2.4.2","piajs":"^0.0.3","postcss-loader":"^6.2.0","postcss-preset-env":"^6.7.0","sass":"^1.43.5","sass-loader":"^12.2.0","style-loader":"^3.3.0","terser-webpack-plugin":"^5.3.1","webpack":"^5.58.2","webpack-cli":"^4.9.0","webpack-dev-server":"^4.3.1","webpack-merge":"^5.8.0"},"dependencies":{"@phucbm/os-util":"0.0.5","match-media-screen":"^0.0.3"}}');
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/make namespace object */
@@ -34,6 +66,8 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -140,6 +174,8 @@ class PiaEasyPopup{
 
 /* harmony default export */ const pia_easy_popup = (PiaEasyPopup);
 ;// CONCATENATED MODULE: ./src/configs.js
+const packageInfo = __webpack_require__(147);
+
 /**
  * Classes
  * */
@@ -173,6 +209,10 @@ const ATTRS = {
  * Defaults
  * */
 const DEFAULTS = {
+    // set dev to true when run production
+    dev: "production" === 'development', // development mode
+    version: packageInfo.version,
+
     outerClass: '',
     activeHtmlClass: '',
 
@@ -200,6 +240,7 @@ const DEFAULTS = {
     cookieName: '', // name of the cookie, change name will also lose access to the previous cookie => treat as a new cookie
 
     preventScroll: true, // prevent page scroll when popup is open
+    scrollbarWidth: undefined, // px, set the scrollbar width manually to avoid page jumping when open a popup, only works for preventScroll:true
 }
 const CLOSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
 ;// CONCATENATED MODULE: ./node_modules/@phucbm/os-util/src/events-manager.js
@@ -466,33 +507,6 @@ function wrapElement(innerEl, outerEl = document.createElement('div')){
     outerEl.appendChild(innerEl);
     return outerEl;
 }
-
-
-/**
- * Get scrollbar width
- * https://stackoverflow.com/a/986977/6453822
- * @returns {number}
- */
-function getScrollbarWidth(){
-    // Creating invisible container
-    const outer = document.createElement('div');
-    outer.style.visibility = 'hidden';
-    outer.style.overflow = 'scroll'; // forcing scrollbar to appear
-    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-    document.body.appendChild(outer);
-
-    // Creating inner element and placing it in the container
-    const inner = document.createElement('div');
-    outer.appendChild(inner);
-
-    // Calculating difference between container's full width and the child width
-    const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
-
-    // Removing temporary elements from the DOM
-    outer.parentNode.removeChild(outer);
-
-    return scrollbarWidth;
-}
 ;// CONCATENATED MODULE: ./src/outside-click.js
 function initOutsideClick(context){
     // detect outside click
@@ -650,8 +664,8 @@ function generateHTML(context){
     context.outer = wrapElement(context.overflow);
     context.outer.classList.add(CLASSES.outer);
     if(context.options.outerClass){
-      const classes = context.options.outerClass.split(' ');
-      for(let i = 0; i < classes.length; i++) context.outer.classList.add(classes[i])
+        const classes = context.options.outerClass.trim().split(' ');
+        for(let i = 0; i < classes.length; i++) context.outer.classList.add(classes[i])
     }
     context.outer.setAttribute(ATTRS.id, context.id);
 
@@ -665,6 +679,93 @@ function generateHTML(context){
     // done init
     context.el.classList.add(CLASSES.processed, CLASSES.content);
 }
+;// CONCATENATED MODULE: ./src/utils/isMobile.js
+// https://stackoverflow.com/a/11381730/6453822
+function isMobile(){
+    let check = false;
+    (function(a){
+        if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+    })(navigator.userAgent || navigator.vendor || window.opera);
+    return check;
+}
+;// CONCATENATED MODULE: ./src/utils/getScrollbarWidth.js
+
+
+/**
+ * To prevent page jump when popup is open, we add a padding-right to the body, this is the width of the scrollbar.
+ * Scrollbar width is different between browsers and OS, so we need to calculate it.
+ * But sometimes, the scrollbar width can be changed by using ::-webkit-scrollbar CSS, so the calculation is not 100% accurate.
+ * So we allow the user to set the scrollbar width manually via the `scrollbarWidth` option.
+ */
+function getScrollbarWidth(context){
+    if(isMobile()){
+        // console.log('EasyPopup: Mobile or touch device detected, no need to calculate scrollbar width');
+        return 0;
+    }
+
+    const {scrollbarWidth} = context.options;
+
+    if(scrollbarWidth === undefined){
+        return getDetectedScrollbarWidth();
+    }
+
+    if(typeof scrollbarWidth === 'number'){
+        return scrollbarWidth;
+    }
+
+    console.warn('EasyPopup: `scrollbarWidth` must be a number, fallback to auto-detect');
+    return getDetectedScrollbarWidth();
+}
+
+
+/**
+ * Get scrollbar width
+ * Not 100% accurate, but it's the best way to get the scrollbar width
+ * https://stackoverflow.com/a/986977/6453822
+ * @returns {number}
+ */
+function getDetectedScrollbarWidth(outerElement = document.body){
+    // Use provided element or create a new div
+    const outer = outerElement || document.createElement('div');
+
+    // Store original styles
+    const originalStyles = {
+        visibility: outer.style.visibility,
+        overflow: outer.style.overflow,
+        msOverflowStyle: outer.style.msOverflowStyle
+    };
+
+    // Apply necessary styles
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+
+    if(!outerElement){
+        document.body.appendChild(outer);
+    }
+
+    // Creating inner element and placing it in the container
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+
+    // Calculating difference between container's full width and the child width
+    const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+
+    // Cleaning up
+    outer.removeChild(inner);
+
+    if(!outerElement){
+        outer.parentNode.removeChild(outer);
+    }else{
+        // Restore original styles
+        outer.style.visibility = originalStyles.visibility;
+        outer.style.overflow = originalStyles.overflow;
+        outer.style.msOverflowStyle = originalStyles.msOverflowStyle;
+    }
+
+    return scrollbarWidth;
+}
+
 ;// CONCATENATED MODULE: ./src/_index.js
 
 
@@ -793,7 +894,7 @@ class Popup{
             }else{
                 // prevent via CSS
                 this.root.classList.add(CLASSES.preventScroll);
-                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth()}px`);
+                this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth(this)}px`);
             }
         }
 
@@ -884,6 +985,8 @@ window.EasyPopup = {
 
 // init
 window.EasyPopup.init();
+})();
+
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;

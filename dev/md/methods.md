@@ -4,10 +4,11 @@
 
 #### Global methods
 
-| Name                                | Description          | 
-|-------------------------------------|----------------------|
-| `EasyPopup.init(selector, options)` | Init a popup         |
-| `EasyPopup.get(popupId)`            | Get a popup instance |
+| Name                                | Description                                  | 
+|-------------------------------------|----------------------------------------------|
+| `EasyPopup.init(selector, options)` | Init a popup                                 |
+| `EasyPopup.get(popupId)`            | Get a popup instance                         |
+| `EasyPopup.setDev(isDev)`           | Enable/disable dev mode to see console logs. |
 
 #### Instance methods
 
