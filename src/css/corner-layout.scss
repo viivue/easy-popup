@@ -1,0 +1,34 @@
+@media only screen and (min-width: 769px) {
+  [data-ep-theme=corner] {
+    --ep-max-width: 450px;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  [data-ep-theme=corner] .easy-popup-container .easy-popup-inner .easy-popup-content {
+    border-radius: 0;
+  }
+
+  [data-ep-theme=corner] .easy-popup-container {
+    padding: 40px 20px 20px;
+    margin: 0 0 0 auto;
+  }
+
+  // Popup position on the top left side
+  [data-ep-theme=corner].top-left {
+    align-items: flex-start;
+  }
+  [data-ep-theme=corner].top-left .easy-popup-container {
+    margin: 0;
+  }
+
+  // Popup position on the top right side
+  [data-ep-theme=corner].top-right {
+    align-items: flex-start;
+  }
+
+  // Popup position on the bottom left side
+  [data-ep-theme=corner].bottom-left .easy-popup-container {
+    margin: 0;
+  }
+}

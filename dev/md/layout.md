@@ -2,11 +2,12 @@
 
 Layout could be customized with these provided options.
 
-| Description | Option | Buttons |
-|--|--|--|
-| Use custom layout on mobile | `hasMobileLayout: true` | [View popup](#popup-mobile) |
-| Display popup on the right side | `theme: "right-side"` | [View popup](#popup-right-side) |
-| Change the close button text | `closeButtonInnerText: "CLOSE"` | [View popup](#popup-custom-close) |
+| Description                     | Option                                   | Buttons                           |
+|---------------------------------|------------------------------------------|-----------------------------------|
+| Use custom layout on mobile     | `hasMobileLayout: true`                  | [View popup](#popup-mobile)       |
+| Display popup on the right side | `theme: "right-side"`                    | [View popup](#popup-right-side)   |
+| Change the close button text    | `closeButtonInnerText: "CLOSE"`          | [View popup](#popup-custom-close) |
+| Display the popup in the corner | `theme: "corner"` `position: "top left"` | [View popup](#popup-corner)       |
 
 <div data-easy-popup='{"id": "popup-mobile", "hasMobileLayout": "true"}'>
     <!-- Popup content -->
@@ -73,6 +74,16 @@ Ac lectus interdum auctor praesent quis. Mauris viverra purus blandit natoque su
 letius. Arcu faucibus scelerisque id elit ullamcorper phasellus letius morbi inceptos pulvinar hac. Potenti magna sapien
 nostra lorem libero curabitur.
 </p>
+</div>
+
+<div data-easy-popup='{"id": "popup-corner", "theme": "corner", "position": "top left" }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
 </div>
 
 <div data-easy-popup='{"id": "popup-custom-close", "closeButtonInnerText": "CLOSE"}'>
