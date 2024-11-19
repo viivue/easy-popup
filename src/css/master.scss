@@ -1,10 +1,4 @@
-/* master */
-html:not(.easy-popup-open) .easy-popup-master {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.easy-popup-master {
+:root {
   --ep-bg: rgba(0, 0, 0, .4);
   --ep-padding: clamp(20px, 2vw, 40px);
   --ep-max-width: 915px;
@@ -14,7 +8,15 @@ html:not(.easy-popup-open) .easy-popup-master {
   --ep-close-color-hover: #ef1616;
 
   --ep-popup-bg: #fff;
+}
 
+/* master */
+html:not(.easy-popup-open) .easy-popup-master {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.easy-popup-master {
   position: fixed;
   top: 0;
   left: 0;

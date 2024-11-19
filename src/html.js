@@ -13,8 +13,18 @@ export function generateHTML(context){
         context.masterContainer = document.createElement('div');
         context.masterContainer.classList.add(CLASSES.master);
     }
-    document.querySelector('body').appendChild(context.masterContainer);
-    context.masterContainer.appendChild(context.el);
+
+    // theme: corner
+    if(context.options.theme === 'corner'){
+        context.masterContainerCorner = document.createElement('div');
+        context.masterContainerCorner.classList.add(CLASSES.master + '-corner');
+
+        document.querySelector('body').appendChild(context.masterContainerCorner);
+        context.masterContainerCorner.appendChild(context.el);
+    }else{
+        document.querySelector('body').appendChild(context.masterContainer);
+        context.masterContainer.appendChild(context.el);
+    }
 
     // inner
     context.inner = wrapElement(context.el);
@@ -31,6 +41,7 @@ export function generateHTML(context){
     // outer
     context.outer = wrapElement(context.overflow);
     context.outer.classList.add(CLASSES.outer);
+
     if(context.options.outerClass){
         const classes = context.options.outerClass.trim().split(' ');
         for(let i = 0; i < classes.length; i++) context.outer.classList.add(classes[i])
