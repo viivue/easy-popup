@@ -137,6 +137,8 @@ class Popup{
 
         // prevent scroll > on
         if(this.options.preventScroll){
+
+            // "corner" theme will not prevent scroll
             if(this.options.theme === 'corner') return;
 
             if(this.lenis.enabled()){
