@@ -5,8 +5,6 @@ import {initKeyboard} from "./keyboard";
 import {addCloseButton, initMobileLayout, initTheme} from "./layouts";
 
 export function generateHTML(context){
-    const isCornerTheme = context.options.theme === 'corner';
-
     // check flag
     if(context.el.classList.contains(CLASSES.processed)) return;
 
@@ -16,7 +14,7 @@ export function generateHTML(context){
         context.masterContainer.classList.add(CLASSES.master);
     }
 
-    if(!isCornerTheme){
+    if(!context.isCornerTheme){
         document.querySelector('body').appendChild(context.masterContainer);
         context.masterContainer.appendChild(context.el);
     }
@@ -25,7 +23,7 @@ export function generateHTML(context){
     context.inner = wrapElement(context.el);
     context.inner.classList.add(CLASSES.inner);
 
-    if(isCornerTheme){
+    if(context.isCornerTheme){
         document.querySelector('body').appendChild(context.inner);
     }
 
@@ -42,7 +40,7 @@ export function generateHTML(context){
     context.outer.classList.add(CLASSES.outer);
 
     // theme: corner
-    if(isCornerTheme){
+    if(context.isCornerTheme){
         context.outer.classList.add(CLASSES.master + '-corner');
     }
 

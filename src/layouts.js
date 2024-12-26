@@ -58,7 +58,7 @@ function setTheme(context, removeTheme = false){
     // set theme
     context.outer.setAttribute(ATTRS.theme, context.options.theme);
 
-    if(context.options.theme === "corner"){
+    if(context.isCornerTheme){
         const formatPosition = context.options.position.trim().split(" ").join("-");
         context.outer.classList.add(formatPosition);
     }

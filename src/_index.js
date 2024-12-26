@@ -71,6 +71,12 @@ class Popup{
 
         /** ------ **/
 
+        /** THEMES **/
+
+        // corner theme
+        this.isCornerTheme = this.options.theme === 'corner';
+
+
         /** COOKIE **/
 
         // cookie
@@ -139,7 +145,7 @@ class Popup{
         if(this.options.preventScroll){
 
             // "corner" theme will not prevent scroll
-            if(this.options.theme === 'corner') return;
+            if(this.isCornerTheme) return;
 
             if(this.lenis.enabled()){
                 // prevent with Lenis
