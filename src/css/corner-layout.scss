@@ -11,16 +11,6 @@ html.easy-popup-open:has(.easy-popup-master-corner.open) .easy-popup-master {
   pointer-events: none;
 }
 
-.easy-popup-master-corner.easy-popup {
-  opacity: 1;
-  visibility: visible;
-  top: unset;
-  left: unset;
-  height: unset;
-  width: unset;
-  display: block;
-}
-
 .easy-popup-master-corner {
   transform: translateX(0);
 }
@@ -35,12 +25,25 @@ html.easy-popup-open:has(.easy-popup-master-corner.open) .easy-popup-master {
 @media only screen and (min-width: 769px) {
   // html.easy-popup-open:has(.easy-popup-master-corner).ep-prevent-scroll  {overflow:auto;}
 
+  .easy-popup-master-corner.easy-popup {
+
+  }
+
   .easy-popup-master-corner {
     --ep-max-width: 450px;
     max-width: var(--ep-max-width);
     position: fixed;
     bottom: 0;
     right: 0;
+
+    // Remove default CSS of easy popup
+    opacity: 1;
+    visibility: visible;
+    top: unset;
+    left: unset;
+    height: unset;
+    width: unset;
+    display: block;
   }
 
   // Popup container
@@ -120,6 +123,7 @@ html.easy-popup-open:has(.easy-popup-master-corner.open) .easy-popup-master {
     background: var(--ep-bg);
     backdrop-filter: blur(2px);
   }
+
   .easy-popup-master-corner:not(.open) {
     opacity: 0;
     visibility: hidden;
