@@ -106,7 +106,7 @@ adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tin
 congue cubilia cursus.</p>
 </div>
 
-<div data-easy-popup='{"id": "popup-corner-top-left", "theme": "corner", "cornerPosition":"top left" }'>
+<div data-easy-popup='{"id": "popup-corner-top-left", "theme": "corner", "cornerPosition":"top left","closeButtonInnerText": "CLOSE" }'>
     <!-- Popup content -->
 <h2>Ac lectus interdum auctor praesent quis</h2>  
 <p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam

@@ -8,24 +8,18 @@ export function generateHTML(context){
     // check flag
     if(context.el.classList.contains(CLASSES.processed)) return;
 
+    /** HTML **/
     // relocate HTML to body tag
     if(!context.masterContainer){
         context.masterContainer = document.createElement('div');
         context.masterContainer.classList.add(CLASSES.master);
-    }
 
-    if(!context.isCornerTheme){
         document.querySelector('body').appendChild(context.masterContainer);
-        context.masterContainer.appendChild(context.el);
     }
 
     // inner
     context.inner = wrapElement(context.el);
     context.inner.classList.add(CLASSES.inner);
-
-    if(context.isCornerTheme){
-        document.querySelector('body').appendChild(context.inner);
-    }
 
     // container
     context.container = wrapElement(context.inner);
@@ -38,19 +32,25 @@ export function generateHTML(context){
     // outer
     context.outer = wrapElement(context.overflow);
     context.outer.classList.add(CLASSES.outer);
-
-    // theme: corner
-    if(context.isCornerTheme){
-        context.outer.classList.add(CLASSES.cornerMaster);
-    }
-
     if(context.options.outerClass){
         const classes = context.options.outerClass.trim().split(' ');
         for(let i = 0; i < classes.length; i++) context.outer.classList.add(classes[i])
     }
     context.outer.setAttribute(ATTRS.id, context.id);
 
-    initOutsideClick(context);
+
+    if(context.isCornerTheme){
+        // corner theme
+        context.outer.classList.add(CLASSES.cornerMaster);
+        document.querySelector('body').appendChild(context.outer);
+    }else{
+        // normal theme
+        context.masterContainer.appendChild(context.outer);
+        initOutsideClick(context);
+    }
+
+
+    /** Init **/
     initKeyboard(context);
     initTheme(context);
     initMobileLayout(context); // must call after initTheme()
