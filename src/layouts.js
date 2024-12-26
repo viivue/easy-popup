@@ -71,6 +71,7 @@ function setTheme(context, removeTheme = false){
         // update position value for instance
         context.options.position = inputPosition;
 
+        // add position class
         const formatPosition = inputPosition.split(" ").join("-");
         context.outer.classList.add(formatPosition);
     }
