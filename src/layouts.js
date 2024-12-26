@@ -61,8 +61,11 @@ function setTheme(context, removeTheme = false){
     if(context.isCornerTheme){
         const isExistPosition = CORNER_THEME_POSITION.find(item => item === context.options.position);
 
-        if(!isExistPosition)
+        if(!isExistPosition){
             console.warn("Invalid position for corner theme (it must  be 'top left', 'top right', 'bottom left', 'bottom right')");
+            context.outer.classList.add(context.options.position);
+            return;
+        }
 
         const formatPosition = context.options.position.trim().split(" ").join("-");
         context.outer.classList.add(formatPosition);

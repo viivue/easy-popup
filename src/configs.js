@@ -51,7 +51,7 @@ export const DEFAULTS = {
 
     // theme
     theme: 'default', // right-side
-    position: 'bottom right', // position of the popup, e.g. 'top left', 'top right', 'bottom left', 'bottom right'
+    position: 'bottom-right', // position of the popup, e.g. 'top left', 'top right', 'bottom left', 'bottom right'
 
     keyboard: true, // option for closing the popup by keyboard (ESC)
 
