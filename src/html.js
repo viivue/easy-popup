@@ -41,11 +41,8 @@ export function generateHTML(context){
     context.outer = wrapElement(context.overflow);
     context.outer.classList.add(CLASSES.outer);
 
-
-    console.log("context", context.outer);
-
     // theme: corner
-    if(context.options.theme === 'corner'){
+    if(isCornerTheme){
         context.outer.classList.add(CLASSES.master + '-corner');
     }
 
