@@ -5,6 +5,8 @@ import {initKeyboard} from "./keyboard";
 import {addCloseButton, initMobileLayout, initTheme} from "./layouts";
 
 export function generateHTML(context){
+    const isCornerTheme = context.options.theme === 'corner';
+
     // check flag
     if(context.el.classList.contains(CLASSES.processed)) return;
 
@@ -14,14 +16,7 @@ export function generateHTML(context){
         context.masterContainer.classList.add(CLASSES.master);
     }
 
-    // theme: corner
-    if(context.options.theme === 'corner'){
-        context.masterContainerCorner = document.createElement('div');
-        context.masterContainerCorner.classList.add(CLASSES.master + '-corner');
-
-        document.querySelector('body').appendChild(context.masterContainerCorner);
-        context.masterContainerCorner.appendChild(context.el);
-    }else{
+    if(!isCornerTheme){
         document.querySelector('body').appendChild(context.masterContainer);
         context.masterContainer.appendChild(context.el);
     }
@@ -29,6 +24,10 @@ export function generateHTML(context){
     // inner
     context.inner = wrapElement(context.el);
     context.inner.classList.add(CLASSES.inner);
+
+    if(isCornerTheme){
+        document.querySelector('body').appendChild(context.inner);
+    }
 
     // container
     context.container = wrapElement(context.inner);
@@ -41,6 +40,14 @@ export function generateHTML(context){
     // outer
     context.outer = wrapElement(context.overflow);
     context.outer.classList.add(CLASSES.outer);
+
+
+    console.log("context", context.outer);
+
+    // theme: corner
+    if(context.options.theme === 'corner'){
+        context.outer.classList.add(CLASSES.master + '-corner');
+    }
 
     if(context.options.outerClass){
         const classes = context.options.outerClass.trim().split(' ');

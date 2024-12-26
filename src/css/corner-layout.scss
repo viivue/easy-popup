@@ -4,15 +4,21 @@ html.easy-popup-open:has([data-ep-theme=corner].open) .easy-popup-master {
 }
 
 .easy-popup-master-corner {
-  transition: opacity .4s ease, visibility .4s ease;
+  transition: opacity .4s ease, visibility .4s ease, transform .4s ease;
 }
 
-.easy-popup-master-corner:has([data-ep-theme=corner]:not(.open)) {
+.easy-popup-master-corner:not(.open) {
   pointer-events: none;
 }
 
-.easy-popup-master-corner .easy-popup {
-  position: unset;
+.easy-popup-master-corner.easy-popup {
+  opacity: 1;
+  visibility: visible;
+  top: unset;
+  left: unset;
+  height: unset;
+  width: unset;
+  display: block;
 }
 
 [data-ep-theme=corner] {
@@ -51,32 +57,32 @@ html.easy-popup-open:has([data-ep-theme=corner].open) .easy-popup-master {
   }
 
   // Popup position on the top left side
-  .easy-popup-master-corner:has([data-ep-theme=corner].top-left) {
+  .easy-popup-master-corner[data-ep-theme=corner].top-left {
     top: 0;
     left: 0;
     bottom: unset;
     right: unset;
   }
-  .easy-popup-master-corner:has([data-ep-theme=corner].top-left) .easy-popup-container {
+  .easy-popup-master-corner[data-ep-theme=corner].top-left .easy-popup-container {
     padding: 20px 0 0 20px;
   }
 
   // Popup position on the top right side
-  .easy-popup-master-corner:has([data-ep-theme=corner].top-right) {
+  .easy-popup-master-corner.top-right {
     top: 0;
     right: 0;
     bottom: unset;
   }
-  .easy-popup-master-corner:has([data-ep-theme=corner].top-right) .easy-popup-container {
+  .easy-popup-master-corner.top-right .easy-popup-container {
     padding: 20px 20px 0 0;
   }
 
   // Popup position on the bottom left side
-  .easy-popup-master-corner:has([data-ep-theme=corner].bottom-left) {
+  .easy-popup-master-corner.bottom-left {
     left: 0;
     right: unset;
   }
-  .easy-popup-master-corner:has([data-ep-theme=corner].bottom-left) .easy-popup-container {
+  .easy-popup-master-corner.bottom-left .easy-popup-container {
     padding: 0 0 20px 20px;
   }
 
@@ -114,7 +120,7 @@ html.easy-popup-open:has([data-ep-theme=corner].open) .easy-popup-master {
     background: var(--ep-bg);
     backdrop-filter: blur(2px);
   }
-  .easy-popup-master-corner:has([data-ep-theme=corner]:not(.open)) {
+  .easy-popup-master-corner:not(.open) {
     opacity: 0;
     visibility: hidden;
   }
