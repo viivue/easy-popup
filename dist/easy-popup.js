@@ -155,20 +155,24 @@ class PiaEasyPopup{
     }
 
     getVal(){
+        if(EasyPopupData.dev) console.log('Cookie get:', this.popupId, this.key, Pia.get(this.key));
         return Pia.get(this.key);
     }
 
     setVal(val){
         // save the new record
         Pia.set(this.key, val, this.piaOptions);
+        if(EasyPopupData.dev) console.log('Cookie set:', this.popupId, this.key, val);
     }
 
     updateVal(val){
         Pia.update(this.key, val);
+        if(EasyPopupData.dev) console.log('Cookie updated:', this.popupId, this.key, val);
     }
 
     remove(){
         Pia.remove(this.key);
+        if(EasyPopupData.dev) console.log('Cookie removed:', this.popupId, this.key);
     }
 }
 
@@ -209,8 +213,6 @@ const ATTRS = {
  * Defaults
  * */
 const DEFAULTS = {
-    // set dev to true when run production
-    dev: "production" === 'development', // development mode
     version: packageInfo.version,
 
     outerClass: '',
@@ -782,6 +784,7 @@ class Popup{
     constructor(el, options){
         if(!el){
             console.warn('Init popup fail due to empty input!');
+            this.id = -1;
             return;
         }
 
@@ -794,11 +797,15 @@ class Popup{
         this.idType = 'auto-id';
 
         // skip double init
-        if(this.el.classList.contains(CLASSES.processed)) return;
+        if(this.el.classList.contains(CLASSES.processed)){
+            // if(EasyPopupData.dev) console.log('Popup already processed:', this.id);
+            this.id = -1;
+            return;
+        }
 
         // init events manager
         this.events = new EventsManager(this, {
-            names: ['onClose', 'onOpen']
+            names: ['onClose', 'onOpen', 'onInit']
         });
 
         // get options id from attribute
@@ -831,15 +838,23 @@ class Popup{
             console.warn(`Popup ID should be a string, consider adding a prefix to your ID to avoid unexpected issue, your ID:`, this.id);
         }
 
+        /** DONE GETTING OPTIONS **/
+
+        /** ------ **/
+
+        /** COOKIE **/
+
         // cookie
         this.cookie = this.options.cookie ? new pia_easy_popup(this) : null;
 
+        /** HTML **/
         this.masterContainer = document.querySelector(`.${CLASSES.master}`);
 
         // generate html
         this.outer = undefined;
         generateHTML(this);
 
+        /** AUTO SHOW **/
         // auto show
         if(this.options.autoShow !== false){
             // if Pia exists, check showing status from Pia
@@ -854,8 +869,14 @@ class Popup{
             }
         }
 
+        /** LENIS **/
         // lenis integrate
         this.lenis = new lenis_easy_popup(this);
+
+
+        /** INIT COMPLETE **/
+        if(EasyPopupData.dev) console.log('Popup initialized:', this.id);
+        this.events.fire('onInit');
     }
 
     /******************************
@@ -891,10 +912,14 @@ class Popup{
                 // prevent with Lenis
                 this.root.classList.add(CLASSES.preventScrollLenis);
                 this.lenis.stop();
+
+                if(EasyPopupData.dev) console.log('Disable scroll with Lenis');
             }else{
                 // prevent via CSS
                 this.root.classList.add(CLASSES.preventScroll);
                 this.root.style.setProperty('--ep-scroll-bar-w', `${getScrollbarWidth(this)}px`);
+
+                if(EasyPopupData.dev) console.log('Disable scroll with CSS');
             }
         }
 
@@ -903,6 +928,7 @@ class Popup{
         this.cookie?.onPopupOpen();
 
         // event
+        if(EasyPopupData.dev) console.log('Popup opened:', this.id);
         this.events.fire('onOpen');
     }
 
@@ -930,10 +956,13 @@ class Popup{
                         // prevent via CSS
                         this.root.classList.remove(CLASSES.preventScroll);
                     }
+
+                    if(EasyPopupData.dev) console.log('Enable scroll.');
                 }
             }
 
             // event
+            if(EasyPopupData.dev) console.log('Popup closed:', this.id);
             this.events.fire('onClose');
         }, 300);
     }
@@ -952,14 +981,35 @@ class PopupController{
     constructor(){
         this.active = '';
         this.popups = [];
+        this.nodeEnv = "production"; // 'development' or 'production'
+        this.dev = this.getDev();
     }
 
     add(popup){
-        this.popups.push(popup);
+        if(popup.id !== -1) this.popups.push(popup);
     }
 
     get(id){
         return this.popups.filter(popup => popup.id === id)[0];
+    }
+
+    setDev(isDev){
+        // save the dev status to session storage
+        sessionStorage.setItem('easy-popup-dev', isDev);
+
+        this.dev = isDev;
+
+        console.info(`EasyPopup: Dev mode is ${isDev ? 'enabled' : 'disabled'} for this session. Please refresh the page to take full effect.`);
+    }
+
+    getDev(){
+        // if session storage is not available, check dev mode from NODE_ENV
+        if(sessionStorage.getItem('easy-popup-dev') === null){
+            // by default, true for development, false for production
+            return this.nodeEnv === 'development';
+        }
+
+        return sessionStorage.getItem('easy-popup-dev') === 'true';
     }
 }
 
@@ -980,7 +1030,10 @@ window.EasyPopup = {
         document.querySelectorAll(selector).forEach(el => window.EasyPopupData.add(new Popup(el, options)));
     },
     // Get instance object by ID
-    get: id => window.EasyPopupData.get(id)
+    get: id => window.EasyPopupData.get(id),
+
+    // Set global default options
+    setDev: isDev => window.EasyPopupData.setDev(isDev),
 };
 
 // init
