@@ -41,7 +41,7 @@ export function generateHTML(context){
 
     // theme: corner
     if(context.isCornerTheme){
-        context.outer.classList.add(CLASSES.master + '-corner');
+        context.outer.classList.add(CLASSES.cornerMaster);
     }
 
     if(context.options.outerClass){

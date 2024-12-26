@@ -19,6 +19,7 @@ export const CLASSES = {
     hasCustomClose: 'ep-has-custom-close-button',
     preventScroll: 'ep-prevent-scroll',
     preventScrollLenis: 'ep-prevent-scroll-lenis',
+    cornerMaster: 'easy-popup-master-corner',
 };
 /**
  * Attributes
