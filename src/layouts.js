@@ -59,17 +59,17 @@ function setTheme(context, removeTheme = false){
     context.outer.setAttribute(ATTRS.theme, context.options.theme);
 
     if(context.isCornerTheme){
-        let inputPosition = context.options.position.trim();
+        let inputPosition = context.options.cornerPosition.trim();
         const isExistPosition = CORNER_POSITIONS.includes(inputPosition);
 
         // throw warning and set default value if the position is not valid
         if(!isExistPosition){
-            console.warn(`"${inputPosition}" is not a valid position for corner theme. Must be one of these: ${CORNER_POSITIONS.join(", ")}. Default position is used: ${DEFAULTS.position}.`);
-            inputPosition = DEFAULTS.position;
+            console.warn(`"${inputPosition}" is not a valid position for corner theme. Must be one of these: ${CORNER_POSITIONS.join(", ")}. Default position is used: ${DEFAULTS.cornerPosition}.`);
+            inputPosition = DEFAULTS.cornerPosition;
         }
 
         // update position value for instance
-        context.options.position = inputPosition;
+        context.options.cornerPosition = inputPosition;
 
         // add position class
         const formatPosition = inputPosition.split(" ").join("-");

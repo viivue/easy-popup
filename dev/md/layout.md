@@ -86,7 +86,7 @@ adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tin
 congue cubilia cursus.</p>
 </div>
 
-<div data-easy-popup='{"id": "popup-corner-bottom-left", "theme": "corner", "position":"bottom left" }'>
+<div data-easy-popup='{"id": "popup-corner-bottom-left", "theme": "corner", "cornerPosition":"bottom left" }'>
     <!-- Popup content -->
 <h2>Ac lectus interdum auctor praesent quis</h2>  
 <p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
@@ -96,7 +96,7 @@ adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tin
 congue cubilia cursus.</p>
 </div>
 
-<div data-easy-popup='{"id": "popup-corner-top-right", "theme": "corner", "position":"top right" }'>
+<div data-easy-popup='{"id": "popup-corner-top-right", "theme": "corner", "cornerPosition":"top right" }'>
     <!-- Popup content -->
 <h2>Ac lectus interdum auctor praesent quis</h2>  
 <p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
@@ -106,7 +106,7 @@ adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tin
 congue cubilia cursus.</p>
 </div>
 
-<div data-easy-popup='{"id": "popup-corner-top-left", "theme": "corner", "position":"top left" }'>
+<div data-easy-popup='{"id": "popup-corner-top-left", "theme": "corner", "cornerPosition":"top left" }'>
     <!-- Popup content -->
 <h2>Ac lectus interdum auctor praesent quis</h2>  
 <p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
