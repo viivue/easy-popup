@@ -46,11 +46,11 @@ export function generateHTML(context){
     }else{
         // normal theme
         context.masterContainer.appendChild(context.outer);
-        initOutsideClick(context);
     }
 
 
     /** Init **/
+    initOutsideClick(context);
     initKeyboard(context);
     initTheme(context);
     initMobileLayout(context); // must call after initTheme()
