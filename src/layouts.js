@@ -1,5 +1,5 @@
 import {MatchMediaScreen} from "match-media-screen";
-import {ATTRS, CLASSES, CLOSE_SVG} from "./configs";
+import {ATTRS, CLASSES, CLOSE_SVG, CORNER_THEME_POSITION} from "./configs";
 
 /**
  * Set up mobile layout
@@ -59,6 +59,11 @@ function setTheme(context, removeTheme = false){
     context.outer.setAttribute(ATTRS.theme, context.options.theme);
 
     if(context.isCornerTheme){
+        const isExistPosition = CORNER_THEME_POSITION.find(item => item === context.options.position);
+
+        if(!isExistPosition)
+            console.warn("Invalid position for corner theme (it must  be 'top left', 'top right', 'bottom left', 'bottom right')");
+
         const formatPosition = context.options.position.trim().split(" ").join("-");
         context.outer.classList.add(formatPosition);
     }
