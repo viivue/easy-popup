@@ -23,6 +23,7 @@ html.easy-popup-open:has([data-ep-theme=corner].open) .easy-popup-master {
 [data-ep-theme=corner] .ep-close-button {
   --ep-close-color: #000;
   transform: translate(0);
+  position: fixed;
 }
 
 @media only screen and (min-width: 769px) {
@@ -87,6 +88,18 @@ html.easy-popup-open:has([data-ep-theme=corner].open) .easy-popup-master {
   }
   [data-ep-theme=corner] .easy-popup-container .easy-popup-inner .easy-popup-content {
     border-radius: 0;
+  }
+
+  // Popup close button
+  [data-ep-theme=corner].top-left .ep-close-button {
+    top: 20px;
+  }
+  [data-ep-theme=corner].bottom-right .ep-close-button {
+    right: 20px;
+  }
+  [data-ep-theme=corner].top-right .ep-close-button {
+    top: 20px;
+    right: 20px;
   }
 }
 
