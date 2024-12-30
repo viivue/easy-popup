@@ -86,7 +86,7 @@ adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tin
 congue cubilia cursus.</p>
 </div>
 
-<div data-easy-popup='{"id": "popup-corner-bottom-left", "theme": "corner", "cornerPosition":"bottom left" }'>
+<div data-easy-popup='{"id": "popup-corner-bottom-left", "theme": "corner", "cornerPosition":"bottom left " }'>
     <!-- Popup content -->
 <h2>Ac lectus interdum auctor praesent quis</h2>  
 <p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam

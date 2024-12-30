@@ -52,6 +52,7 @@ export const DEFAULTS = {
     // theme
     theme: 'default', // right-side
     cornerPosition: 'bottom right', // position of the popup, e.g. 'top left', 'top right', 'bottom left', 'bottom right'
+    cornerFade: false, // fade effect
 
     keyboard: true, // option for closing the popup by keyboard (ESC)
 

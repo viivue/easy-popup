@@ -1,37 +1,38 @@
-html.easy-popup-open:has(.easy-popup-master-corner.open) .easy-popup-master {
-  opacity: 0;
-  visibility: hidden;
+// Variables
+$ep-offset: 20px;
+
+// Base styles
+html.easy-popup-open {
+  &:has(.easy-popup-master-corner.open) {
+    .easy-popup-master {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 }
 
 .easy-popup-master-corner {
-  transition: opacity .4s ease, visibility .4s ease, transform .4s ease;
-}
-
-.easy-popup-master-corner:not(.open) {
-  pointer-events: none;
-}
-
-.easy-popup-master-corner {
+  transition: opacity 0.4s ease,
+  visibility 0.4s ease,
+  transform 0.4s ease;
   transform: translateX(0);
-}
 
-// Popup close button
-.easy-popup-master-corner .ep-close-button {
-  --ep-close-color: #000;
-  transform: translate(0);
-  position: fixed;
-}
+  &:not(.open) {
+    pointer-events: none;
+  }
 
-@media only screen and (min-width: 769px) {
-  .easy-popup-master-corner {
-    --ep-offset: 20px;
-    --ep-max-width: 450px;
-    max-width: var(--ep-max-width);
+  .ep-close-button {
+    position: fixed;
+    transform: translate(0);
+    --ep-close-color: #000;
+  }
+
+  // Desktop styles
+  @media only screen and (min-width: 769px) {
     position: fixed;
     bottom: 0;
     right: 0;
-
-    // Remove default CSS of easy popup
+    max-width: 450px;
     opacity: 1;
     visibility: visible;
     top: unset;
@@ -39,83 +40,52 @@ html.easy-popup-open:has(.easy-popup-master-corner.open) .easy-popup-master {
     height: unset;
     width: unset;
     display: block;
+
+    .easy-popup-container {
+      padding: 0;
+
+      .easy-popup-inner {
+        border: 1px solid #d0d7de;
+        max-height: calc(100vh - ($ep-offset * 2));
+        overflow-y: auto;
+      }
+    }
+
+    &.top-left {
+      top: $ep-offset;
+      left: $ep-offset;
+      bottom: unset;
+      right: unset;
+    }
+
+    &.top-right {
+      top: $ep-offset;
+      right: $ep-offset;
+      bottom: unset;
+    }
+
+    &.bottom-left {
+      bottom: $ep-offset;
+      left: $ep-offset;
+      right: unset;
+    }
+
+    &.bottom-right {
+      bottom: $ep-offset;
+      right: $ep-offset;
+    }
+
+    &[class*="right"]:not(.open) {
+      transform: translateX(100%);
+    }
+
+    &[class*="left"]:not(.open) {
+      transform: translateX(-100%);
+    }
   }
 
-  // Popup container
-  .easy-popup-master-corner .easy-popup-container {
-    padding: 0;
-  }
-
-  // Animation
-  .easy-popup-master-corner[class*="right"]:not(.open) {
-    transform: translateX(100%);
-  }
-  .easy-popup-master-corner[class*="left"]:not(.open) {
-    transform: translateX(-100%);
-  }
-
-  // Popup position on the top left side
-  .easy-popup-master-corner.top-left {
-    top: var(--ep-offset);
-    left: var(--ep-offset);
-    bottom: unset;
-    right: unset;
-  }
-  .easy-popup-master-corner.top-left .easy-popup-container {
-    //padding: 20px 0 0 20px;
-  }
-
-  // Popup position on the top right side
-  .easy-popup-master-corner.top-right {
-    top: var(--ep-offset);
-    right: var(--ep-offset);
-    bottom: unset;
-  }
-  .easy-popup-master-corner.top-right .easy-popup-container {
-    //padding: 20px 20px 0 0;
-  }
-
-  // Popup position on the bottom left side
-  .easy-popup-master-corner.bottom-left {
-    left: var(--ep-offset);
-    right: unset;
-  }
-  .easy-popup-master-corner.bottom-left .easy-popup-container {
-    //padding: 0 0 20px 20px;
-    bottom: var(--ep-offset);
-  }
-
-  .easy-popup-master-corner.bottom-right .easy-popup-container {
-    bottom: var(--ep-offset);
-    right: var(--ep-offset);
-  }
-
-  // Popup inner
-  .easy-popup-master-corner .easy-popup-container .easy-popup-inner {
-    border: 1px solid #d0d7de;
-    max-height: calc(100vh - 20px * 2);
-    overflow-y: auto;
-  }
-  .easy-popup-master-corner .easy-popup-container .easy-popup-inner .easy-popup-content {
-    border-radius: var(--ep-radius);
-    overflow: auto;
-  }
-
-  // Popup close button
-  .easy-popup-master-corner.top-left .ep-close-button {
-    top: var(--ep-offset);
-  }
-  .easy-popup-master-corner.bottom-right .ep-close-button {
-    right: var(--ep-offset);
-  }
-  .easy-popup-master-corner.top-right .ep-close-button {
-    top: var(--ep-offset);
-    right: var(--ep-offset);
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .easy-popup-master-corner {
+  // Mobile styles
+  @media only screen and (max-width: 768px) {
     position: fixed;
     top: 0;
     left: 0;
@@ -124,10 +94,10 @@ html.easy-popup-open:has(.easy-popup-master-corner.open) .easy-popup-master {
     height: 100%;
     background: var(--ep-bg);
     backdrop-filter: blur(2px);
-  }
 
-  .easy-popup-master-corner:not(.open) {
-    opacity: 0;
-    visibility: hidden;
+    &:not(.open) {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 }
