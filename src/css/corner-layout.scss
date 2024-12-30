@@ -9,9 +9,7 @@ html.easy-popup-open {
 }
 
 .easy-popup-master-corner {
-  transition: opacity 0.4s ease,
-  visibility 0.4s ease,
-  transform 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   transform: translateX(0);
   position: fixed;
   bottom: 0;
@@ -51,40 +49,52 @@ html.easy-popup-open {
     }
   }
 
-  // Desktop styles
-  @media only screen and (min-width: 769px) {
-    // Position variants
-    &.top-left {
-      top: var(--ep-corner-offset);
-      left: var(--ep-corner-offset);
-      bottom: unset;
-      right: unset;
+  // Position variants
+  &.top-left {
+    top: var(--ep-corner-offset);
+    left: var(--ep-corner-offset);
+    bottom: unset;
+    right: unset;
+  }
+
+  &.top-right {
+    top: var(--ep-corner-offset);
+    right: var(--ep-corner-offset);
+    bottom: unset;
+  }
+
+  &.bottom-left {
+    bottom: var(--ep-corner-offset);
+    left: var(--ep-corner-offset);
+    right: unset;
+  }
+
+  &.bottom-right {
+    bottom: var(--ep-corner-offset);
+    right: var(--ep-corner-offset);
+  }
+
+  @media only screen and (max-width: 768px) {
+    --ep-corner-offset: 0px;
+    --ep-padding: 15px;
+    padding: var(--ep-padding);
+
+    .ep-close-button {
+      top: var(--ep-padding);
+      right: var(--ep-padding);
     }
 
-    &.top-right {
-      top: var(--ep-corner-offset);
-      right: var(--ep-corner-offset);
-      bottom: unset;
+    .easy-popup-container .easy-popup-inner {
+      max-height: calc(100vh - (var(--ep-padding) * 2));
     }
+  }
 
-    &.bottom-left {
-      bottom: var(--ep-corner-offset);
-      left: var(--ep-corner-offset);
-      right: unset;
-    }
+  // Slide animations
+  &[class*="right"]:not(.open) {
+    transform: translateX(100%);
+  }
 
-    &.bottom-right {
-      bottom: var(--ep-corner-offset);
-      right: var(--ep-corner-offset);
-    }
-
-    // Slide animations
-    &[class*="right"]:not(.open) {
-      transform: translateX(100%);
-    }
-
-    &[class*="left"]:not(.open) {
-      transform: translateX(-100%);
-    }
+  &[class*="left"]:not(.open) {
+    transform: translateX(-100%);
   }
 }
