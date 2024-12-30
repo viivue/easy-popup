@@ -1,6 +1,3 @@
-// Variables
-$ep-offset: 20px;
-
 // Base styles
 html.easy-popup-open {
   &:has(.easy-popup-master-corner.open) {
@@ -16,6 +13,17 @@ html.easy-popup-open {
   visibility 0.4s ease,
   transform 0.4s ease;
   transform: translateX(0);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  max-width: 450px;
+  opacity: 1;
+  visibility: visible;
+  top: unset;
+  left: unset;
+  height: unset;
+  width: unset;
+  display: block;
 
   &:not(.open) {
     pointer-events: none;
@@ -27,77 +35,56 @@ html.easy-popup-open {
     --ep-close-color: #000;
   }
 
+  .easy-popup-overflow {
+    overflow: unset;
+  }
+
+  .easy-popup-container {
+    padding: 0;
+
+    .easy-popup-inner {
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+      border-radius: var(--ep-radius);
+      overflow: hidden;
+      max-height: calc(100vh - (var(--ep-corner-offset) * 2));
+      overflow-y: auto;
+    }
+  }
+
   // Desktop styles
   @media only screen and (min-width: 769px) {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    max-width: 450px;
-    opacity: 1;
-    visibility: visible;
-    top: unset;
-    left: unset;
-    height: unset;
-    width: unset;
-    display: block;
-
-    .easy-popup-container {
-      padding: 0;
-
-      .easy-popup-inner {
-        border: 1px solid #d0d7de;
-        max-height: calc(100vh - ($ep-offset * 2));
-        overflow-y: auto;
-      }
-    }
-
+    // Position variants
     &.top-left {
-      top: $ep-offset;
-      left: $ep-offset;
+      top: var(--ep-corner-offset);
+      left: var(--ep-corner-offset);
       bottom: unset;
       right: unset;
     }
 
     &.top-right {
-      top: $ep-offset;
-      right: $ep-offset;
+      top: var(--ep-corner-offset);
+      right: var(--ep-corner-offset);
       bottom: unset;
     }
 
     &.bottom-left {
-      bottom: $ep-offset;
-      left: $ep-offset;
+      bottom: var(--ep-corner-offset);
+      left: var(--ep-corner-offset);
       right: unset;
     }
 
     &.bottom-right {
-      bottom: $ep-offset;
-      right: $ep-offset;
+      bottom: var(--ep-corner-offset);
+      right: var(--ep-corner-offset);
     }
 
+    // Slide animations
     &[class*="right"]:not(.open) {
       transform: translateX(100%);
     }
 
     &[class*="left"]:not(.open) {
       transform: translateX(-100%);
-    }
-  }
-
-  // Mobile styles
-  @media only screen and (max-width: 768px) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    width: 100%;
-    height: 100%;
-    background: var(--ep-bg);
-    backdrop-filter: blur(2px);
-
-    &:not(.open) {
-      opacity: 0;
-      visibility: hidden;
     }
   }
 }
