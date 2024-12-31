@@ -58,6 +58,7 @@ function setTheme(context, removeTheme = false){
     // set theme
     context.outer.setAttribute(ATTRS.theme, context.options.theme);
 
+    // add theme position class
     if(context.isCornerTheme){
         let inputPosition = context.options.cornerPosition.trim();
         const isExistPosition = CORNER_POSITIONS.includes(inputPosition);
@@ -72,8 +73,8 @@ function setTheme(context, removeTheme = false){
         context.options.cornerPosition = inputPosition;
 
         // add position class
-        const formatPosition = inputPosition.split(" ").join("-");
-        context.outer.classList.add(formatPosition);
+        const positionClass = inputPosition.split(" ").join("-");
+        context.outer.classList.add(positionClass);
     }
 }
 
