@@ -3,7 +3,6 @@
   --ep-close-color: #000;
   --ep-max-width: 450px;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  transform: translateX(0);
   position: fixed;
   bottom: unset;
   right: unset;
@@ -16,12 +15,8 @@
   display: block;
 
   &:not(.open) {
+    transform: translateX(0);
     pointer-events: none;
-  }
-
-  .ep-close-button {
-    position: fixed;
-    transform: translate(0);
   }
 
   .easy-popup-overflow {
@@ -61,14 +56,14 @@
     right: var(--ep-corner-offset);
   }
 
+  .ep-close-button {
+    transform: translate(0);
+  }
+
   @media only screen and (max-width: 1023px) {
     --ep-corner-offset: 0px;
     --ep-padding: 15px;
     padding: var(--ep-padding);
-
-    .ep-close-button {
-      transform: translate(-50%, 50%);
-    }
 
     .easy-popup-container .easy-popup-inner {
       max-height: calc(100vh - (var(--ep-padding) * 2));
