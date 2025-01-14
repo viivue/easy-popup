@@ -1,5 +1,5 @@
 import PiaEasyPopup from "./pia-easy-popup";
-import {CLASSES, ATTRS, DEFAULTS} from "./configs"
+import {ATTRS, CLASSES, DEFAULTS} from "./configs"
 import {EventsManager, getOptionsFromAttribute} from '@phucbm/os-util';
 import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
@@ -138,7 +138,7 @@ class Popup{
         window.EasyPopupData.active = this.id;
         this.outer.classList.add(CLASSES.open);
         this.isOpen = true;
-        this.root.classList.add(CLASSES.rootOpen);
+        this.root.classList.add(this.isCornerTheme ? CLASSES.rootCornerOpen : CLASSES.rootOpen);
         if(this.options.activeHtmlClass) this.root.classList.add(this.options.activeHtmlClass);
 
         // prevent scroll > on
@@ -179,7 +179,7 @@ class Popup{
         window.EasyPopupData.active = '';
         this.outer.classList.remove(CLASSES.open);
         this.isOpen = false;
-        this.root.classList.remove(CLASSES.rootOpen);
+        this.root.classList.remove(this.isCornerTheme ? CLASSES.rootCornerOpen : CLASSES.rootOpen);
         if(this.options.activeHtmlClass) this.root.classList.remove(this.options.activeHtmlClass);
 
         // prevent scroll > off

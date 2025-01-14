@@ -63,6 +63,8 @@ function setTheme(context, removeTheme = false){
         let inputPosition = context.options.cornerPosition.trim();
         const isExistPosition = CORNER_POSITIONS.includes(inputPosition);
 
+        context.outer.classList.add(inputPosition.includes("left") ? 'is-slide-lrt' : 'is-slide-rlt');
+
         // throw warning and set default value if the position is not valid
         if(!isExistPosition){
             console.warn(`"${inputPosition}" is not a valid position for corner theme. Must be one of these: ${CORNER_POSITIONS.join(", ")}. Default position is used: ${DEFAULTS.cornerPosition}.`);

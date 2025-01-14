@@ -1,24 +1,16 @@
 // Base styles
-html.easy-popup-open {
-  &:has(.easy-popup-master-corner.open) {
-    .easy-popup-master {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-}
-
 .easy-popup-master-corner {
+  --ep-close-color: #000;
+  --ep-max-width: 450px;
   transition: opacity 0.4s ease, transform 0.4s ease;
   transform: translateX(0);
   position: fixed;
-  bottom: 0;
-  right: 0;
-  max-width: 450px;
-  opacity: 1;
-  visibility: visible;
+  bottom: unset;
+  right: unset;
   top: unset;
   left: unset;
+  opacity: 1;
+  visibility: visible;
   height: unset;
   width: unset;
   display: block;
@@ -30,7 +22,6 @@ html.easy-popup-open {
   .ep-close-button {
     position: fixed;
     transform: translate(0);
-    --ep-close-color: #000;
   }
 
   .easy-popup-overflow {
@@ -53,20 +44,16 @@ html.easy-popup-open {
   &.top-left {
     top: var(--ep-corner-offset);
     left: var(--ep-corner-offset);
-    bottom: unset;
-    right: unset;
   }
 
   &.top-right {
     top: var(--ep-corner-offset);
     right: var(--ep-corner-offset);
-    bottom: unset;
   }
 
   &.bottom-left {
     bottom: var(--ep-corner-offset);
     left: var(--ep-corner-offset);
-    right: unset;
   }
 
   &.bottom-right {
@@ -74,14 +61,13 @@ html.easy-popup-open {
     right: var(--ep-corner-offset);
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1023px) {
     --ep-corner-offset: 0px;
     --ep-padding: 15px;
     padding: var(--ep-padding);
 
     .ep-close-button {
-      top: var(--ep-padding);
-      right: var(--ep-padding);
+      transform: translate(-50%, 50%);
     }
 
     .easy-popup-container .easy-popup-inner {
@@ -90,11 +76,11 @@ html.easy-popup-open {
   }
 
   // Slide animations
-  &[class*="right"]:not(.open) {
+  &.is-slide-rlt:not(.open) {
     transform: translateX(100%);
   }
 
-  &[class*="left"]:not(.open) {
+  &.is-slide-lrt:not(.open) {
     transform: translateX(-100%);
   }
 }

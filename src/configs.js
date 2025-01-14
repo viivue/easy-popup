@@ -15,6 +15,7 @@ export const CLASSES = {
     container: 'easy-popup-container',
     open: 'open',
     rootOpen: 'easy-popup-open',
+    rootCornerOpen: 'easy-popup-corner-open',
     closeButton: 'ep-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
     preventScroll: 'ep-prevent-scroll',
