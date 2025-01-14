@@ -2,12 +2,11 @@
 
 Layout could be customized with these provided options.
 
-| Description                     | Option                          | Buttons                           |
-|---------------------------------|---------------------------------|-----------------------------------|
-| Use custom layout on mobile     | `hasMobileLayout: true`         | [View popup](#popup-mobile)       |
-| Display popup on the right side | `theme: "left-side"`            | [View popup](#popup-left-side)    |
-| Display popup on the right side | `theme: "right-side"`           | [View popup](#popup-right-side)   |
-| Change the close button text    | `closeButtonInnerText: "CLOSE"` | [View popup](#popup-custom-close) |
+| Description                  | Option                                        | Buttons                                                        |
+|------------------------------|-----------------------------------------------|----------------------------------------------------------------|
+| Use custom layout on mobile  | `hasMobileLayout: true`                       | [View popup](#popup-mobile)                                    |
+| Display popup on the sides   | `theme: "left-side"` or `theme: "right-side"` | [Left side](#popup-left-side), [Right side](#popup-right-side) |
+| Change the close button text | `closeButtonInnerText: "CLOSE"`               | [View popup](#popup-custom-close)                              |
 
 <div data-easy-popup='{"id": "popup-mobile", "hasMobileLayout": "true"}'>
     <!-- Popup content -->
@@ -32,7 +31,7 @@ nostra lorem libero curabitur.
 
 <div data-easy-popup='{"id": "popup-left-side", "theme": "left-side", "hasMobileLayout": "false"}'>
     <!-- Popup content -->
-    <h2>Popup with right-side layout</h2>
+    <h2>Left side popup</h2>
     <p>Lorem ipsum dolor sit amet sem nibh. Natoque sit elit diam consequat nostra fames. Maecenas facilisi finibus si arcu nulla gravida metus congue facilisis hac. Primis turpis nullam sed aliquam eros in ultricies. Tristique interdum est tortor augue nullam morbi ante imperdiet metus. Nunc imperdiet massa aliquam sapien purus est vehicula sed congue habitant. Quisque suscipit sollicitudin tempus lorem ac viverra habitant nostra aliquam nec aenean.
 
 Potenti ullamcorper sit tincidunt turpis molestie litora sapien. Amet dignissim turpis netus nulla suscipit augue
@@ -55,7 +54,7 @@ nostra lorem libero curabitur.
 
 <div data-easy-popup='{"id": "popup-right-side", "theme": "right-side", "hasMobileLayout": "false"}'>
     <!-- Popup content -->
-    <h2>Popup with right-side layout</h2>
+    <h2>Right side popup</h2>
     <p>Lorem ipsum dolor sit amet sem nibh. Natoque sit elit diam consequat nostra fames. Maecenas facilisi finibus si arcu nulla gravida metus congue facilisis hac. Primis turpis nullam sed aliquam eros in ultricies. Tristique interdum est tortor augue nullam morbi ante imperdiet metus. Nunc imperdiet massa aliquam sapien purus est vehicula sed congue habitant. Quisque suscipit sollicitudin tempus lorem ac viverra habitant nostra aliquam nec aenean.
 
 Potenti ullamcorper sit tincidunt turpis molestie litora sapien. Amet dignissim turpis netus nulla suscipit augue
