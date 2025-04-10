@@ -2,11 +2,13 @@
 
 Layout could be customized with these provided options.
 
-| Description                  | Option                                        | Buttons                                                        |
-|------------------------------|-----------------------------------------------|----------------------------------------------------------------|
-| Use custom layout on mobile  | `hasMobileLayout: true`                       | [View popup](#popup-mobile)                                    |
-| Display popup on the sides   | `theme: "left-side"` or `theme: "right-side"` | [Left side](#popup-left-side), [Right side](#popup-right-side) |
-| Change the close button text | `closeButtonInnerText: "CLOSE"`               | [View popup](#popup-custom-close)                              |
+| Description                     | Option                              | Buttons                                                                                                                                                                               |
+|---------------------------------|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Use custom layout on mobile     | `hasMobileLayout: true`             | [View popup](#popup-mobile)                                                                                                                                                           |
+| Display popup on the right side | `theme: "right-side"`               | [View popup](#popup-right-side)                                                                                                                                                       |
+| Change the close button text    | `closeButtonInnerText: "CLOSE"`     | [View popup](#popup-custom-close)                                                                                                                                                     |
+| Display the popup in the corner | `theme: "corner"`                   | [Bottom right](#popup-corner-bottom-right) - [Bottom left](#popup-corner-bottom-left) - [Top right](#popup-corner-top-right) - [Top left](#popup-corner-top-left)                     |
+| Display the popup in the corner | `theme: "corner"` `cornerFade:true` | [Bottom right](#popup-corner-fade-bottom-right) - [Bottom left](#popup-corner-fade-bottom-left) - [Top right](#popup-corner-fade-top-right) - [Top left](#popup-corner-fade-top-left) |
 
 <div data-easy-popup='{"id": "popup-mobile", "hasMobileLayout": "true"}'>
     <!-- Popup content -->
@@ -96,6 +98,127 @@ Ac lectus interdum auctor praesent quis. Mauris viverra purus blandit natoque su
 letius. Arcu faucibus scelerisque id elit ullamcorper phasellus letius morbi inceptos pulvinar hac. Potenti magna sapien
 nostra lorem libero curabitur.
 </p>
+</div>
+
+<div data-easy-popup='{"id": "popup-corner-bottom-right", "theme": "corner" }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+</div>
+
+<div data-easy-popup='{"id": "popup-corner-bottom-left", "theme": "corner", "cornerPosition":"bottom left " }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+</div>
+
+<div data-easy-popup='{"id": "popup-corner-top-right", "theme": "corner", "cornerPosition":"top right" }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+</div>
+
+<div data-easy-popup='{"id": "popup-corner-top-left", "theme": "corner", "cornerPosition":"top left","closeButtonInnerText": "CLOSE" }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+</div>
+
+
+<div data-easy-popup='{"id": "popup-corner-fade-bottom-right", "theme": "corner", "cornerFade":"true" }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+</div>
+
+<div data-easy-popup='{"id": "popup-corner-fade-bottom-left", "theme": "corner", "cornerPosition":"bottom left", "cornerFade":"true"  }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+</div>
+
+<div data-easy-popup='{"id": "popup-corner-fade-top-right", "theme": "corner", "cornerPosition":"top right", "cornerFade":"true" }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+</div>
+
+<div data-easy-popup='{"id": "popup-corner-fade-top-left", "theme": "corner", "cornerPosition":"top left","closeButtonInnerText": "CLOSE", "cornerFade":"true" }'>
+    <!-- Popup content -->
+<h2>Ac lectus interdum auctor praesent quis</h2>  
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
+<p>Elementum sollicitudin pharetra nascetur purus risus bibendum arcu fermentum vestibulum diam consequat. Senectus nam
+sodales ridiculus torquent et natoque commodo placerat adipiscing. Elementum donec faucibus nulla viverra letius porta
+sit. Tempor finibus si mi dictum molestie id pede hac proin curae. Vestibulum tortor parturient interdum litora
+adipiscing morbi lobortis bibendum aliquet platea sed. Velit fames ultricies tincidunt netus lectus lacinia nullam
+congue cubilia cursus.</p>
 </div>
 
 <div data-easy-popup='{"id": "popup-custom-close", "closeButtonInnerText": "CLOSE"}'>
