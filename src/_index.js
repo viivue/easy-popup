@@ -5,7 +5,7 @@ import {uniqueId} from "./utils";
 import LenisEasyPopup from "./lenis-easy-popup";
 import {generateHTML} from "./html";
 import {getScrollbarWidth} from "./utils/getScrollbarWidth";
-
+import pkg from '../package.json';
 /**
  * Private class
  */
@@ -273,6 +273,9 @@ window.EasyPopup = {
 
     // Set global default options
     setDev: isDev => window.EasyPopupData.setDev(isDev),
+
+    // get version
+    version: pkg.version,
 };
 
 // init
