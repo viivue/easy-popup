@@ -1,9 +1,9 @@
 
 /**!
- * Easy Popup v1.2.0
+ * Easy Popup v1.3.0
  * @author phucbm
  * @homepage https://easy-popup.netlify.app/
- * @license MIT 2024
+ * @license MIT 2025
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -19,10 +19,10 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 147:
+/***/ 330:
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"name":"@viivue/easy-popup","outputFilename":"easy-popup","prettyName":"Easy Popup","codeName":"EasyPopup","version":"1.2.0","description":"Super light-weight JavaScript library to create a simple popup","homepage":"https://easy-popup.netlify.app/","repository":{"type":"git","url":"git@github.com:viivue/easy-popup"},"author":{"name":"phucbm","url":"https://github.com/phucbm"},"keywords":["phucbm","javascript","popup","viivue","es6"],"main":"./dist/easy-popup.module.js","files":["./dist/*"],"license":"MIT","scripts":{"dev":"webpack serve --config config/webpack.dev.js","build":"cross-env ENTRY=dev webpack --config config/webpack.build.js","sass:compressed":"sass src/_style.scss:dist/easy-popup.css --no-source-map","optimize":"csso dist/easy-popup.css --output dist/easy-popup.min.css --stat","output-css":"npm run sass:compressed && npm run optimize","prod-umd":"cross-env TARGET=umd webpack --config config/webpack.prod.js","prod-umd-min":"cross-env TARGET=umd MIN=yes webpack --config config/webpack.prod.js","prod-module":"cross-env TARGET=module MIN=yes webpack --config config/webpack.prod.js","prod":"npm run prod-umd && npm run prod-module && npm run prod-umd-min && npm run output-css","publish":"npm run prod & npm publish"},"devDependencies":{"@babel/core":"^7.15.8","@babel/plugin-proposal-class-properties":"^7.14.5","@babel/preset-env":"^7.15.8","@phucbm/gfm":"^0.0.1","babel-loader":"^8.2.2","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^4.0.0","copy-webpack-plugin":"^9.1.0","cross-env":"^7.0.3","css-loader":"^6.4.0","css-minimizer-webpack-plugin":"^3.1.1","csso-cli":"^4.0.1","github-markdown-css":"^5.2.0","html-loader":"^3.1.0","html-webpack-plugin":"^5.3.2","markdown-loader":"^8.0.0","mini-css-extract-plugin":"^2.4.2","piajs":"^0.0.3","postcss-loader":"^6.2.0","postcss-preset-env":"^6.7.0","sass":"^1.43.5","sass-loader":"^12.2.0","style-loader":"^3.3.0","terser-webpack-plugin":"^5.3.1","webpack":"^5.58.2","webpack-cli":"^4.9.0","webpack-dev-server":"^4.3.1","webpack-merge":"^5.8.0"},"dependencies":{"@phucbm/os-util":"0.0.5","match-media-screen":"^0.0.3"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"@viivue/easy-popup","outputFilename":"easy-popup","prettyName":"Easy Popup","codeName":"EasyPopup","version":"1.3.0","description":"Super light-weight JavaScript library to create a simple popup","homepage":"https://easy-popup.netlify.app/","repository":{"type":"git","url":"git@github.com:viivue/easy-popup"},"author":{"name":"phucbm","url":"https://github.com/phucbm"},"keywords":["phucbm","javascript","popup","viivue","es6"],"main":"./dist/easy-popup.module.js","files":["./dist/*"],"license":"MIT","scripts":{"dev":"webpack serve --config config/webpack.dev.js","build":"cross-env ENTRY=dev webpack --config config/webpack.build.js","sass:compressed":"sass src/_style.scss:dist/easy-popup.css --no-source-map","optimize":"csso dist/easy-popup.css --output dist/easy-popup.min.css --stat","output-css":"npm run sass:compressed && npm run optimize","prod-umd":"cross-env TARGET=umd webpack --config config/webpack.prod.js","prod-umd-min":"cross-env TARGET=umd MIN=yes webpack --config config/webpack.prod.js","prod-module":"cross-env TARGET=module MIN=yes webpack --config config/webpack.prod.js","prod":"npm run prod-umd && npm run prod-module && npm run prod-umd-min && npm run output-css","publish":"npm run prod & npm publish"},"devDependencies":{"@babel/core":"^7.15.8","@babel/plugin-proposal-class-properties":"^7.14.5","@babel/preset-env":"^7.15.8","@phucbm/gfm":"^0.0.1","babel-loader":"^8.2.2","babel-preset-es2015":"^6.24.1","clean-webpack-plugin":"^4.0.0","copy-webpack-plugin":"^9.1.0","cross-env":"^7.0.3","css-loader":"^6.4.0","css-minimizer-webpack-plugin":"^3.1.1","csso-cli":"^4.0.1","github-markdown-css":"^5.2.0","html-loader":"^3.1.0","html-webpack-plugin":"^5.3.2","markdown-loader":"^8.0.0","mini-css-extract-plugin":"^2.4.2","piajs":"^0.0.3","postcss-loader":"^6.2.0","postcss-preset-env":"^6.7.0","sass":"^1.43.5","sass-loader":"^12.2.0","style-loader":"^3.3.0","terser-webpack-plugin":"^5.3.1","webpack":"^5.58.2","webpack-cli":"^4.9.0","webpack-dev-server":"^4.3.1","webpack-merge":"^5.8.0"},"dependencies":{"@phucbm/os-util":"0.0.5","match-media-screen":"^0.0.3"}}');
 
 /***/ })
 
@@ -53,25 +53,9 @@ module.exports = JSON.parse('{"name":"@viivue/easy-popup","outputFilename":"easy
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
 
-;// CONCATENATED MODULE: ./src/utils.js
+;// ./src/utils.js
 /**
  * String to slug
  * https://stackoverflow.com/a/1054862/10636614
@@ -97,7 +81,7 @@ function uniqueId(prefix = ''){
         (Math.random() * 100000000 | 0).toString(16);
 }
 
-;// CONCATENATED MODULE: ./src/pia-easy-popup.js
+;// ./src/pia-easy-popup.js
 
 
 class PiaEasyPopup{
@@ -177,8 +161,8 @@ class PiaEasyPopup{
 }
 
 /* harmony default export */ const pia_easy_popup = (PiaEasyPopup);
-;// CONCATENATED MODULE: ./src/configs.js
-const packageInfo = __webpack_require__(147);
+;// ./src/configs.js
+const packageInfo = __webpack_require__(330);
 
 /**
  * Classes
@@ -195,10 +179,12 @@ const CLASSES = {
     container: 'easy-popup-container',
     open: 'open',
     rootOpen: 'easy-popup-open',
+    rootCornerOpen: 'easy-popup-corner-open',
     closeButton: 'ep-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
     preventScroll: 'ep-prevent-scroll',
     preventScrollLenis: 'ep-prevent-scroll-lenis',
+    cornerMaster: 'easy-popup-master-corner',
 };
 /**
  * Attributes
@@ -230,6 +216,8 @@ const DEFAULTS = {
 
     // theme
     theme: 'default', // right-side
+    cornerPosition: 'bottom right', // position of the popup, e.g. 'top left', 'top right', 'bottom left', 'bottom right'
+    cornerFade: false, // fade effect
 
     keyboard: true, // option for closing the popup by keyboard (ESC)
 
@@ -245,7 +233,9 @@ const DEFAULTS = {
     scrollbarWidth: undefined, // px, set the scrollbar width manually to avoid page jumping when open a popup, only works for preventScroll:true
 }
 const CLOSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
-;// CONCATENATED MODULE: ./node_modules/@phucbm/os-util/src/events-manager.js
+
+const CORNER_POSITIONS = ['top left', 'top right', 'bottom left', 'bottom right'];
+;// ./node_modules/.pnpm/@phucbm+os-util@0.0.5/node_modules/@phucbm/os-util/src/events-manager.js
 /**
  * Events Manager v0.0.2
  * An util class to manage event with these features:
@@ -349,7 +339,7 @@ function getValidatedEventName(name){
     //console.log('getValidatedEventName', name, '=>', newName);
     return newName;
 }
-;// CONCATENATED MODULE: ./node_modules/@phucbm/os-util/src/is-json-string.js
+;// ./node_modules/.pnpm/@phucbm+os-util@0.0.5/node_modules/@phucbm/os-util/src/is-json-string.js
 /**
  * Is JSON string
  * https://stackoverflow.com/a/32278428/6453822
@@ -363,7 +353,7 @@ function isJsonString(string){
         return false;
     }
 }
-;// CONCATENATED MODULE: ./node_modules/@phucbm/os-util/src/get-options-from-attribute.js
+;// ./node_modules/.pnpm/@phucbm+os-util@0.0.5/node_modules/@phucbm/os-util/src/get-options-from-attribute.js
 
 
 /**
@@ -440,7 +430,7 @@ function getOptionsFromAttribute(
 
     return {...defaultOptions, ...options};
 }
-;// CONCATENATED MODULE: ./src/lenis-easy-popup.js
+;// ./src/lenis-easy-popup.js
 class LenisEasyPopup{
     constructor(context){
         this.root = context.root;
@@ -464,7 +454,7 @@ class LenisEasyPopup{
 }
 
 /* harmony default export */ const lenis_easy_popup = (LenisEasyPopup);
-;// CONCATENATED MODULE: ./src/helpers.js
+;// ./src/helpers.js
 
 
 function initToggleTrigger(context){
@@ -509,7 +499,7 @@ function wrapElement(innerEl, outerEl = document.createElement('div')){
     outerEl.appendChild(innerEl);
     return outerEl;
 }
-;// CONCATENATED MODULE: ./src/outside-click.js
+;// ./src/outside-click.js
 function initOutsideClick(context){
     // detect outside click
     context.outer.addEventListener('click', e => {
@@ -526,7 +516,7 @@ function isClickOutsideContent(context, event){
     return !context.inner.contains(event.target);
 }
 
-;// CONCATENATED MODULE: ./src/keyboard.js
+;// ./src/keyboard.js
 function initKeyboard(context){
     if(!context.options.keyboard) return;
 
@@ -537,14 +527,14 @@ function initKeyboard(context){
         }
     });
 }
-;// CONCATENATED MODULE: ./node_modules/match-media-screen/dist/match-media-screen.module.js
+;// ./node_modules/.pnpm/match-media-screen@0.0.3/node_modules/match-media-screen/dist/match-media-screen.module.js
 /**!
  * Match Media Screen v0.0.3
  * @author phucbm
  * @homepage https://github.com/phucbm/match-media-screen
  * @license MIT 2022
  */var t={d:(e,i)=>{for(var o in i)t.o(i,o)&&!t.o(e,o)&&Object.defineProperty(e,o,{enumerable:!0,get:i[o]})},o:(t,e)=>Object.prototype.hasOwnProperty.call(t,e)},e={};function i(t,e=!0){const i=[...t];return e?i.sort(((t,e)=>t.breakpoint<e.breakpoint?1:-1)):i.sort(((t,e)=>t.breakpoint>e.breakpoint?1:-1)),i}function o(t,e=150){let i;return(...o)=>{clearTimeout(i),i=setTimeout((()=>{t.apply(this,o)}),e)}}t.d(e,{o:()=>r});class r{constructor(t){if(this.dev=!0===t.dev,this.object=t.object||void 0,this.object){if(this.onMatched=t.onMatched,this.onUpdate=t.onUpdate,window.addEventListener("resize",o((()=>{"function"==typeof this.onUpdate&&this.onUpdate(this.currentObject)}),this.debounce)),!this.object.responsive)return this.currentObject={type:"no-responsive",lastBreakpoint:void 0,breakpoint:-1,object:this.mergeObject(-1,this.object)},"function"==typeof this.onMatched&&this.onMatched(this.currentObject),this.dev&&console.warn("Property object must have responsive array."),!1;this.isInherit=void 0===t.isInherit||t.isInherit,this.debounce=t.debounce||100,this.currentObject={breakpoint:void 0,object:{}},this.object.responsive=i(this.object.responsive),this.match(),window.addEventListener("resize",o((()=>this.match()),this.debounce))}else console.error("Property object:{} must be provided.")}match(){let t=!1;for(let e=0;e<this.object.responsive.length;e++){const i=this.object.responsive[e];if(t=matchMedia(this.getQuery(e)).matches,t){this.currentObject.breakpoint!==i.breakpoint&&(this.currentObject={type:"responsive",lastBreakpoint:this.currentObject.breakpoint,breakpoint:i.breakpoint,object:this.mergeObject(i.breakpoint,i.settings)},"function"==typeof this.onMatched&&this.onMatched(this.currentObject));break}}t||-1===this.currentObject.breakpoint||(this.currentObject={type:"default",lastBreakpoint:this.currentObject.breakpoint,breakpoint:-1,object:this.mergeObject(-1,this.object)},"function"==typeof this.onMatched&&this.onMatched(this.currentObject))}getQuery(t){let e=`screen and (max-width:${this.object.responsive[t].breakpoint}px)`;const i=this.object.responsive[t+1];return i&&(e+=` and (min-width:${i.breakpoint+1}px)`),e}mergeObject(t,e){let o={...e};if(this.isInherit&&-1!==t){const e=i(this.object.responsive,!1);for(let i=0;i<e.length;i++)e[i].breakpoint>t&&(o={...e[i].settings,...o})}return o={...this.object,...o},delete o.responsive,o}}var n=e.o;
-;// CONCATENATED MODULE: ./src/layouts.js
+;// ./src/layouts.js
 
 
 
@@ -604,6 +594,28 @@ function setTheme(context, removeTheme = false){
 
     // set theme
     context.outer.setAttribute(ATTRS.theme, context.options.theme);
+
+    // add theme position class
+    if(context.isCornerTheme){
+        let inputPosition = context.options.cornerPosition.trim();
+        const isExistPosition = CORNER_POSITIONS.includes(inputPosition);
+
+        // add slide effect class
+        if(!context.options.cornerFade) context.outer.classList.add(inputPosition.includes("left") ? 'is-slide-lrt' : 'is-slide-rlt');
+
+        // throw warning and set default value if the position is not valid
+        if(!isExistPosition){
+            console.warn(`"${inputPosition}" is not a valid position for corner theme. Must be one of these: ${CORNER_POSITIONS.join(", ")}. Default position is used: ${DEFAULTS.cornerPosition}.`);
+            inputPosition = DEFAULTS.cornerPosition;
+        }
+
+        // update position value for instance
+        context.options.cornerPosition = inputPosition;
+
+        // add position class
+        const positionClass = inputPosition.split(" ").join("-");
+        context.outer.classList.add(positionClass);
+    }
 }
 
 
@@ -631,7 +643,7 @@ function addCloseButton(context){
         context.container.insertAdjacentHTML('beforebegin', getButtonHtml(CLASSES.closeButton + ' for-mobile-layout'));
     }
 }
-;// CONCATENATED MODULE: ./src/html.js
+;// ./src/html.js
 
 
 
@@ -642,13 +654,14 @@ function generateHTML(context){
     // check flag
     if(context.el.classList.contains(CLASSES.processed)) return;
 
+    /** HTML **/
     // relocate HTML to body tag
     if(!context.masterContainer){
         context.masterContainer = document.createElement('div');
         context.masterContainer.classList.add(CLASSES.master);
+
+        document.querySelector('body').appendChild(context.masterContainer);
     }
-    document.querySelector('body').appendChild(context.masterContainer);
-    context.masterContainer.appendChild(context.el);
 
     // inner
     context.inner = wrapElement(context.el);
@@ -671,6 +684,18 @@ function generateHTML(context){
     }
     context.outer.setAttribute(ATTRS.id, context.id);
 
+
+    if(context.isCornerTheme){
+        // corner theme
+        context.outer.classList.add(CLASSES.cornerMaster);
+        document.querySelector('body').appendChild(context.outer);
+    }else{
+        // normal theme
+        context.masterContainer.appendChild(context.outer);
+    }
+
+
+    /** Init **/
     initOutsideClick(context);
     initKeyboard(context);
     initTheme(context);
@@ -681,7 +706,7 @@ function generateHTML(context){
     // done init
     context.el.classList.add(CLASSES.processed, CLASSES.content);
 }
-;// CONCATENATED MODULE: ./src/utils/isMobile.js
+;// ./src/utils/isMobile.js
 // https://stackoverflow.com/a/11381730/6453822
 function isMobile(){
     let check = false;
@@ -690,7 +715,7 @@ function isMobile(){
     })(navigator.userAgent || navigator.vendor || window.opera);
     return check;
 }
-;// CONCATENATED MODULE: ./src/utils/getScrollbarWidth.js
+;// ./src/utils/getScrollbarWidth.js
 
 
 /**
@@ -768,7 +793,9 @@ function getDetectedScrollbarWidth(outerElement = document.body){
     return scrollbarWidth;
 }
 
-;// CONCATENATED MODULE: ./src/_index.js
+// EXTERNAL MODULE: ./package.json
+var package_0 = __webpack_require__(330);
+;// ./src/_index.js
 
 
 
@@ -842,6 +869,12 @@ class Popup{
 
         /** ------ **/
 
+        /** THEMES **/
+
+        // corner theme
+        this.isCornerTheme = this.options.theme === 'corner';
+
+
         /** COOKIE **/
 
         // cookie
@@ -903,11 +936,15 @@ class Popup{
         window.EasyPopupData.active = this.id;
         this.outer.classList.add(CLASSES.open);
         this.isOpen = true;
-        this.root.classList.add(CLASSES.rootOpen);
+        this.root.classList.add(this.isCornerTheme ? CLASSES.rootCornerOpen : CLASSES.rootOpen);
         if(this.options.activeHtmlClass) this.root.classList.add(this.options.activeHtmlClass);
 
         // prevent scroll > on
         if(this.options.preventScroll){
+
+            // "corner" theme will not prevent scroll
+            if(this.isCornerTheme) return;
+
             if(this.lenis.enabled()){
                 // prevent with Lenis
                 this.root.classList.add(CLASSES.preventScrollLenis);
@@ -940,7 +977,7 @@ class Popup{
         window.EasyPopupData.active = '';
         this.outer.classList.remove(CLASSES.open);
         this.isOpen = false;
-        this.root.classList.remove(CLASSES.rootOpen);
+        this.root.classList.remove(this.isCornerTheme ? CLASSES.rootCornerOpen : CLASSES.rootOpen);
         if(this.options.activeHtmlClass) this.root.classList.remove(this.options.activeHtmlClass);
 
         // prevent scroll > off
@@ -1034,12 +1071,13 @@ window.EasyPopup = {
 
     // Set global default options
     setDev: isDev => window.EasyPopupData.setDev(isDev),
+
+    // get version
+    version: package_0.version,
 };
 
 // init
 window.EasyPopup.init();
-})();
-
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;
