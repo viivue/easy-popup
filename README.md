@@ -15,9 +15,9 @@ Visit https://easy-popup.netlify.app/ for documentation.
 
 ```html
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/viivue/easy-popup@1.2.0/dist/easy-popup.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/viivue/easy-popup@1.3.0/dist/easy-popup.min.css">
 
-<script src="https://cdn.jsdelivr.net/gh/viivue/easy-popup@1.2.0/dist/easy-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/viivue/easy-popup@1.3.0/dist/easy-popup.min.js"></script>
 ```
 
 ### NPM Package
@@ -73,7 +73,7 @@ Branches:
 
 ## Licence
 
-MIT (c) 2023 ViiVue.
+MIT (c) 2025 ViiVue.
 
 ---
 

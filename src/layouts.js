@@ -1,5 +1,5 @@
 import {MatchMediaScreen} from "match-media-screen";
-import {ATTRS, CLASSES, CLOSE_SVG} from "./configs";
+import {ATTRS, CLASSES, CLOSE_SVG, CORNER_POSITIONS, DEFAULTS} from "./configs";
 
 /**
  * Set up mobile layout
@@ -57,6 +57,28 @@ function setTheme(context, removeTheme = false){
 
     // set theme
     context.outer.setAttribute(ATTRS.theme, context.options.theme);
+
+    // add theme position class
+    if(context.isCornerTheme){
+        let inputPosition = context.options.cornerPosition.trim();
+        const isExistPosition = CORNER_POSITIONS.includes(inputPosition);
+
+        // add slide effect class
+        if(!context.options.cornerFade) context.outer.classList.add(inputPosition.includes("left") ? 'is-slide-lrt' : 'is-slide-rlt');
+
+        // throw warning and set default value if the position is not valid
+        if(!isExistPosition){
+            console.warn(`"${inputPosition}" is not a valid position for corner theme. Must be one of these: ${CORNER_POSITIONS.join(", ")}. Default position is used: ${DEFAULTS.cornerPosition}.`);
+            inputPosition = DEFAULTS.cornerPosition;
+        }
+
+        // update position value for instance
+        context.options.cornerPosition = inputPosition;
+
+        // add position class
+        const positionClass = inputPosition.split(" ").join("-");
+        context.outer.classList.add(positionClass);
+    }
 }
 
 

@@ -15,10 +15,12 @@ export const CLASSES = {
     container: 'easy-popup-container',
     open: 'open',
     rootOpen: 'easy-popup-open',
+    rootCornerOpen: 'easy-popup-corner-open',
     closeButton: 'ep-close-button',
     hasCustomClose: 'ep-has-custom-close-button',
     preventScroll: 'ep-prevent-scroll',
     preventScrollLenis: 'ep-prevent-scroll-lenis',
+    cornerMaster: 'easy-popup-master-corner',
 };
 /**
  * Attributes
@@ -50,6 +52,8 @@ export const DEFAULTS = {
 
     // theme
     theme: 'default', // right-side
+    cornerPosition: 'bottom right', // position of the popup, e.g. 'top left', 'top right', 'bottom left', 'bottom right'
+    cornerFade: false, // fade effect
 
     keyboard: true, // option for closing the popup by keyboard (ESC)
 
@@ -65,3 +69,5 @@ export const DEFAULTS = {
     scrollbarWidth: undefined, // px, set the scrollbar width manually to avoid page jumping when open a popup, only works for preventScroll:true
 }
 export const CLOSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+
+export const CORNER_POSITIONS = ['top left', 'top right', 'bottom left', 'bottom right'];

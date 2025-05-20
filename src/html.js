@@ -8,13 +8,14 @@ export function generateHTML(context){
     // check flag
     if(context.el.classList.contains(CLASSES.processed)) return;
 
+    /** HTML **/
     // relocate HTML to body tag
     if(!context.masterContainer){
         context.masterContainer = document.createElement('div');
         context.masterContainer.classList.add(CLASSES.master);
+
+        document.querySelector('body').appendChild(context.masterContainer);
     }
-    document.querySelector('body').appendChild(context.masterContainer);
-    context.masterContainer.appendChild(context.el);
 
     // inner
     context.inner = wrapElement(context.el);
@@ -37,6 +38,18 @@ export function generateHTML(context){
     }
     context.outer.setAttribute(ATTRS.id, context.id);
 
+
+    if(context.isCornerTheme){
+        // corner theme
+        context.outer.classList.add(CLASSES.cornerMaster);
+        document.querySelector('body').appendChild(context.outer);
+    }else{
+        // normal theme
+        context.masterContainer.appendChild(context.outer);
+    }
+
+
+    /** Init **/
     initOutsideClick(context);
     initKeyboard(context);
     initTheme(context);
